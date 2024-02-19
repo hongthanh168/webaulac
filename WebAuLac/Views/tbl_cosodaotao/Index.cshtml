@@ -1,0 +1,91 @@
+﻿@model IEnumerable<WebAuLac.Models.tbl_cosodaotao>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Danh sách Cơ sở đào tạo</text>
+}
+<p>
+    <a data-modal href="@Url.Action("Create", "tbl_cosodaotao")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+</p>
+
+<table id="cosodaotaoList" class="table table-striped jambo_table border-right">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.tencoso)
+            </th>
+          
+            <th>
+            </th>
+                      
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "tbl_cosodaotao_" + item.id_cosodaotao.ToString();
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Details", "tbl_cosodaotao", new { id=item.id_cosodaotao })" data-modal>@Html.DisplayFor(modelItem => item.tencoso)</a>
+                </td>
+               
+                <td>
+                    <a href="@Url.Action("Edit", "tbl_cosodaotao", new { id=item.id_cosodaotao })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete", "tbl_cosodaotao", new { id=item.id_cosodaotao })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                </td>
+                               
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#cosodaotaoList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                ],
+                "order": [[1, 'asc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        $('#cosodaotaoList tr').dblclick(function () {
+            var id = $(this).attr('id');
+            id = id.replace('tbl_cosodaotao_', '');
+            var url = '@Url.Action("Details", "tbl_cosodaotao", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+        })
+    </script>
+}

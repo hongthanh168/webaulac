@@ -1,0 +1,126 @@
+﻿@model IEnumerable<WebAuLac.Models.view_qtct_goc>
+@{ 
+    WebAuLac.Models.AuLacEntities db = new WebAuLac.Models.AuLacEntities();
+    int id = (int)ViewBag.EmployeeID;
+    int parentID = 0;
+    try
+    {
+        parentID = db.viewHRM_EMPLOYMENTHISTORY.Where(x => x.EmployeeID == id).First().ParentID.Value;
+    }
+    catch
+    {
+        parentID = 0;
+    }
+
+}
+@*<p>
+    <button id="btnthemmoiQTCT" name="btnthemmoiQTCT" class="btn btn-primary" onclick="HienThiLargeModal('@Url.Action("CreateWithEmployee", "HRM_EMPLOYMENTHISTORY",new { EmployeeID = ViewBag.EmployeeID})', 'tab_content2')"><i class="fa fa-plus m-right-xs"></i>Thêm mới</button>
+</p>*@
+
+<table id="EmploymentHistoryList" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>STT</th>
+
+            <th>
+                Số QĐ
+            </th>
+            <th>
+                Ngày quyết định
+            </th>
+            <th>
+                @if (parentID==8 || parentID == 17)
+                {
+                    <text>Ngày xuống tàu</text>
+                }
+                else
+                {
+                    <text>Ngày hiệu lực</text>
+                }
+            </th>
+            <th>
+                Loại quyết định
+            </th>
+            <th>
+                Phòng ban
+            </th>
+            <th>
+                Chức vụ
+            </th>            
+            <th style="width:100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int stt = 0;
+        }
+        @foreach (var item in Model)
+        {
+            stt = stt + 1;
+            string rowID = "HRM_EMPLOYMENTHISTORY_" + item.EmploymentHistoryID.ToString();
+            <tr id="@rowID">
+                <td>@stt</td>
+
+                <td style="text-align:center; width:50px">
+                    @Html.DisplayFor(modelItem => item.DecisionNo)
+
+                </td>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.DecisionDate)*@
+                    @Convert.ToDateTime(item.DecisionDate).ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @if (parentID == 8 || parentID == 17)//là thuyền viên
+                    {
+                        if (item.NgayXuongTau != null)
+                        {
+                            <text>@Convert.ToDateTime(item.NgayXuongTau).ToString("dd/MM/yyyy")</text>
+                        }
+                    }
+                    else
+                    {
+                        if (item.EffectiveDate != null)
+                        {
+                            <text>@Convert.ToDateTime(item.EffectiveDate).ToString("dd/MM/yyyy")</text>
+                        }
+                    }            
+
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CategoryDecisionName)
+                </td>
+                <td>
+                    @if (item.DepartmentName != null)
+                    {
+                        <text>@item.DepartmentName</text>
+                    }
+                    else
+                    {
+                        <text>@item.Expr1</text>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ChucVu)
+                </td>
+                
+                <td style="width:100px">
+
+                    @*<a href="#" onclick="HienThiLargeModal('@Url.Action("Edit",  "HRM_EMPLOYMENTHISTORY",new { id=item.EmploymentHistoryID})', 'tab_content2')" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>*@
+                    @*<a href="#" onclick="HienThiModal('@Url.Action("Delete",  "HRM_EMPLOYMENTHISTORY",new { id=item.EmploymentHistoryID})', 'tab_content2')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>*@
+                    @* <a href="#" onclick="HienThiModal('@Url.Action("GetPdf",  "HRM_EMPLOYMENTHISTORY",new { fileName="15_2017_QDDD.pdf"})', 'tab_content2')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>*@
+                    @{
+                        var fileName = "";
+                        if (item.DecisionDate != null)
+                        {
+                            fileName = item.DecisionNo + "_" + item.DecisionDate.Value.Year + "_QDDD.pdf";
+                        }
+
+                    }
+                    <a href="@Url.Action("GetPdf", "HRM_EMPLOYMENTHISTORY",new { fileName=fileName})" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print m-right-xs"></i></a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

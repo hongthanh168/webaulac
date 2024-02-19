@@ -1,0 +1,200 @@
+﻿@model WebAuLac.Models.sp_BangTheoDoiGiayToTau_Result
+ @using WebAuLac.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AuLacEntities db = new AuLacEntities();
+}
+@{
+    IEnumerable<WebAuLac.Models.sp_BangTheoDoiGiayToTau_Result> bangTheoDoi = (IEnumerable<WebAuLac.Models.sp_BangTheoDoiGiayToTau_Result>)ViewBag.BangKe;
+}
+@section huongdan{
+    <text>BẢNG THEO DÕI THỜI ĐIỂM HẾT HẠN GIẤY TỜ TÀU</text>
+<text>Từ tháng  @ViewBag.TuThang  năm @ViewBag.Nam1 đến tháng @ViewBag.DenThang  năm @ViewBag.Nam2</text>
+}
+
+@using (Html.BeginForm("TheoDoiGiayToTau", "HoSoTau"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="text-align:center; margin-bottom:15px;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NgayBaoCao, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.NgayBaoCao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NgayBaoCao, "", new { @class = "text-danger" })
+
+            </div>
+          
+            <div class="form-group">
+                <div>
+                    <button class="btn btn-success" type="submit" value="xemthongtin" name="answer">
+                        <i class="fa fa-calculator"></i> Xem thông tin
+                    </button>
+                    <button class="btn btn-success" type="submit" value="xuatexcel" name="answer">
+                        <i class="fa fa-calculator"></i> Xuất excel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+}
+
+@if (Model != null)
+{
+    <table class="table table-bordered table-striped table-hover" id="bangKe">
+        <thead>
+            <tr>
+                <th rowspan="2">STT</th>
+                <th rowspan="2" style="width:200px">
+                    Tên giấy
+                </th>
+               <th style="text-align:center" colspan=@ViewBag.DonCot1>Năm 20 @ViewBag.Nam1</th>
+                <th style="text-align:center" colspan=@ViewBag.DonCot2>Năm 20 @ViewBag.Nam2</th>
+                @if (ViewBag.Nam3 != null)
+                {
+                    <th style="text-align:center" colspan=@ViewBag.DonCot3>Năm 20 @ViewBag.Nam3</th>
+                }
+                </tr>
+            <tr>
+                @for (int i = ViewBag.TuThang; i <= 12; i++)
+                {
+                    <th style="text-align:center">
+                        Tháng @i
+                    </th>
+                }
+                @if(ViewBag.Nam3 ==null)
+                {
+                for (int i = 1; i <= ViewBag.DenThang; i++)
+                {
+                    <th style="text-align:center">
+                        Tháng @i
+                    </th>
+                    }
+                }
+                else
+                {
+
+                    for (int i = 1; i <= 12; i++)
+                    {
+                        <th style="text-align:center">
+                            Tháng @i
+                        </th>
+                    }
+                    for (int i = 1; i <= ViewBag.DenThang; i++)
+                    {
+                        <th style="text-align:center">
+                            Tháng @i
+                        </th>
+                    }
+                }
+                
+            </tr>
+            
+        </thead>
+        <tbody>
+            @foreach (var item in bangTheoDoi)
+            {
+                <tr>
+                    <td style="text-align:center"></td>
+                    <td style="width:200px">
+                        @Html.DisplayFor(modelItem => item.TenChungChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang7)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang8)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang9)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang10)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang11)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang12)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang13)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang14)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thang15)
+                    </td>
+
+                </tr>
+                            }
+        </tbody>
+    </table>
+                            }
+
+
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+    <script type="text/javascript">
+        var columnGroup = 4;
+        $(document).ready(function () {
+            LoadDatatable();
+        })
+        function LoadDatatable() {
+            t = $('#bangKe').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }]
+
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw()
+        }
+    </script>
+}
+
+

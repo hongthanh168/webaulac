@@ -1,0 +1,32 @@
+﻿2/11/2016
+1. Quyên thêm một function mới  hiển thị danh sách tất cả các bằng cấp hết và sắp hết hạn
+CREATE FUNCTION [dbo].[fn_DegreeLimitList]
+(	
+	-- Add the parameters for the function here
+ 
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+ 
+ SELECT dbo.HRM_EMPLOYEE.EmployeeID,dbo.HRM_EMPLOYEE.FirstName + dbo.HRM_EMPLOYEE.LastName as EmployeeName, dbo.HRM_EMPLOYEE.BirthDay, dbo.HRM_EMPLOYEE.BirthPlace, 
+ dbo.HRM_EMPLOYEE_DEGREE.DegreeID, dbo.HRM_EMPLOYEE_DEGREE.DegreeNo, dbo.HRM_EMPLOYEE_DEGREE.DegreeDate,
+ dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate, dbo.HRM_EMPLOYEE_DEGREE.Qualification, dbo.DIC_DEGREE.Unclos, TH= CAST(0 AS BIT)
+ FROM            dbo.DIC_DEGREE INNER JOIN
+                         dbo.HRM_EMPLOYEE_DEGREE ON dbo.DIC_DEGREE.DegreeID = dbo.HRM_EMPLOYEE_DEGREE.DegreeID INNER JOIN
+						 dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYEE_DEGREE.EmplyeeID = dbo.HRM_EMPLOYEE.EmployeeID
+WHERE   GETDATE() >= dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate
+           
+UNION
+
+ 
+ SELECT dbo.HRM_EMPLOYEE.EmployeeID,dbo.HRM_EMPLOYEE.FirstName + dbo.HRM_EMPLOYEE.LastName as EmployeeName, dbo.HRM_EMPLOYEE.BirthDay, dbo.HRM_EMPLOYEE.BirthPlace, 
+ dbo.HRM_EMPLOYEE_DEGREE.DegreeID, dbo.HRM_EMPLOYEE_DEGREE.DegreeNo, dbo.HRM_EMPLOYEE_DEGREE.DegreeDate,
+ dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate, dbo.HRM_EMPLOYEE_DEGREE.Qualification, dbo.DIC_DEGREE.Unclos, TH= CAST(1 AS BIT)
+ FROM            dbo.DIC_DEGREE INNER JOIN
+                         dbo.HRM_EMPLOYEE_DEGREE ON dbo.DIC_DEGREE.DegreeID = dbo.HRM_EMPLOYEE_DEGREE.DegreeID INNER JOIN
+						 dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYEE_DEGREE.EmplyeeID = dbo.HRM_EMPLOYEE.EmployeeID
+WHERE  
+           GETDATE() < dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate AND   dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate <= (GETDATE() + dbo.DIC_DEGREE.WarningBefore )
+		  )

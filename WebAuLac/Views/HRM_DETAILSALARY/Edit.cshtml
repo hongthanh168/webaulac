@@ -1,0 +1,109 @@
+﻿@model WebAuLac.Models.HRM_DETAILSALARY
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Sửa chi tiết lương</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.HRMDetailSalaryID)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })            
+            
+            <div class="form-group">
+                <label class="control-label col-md-3">Thù lao</label>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.ThuLao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThuLao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Thưởng</label>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Thuong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Thuong, "", new { @class = "text-danger" })
+                </div>
+            </div> 
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Thu nhập chịu thuế</label>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.ThuNhapTinhThueTNCN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThuNhapTinhThueTNCN, "", new { @class = "text-danger" })
+                </div>
+            </div> 
+
+            <div class="form-group">
+
+                <label class="control-label col-md-3">Giảm trừ cá nhân</label>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.IsGiamTruCaNhan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsGiamTruCaNhan, "", new { @class = "text-danger" })
+                </div>
+
+                <label class="control-label col-md-3">Số người phụ thuộc</label>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.PhuThuoc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhuThuoc, "", new { @class = "text-danger" })
+                </div>
+
+            </div>           
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Trừ khác</label>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.TruKhac, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TruKhac, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">BHXH</label>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.IsBHXH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsBHXH, "", new { @class = "text-danger" })
+                </div>
+
+                <label class="control-label col-md-3">BHYT</label>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.IsBHYT, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsBHYT, "", new { @class = "text-danger" })
+                </div>
+            </div>          
+            
+            <div class="form-group">
+                <label class="control-label col-md-3">Công đoàn</label>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.IsCongDoan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsCongDoan, "", new { @class = "text-danger" })
+                </div>
+
+                <label class="control-label col-md-3">BHTN</label>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.IsBHTN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsBHTN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Ghi chú</label>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}

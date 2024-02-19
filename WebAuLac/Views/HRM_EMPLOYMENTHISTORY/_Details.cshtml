@@ -1,0 +1,92 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <h2>Thông tin chi tiết quá trình công tác</h2>
+}
+<div>
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DecisionNo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DecisionNo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DecisionDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DecisionDate)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.EffectiveDate)
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_POSITION.PositionName)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_POSITION.PositionName)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_SALARY_STEP.StepName)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_SALARY_STEP.StepName)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_DEPARTMENT.DepartmentName)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_DEPARTMENT.DepartmentName)
+            </td>
+        </tr>
+
+    </table>
+</div>
+<p>
+    <a href="@Url.Action("Edit", "HRM_EMPLOYMENTHISTORY", new { id = Model.EmploymentHistoryID })" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Sửa</a>
+    <a href="@Url.Action("Index", "HRM_EMPLOYMENTHISTORY")" class="btn btn-link"><i class="fa fa-arrow-left m-right-xs"></i>Quay về danh sách</a>
+</p>

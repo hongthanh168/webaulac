@@ -1,0 +1,82 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+
+@section huongdan{
+    <h2>Xóa quá trình công tác</h2>
+}
+
+<h3>Bạn có chắc muốn xóa quá trình công tác của nhân viên?</h3>
+<div>
+
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DecisionNo):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DecisionNo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DecisionDate):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DecisionDate)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveDate):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.EffectiveDate)
+            </td>
+        </tr>
+       
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+            </td>
+        </tr>
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_SALARY_STEP.StepName):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_SALARY_STEP.StepName)
+            </td>
+        </tr>
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_DEPARTMENT_POSITION.Coeff):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_DEPARTMENT_POSITION.Coeff)
+            </td>
+
+        </tr>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash"></i> Xóa
+            </button>
+            <a href="@Url.Action("Index", "HRM_EMPLOYMENTHISTORY")" class="btn btn-link"><i class="fa fa-arrow-left m-right-xs"></i>Quay về danh sách</a>
+        </div>
+    }
+</div>

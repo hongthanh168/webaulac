@@ -1,0 +1,342 @@
+﻿@*@model IEnumerable<HRM.Models.HRM_EMPLOYEE>*@
+@model dynamic
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+        <div class="col-md-12 col-xs-12 text-center">
+            <button name="btncreatedefault" id="btncreatedefault" class="btn btn-success">Nhập quyết định điều động</button>
+        </div>
+    </div>
+</div>
+
+<table id="EmployeesList2" class="table table-striped jambo_table border-right action-table display">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Mã</th>
+            <th>Họ tên</th>
+            <th>Đơn vị đi</th>
+            <th>Chức danh</th>
+            <th>Dự kiến đến</th>
+            <th>Số quyết định</th>
+            <th>Ngày quyết định</th>
+            <th>Đơn vị đến</th>
+            <th></th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "HRM_EMPLOYEE_" + item.CrewID.ToString() + "|" + item.PlanID.ToString() + "|" + item.DetailPlanID.ToString();
+            string ma = item.CrewID.ToString() + "|" + item.PlanID.ToString() + "|" + item.DetailPlanID.ToString();
+
+            <tr id="@rowID">
+                <td></td>
+                <td>@item.CrewID|@item.PlanID|@item.DetailPlanID</td>
+                <td>@item.CrewName</td>
+                <td>@item.OffDepartment</td>
+                <td>@item.Position</td>
+                <td>@item.OnDepartment</td>
+                <td style="width:50px; text-align:center">@item.DecisionNo</td>
+                @if (@item.DecisionDate != null)
+                {
+                    <td>@item.DecisionDate.ToString("dd/MM/yyyy")</td>
+                }
+                else
+                {
+                    <td>@item.DecisionDate</td>}
+                <td>@item.DepartmentName</td>
+                <td>
+                    @if (item.HistoryID != null)
+                    {
+                    <a href="@Url.Action("EditDefault", "HRM_EMPLOYMENTHISTORY", new { id = item.HistoryID, planID = item.PlanID})" data-modal class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                    }
+                    @*<a href="@Url.Action("CreateOne", "HRM_EMPLOYMENTHISTORY", new { EmployeeID =item.CrewID , PlanID=item.PlanID, detailPlanID = item.DetailPlanID })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>*@
+                    <a href="@Url.Action("XuatQuyetDinhDieuDongCaNhan", "HRM_QuyetDinhDieuDong", new { ID_QTCT =item.HistoryID })" class="btn btn-success btn-xs" target="_blank"><i class="fa fa-file-excel-o"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    <style>
+        .row_selected {
+            color: red !important;
+        }
+    </style>
+}
+
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+
+        $(document).ready(function () {
+            var t = $('#EmployeesList2').DataTable({
+
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "className": 'select-checkbox',
+                    "targets": 0
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 9
+                },
+                {
+
+                    "visible": false,
+                    "targets": 1
+                },
+
+                ],
+                "select": {
+                    "style": 'os',
+                    "selector": 'td:first-child'
+                }
+
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+            //setInterval(function () { t.ajax.reload('null',false); }, 30000);
+            //Nút nhập quyết định theo danh sách đã chọn
+            //Ngày 3/1 đổi thành tự động nhập cùng 1 lúc cho tất cả các nhân sự đã chọn
+
+            $('#btndd').click(function () {
+                var listEmployeeID = [];
+                //alert(t.rows('.selected').data().length + ' row(s) selected');
+                var count = 0;
+                $.each(t.rows('.selected').data(), function () {
+                    listEmployeeID[count] = this[1] ;
+                    //alert(listEmployeeID[count]);
+                    count++;
+
+                });
+                if (count == 0) {
+                    alert("Cần chọn danh sách thuyền viên");
+                    return;
+                }
+                $.ajax({
+                          type: "POST",
+                          traditional: true,
+                          url: '@Url.Action("XuatBaoCao", "HRM_QuyetDinhDieuDong")',
+                          data: JSON.stringify({ function_param: listEmployeeID}),
+                          contentType: "application/json; charset=utf-8",
+                          async: true,
+                          cache: false,
+                          success: function (data) {
+                              //alert(data.p);
+                              //GỌi thực thi hàm tạo mới
+                              window.location.href = '@Url.Action("CreateEachList", "HRM_EMPLOYMENTHISTORY")';
+                              //window.location.href = '@Url.Action("CreateEachList", "HRM_EMPLOYMENTHISTORY")?EmployeeID=' + data.e + '&PlanID=' + data.p + '&detailPlanID=' + data.d;
+                              },
+                          error: function () {
+                                  alert("Có lỗi xảy ra");
+                              }
+                          });
+                //var ids = $.map(table.rows('.selected').data(), function (item) {
+                //    return item[1];
+                //});
+                //alert(ids);
+
+                // alert(table.rows('.selected').data().length + ' row(s) selected');
+            });
+         //Nút tạo ngày 3/1 - Tự động tạo các quyết định
+            $('#btncreatedefault').click(function () {
+                var listEmployeeID = [];
+                //alert(t.rows('.selected').data().length + ' row(s) selected');
+                var count = 0;
+                $.each(t.rows('.selected').data(), function () {
+                    listEmployeeID[count] = this[1];
+                    //alert(listEmployeeID[count]);
+                    count++;
+
+                });
+                if (count == 0) {
+                    alert("Cần chọn danh sách thuyền viên");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    url: '@Url.Action("XuatBaoCao", "HRM_QuyetDinhDieuDong")',
+                    data: JSON.stringify({ function_param: listEmployeeID }),
+                    contentType: "application/json; charset=utf-8",
+                    async: true,
+                    cache: false,
+                    success: function (data) {
+                        //alert(data.p);
+                        //GỌi thực thi hàm tạo mới
+                        window.location.href = '@Url.Action("CreateDefault", "HRM_EMPLOYMENTHISTORY")';
+                        //window.location.href = '@Url.Action("CreateDefault", "HRM_EMPLOYMENTHISTORY")?EmployeeID=' + data.e + '&PlanID=' + data.p + '&detailPlanID=' + data.d;
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra");
+                    }
+                });
+                //var ids = $.map(table.rows('.selected').data(), function (item) {
+                //    return item[1];
+                //});
+                //alert(ids);
+
+                // alert(table.rows('.selected').data().length + ' row(s) selected');
+            });
+        });
+
+
+
+        //$(function () {
+        //    setInterval(function () { $('#EmployeesList2').DataTable().ajax.reload('/HRM_EMPLOYEE2/Index'); }, 3000); // every 3 sec
+        //});
+    //var table;
+    //    var EmployeeID;
+    //    function HienThiModal(href) {
+    //        $('#ddModalContent').load(href, function () {
+    //            // this is the first add
+    //            $.validator.unobtrusive.parse($('form'));
+    //            $('#ddModal').modal({
+    //                /*backdrop: 'static',*/
+    //                keyboard: true
+    //            }, 'show');
+    //            bindFormEmployeeDegree(this);
+    //        });
+    //    };
+        //function bindFormEmployeeDegree(dialog) {
+        //    $('form', dialog).submit(function () {
+        //        var data = $(this).serialize();
+        //        // this is the second addition
+        //        if ($(this).valid()) {
+        //            $.ajax({
+        //                url: this.action,
+        //                type: this.method,
+        //                data: data,
+        //                success: function (result) {
+        //                    //đóng modal form
+        //                    $("#ddModal").modal('hide');
+        //                    //load lại bảng
+        //                    LoadEmployeeTable(EmployeeID);
+
+        //                }
+        //            });
+        //            return false;
+        //        }
+        //    });
+        //}
+
+        //$("#EmployeesList2 tbody tr").on('click', function (event) {
+
+        //});
+         $('#EmployeesList2 tr').dblclick(function () {
+
+            $("#EmployeesList2 tbody tr").removeClass('row_selected');
+            $(this).addClass('row_selected');
+            var id = $(this).attr('id');
+            id = id.replace('HRM_EMPLOYEE_', '');
+            var values = id.split('|');
+
+            var idtv = values[0];
+            var idkh = values[1];
+            var idctkh = values[2];
+            EmployeeID = id;
+            LoadEmployeeTable(EmployeeID);
+            var url = '@Url.Action("Employees", "HRM_EMPLOYEE_ACCIDENT", new { AccidentID = "js-id", data_modal="" })'
+           .replace("js-id", encodeURIComponent(id));
+
+            $.get(url, function (data) {
+                if (document.getElementById("rowOfEmployees") == null) {
+                    $('#rowsOfContent').append("<div id='rowOfEmployees' class='col-md-12'></div>");
+                }
+                $('#rowOfEmployees').html(data);
+                //----------thực hiện hiển thị dạng datatable---------------------
+                table = $('#Employee_AccidentList').DataTable({
+                    "language": {
+                        "url": "/vendors/DataTables/langs/Vietnamese.json"
+                    },
+                    "columnDefs": [{
+                        "searchable": false,
+                        "orderable": false,
+                        "targets": 0
+                    },
+                    {
+                        "searchable": false,
+                        "orderable": false,
+                        "targets": 4
+                    },
+                    ],
+                    "order": [[1, 'asc']]
+                });
+                table.on('order.dt search.dt', function () {
+                    table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+                //-------------hết phần hiển thị datatable--------------------
+            });
+        })
+
+         function LoadEmployeeTable(EmployeeID) {
+            var url = '@Url.Action("Employees", "HRM_EMPLOYMENTHISTORY", new { EmployeeID = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(EmployeeID));
+            $.get(url, function (data) {
+                if (document.getElementById("rowOfEmployees") == null) {
+                    $('#rowsOfContent').append("<div id='rowOfEmployees' class='col-md-12'></div>");
+                }
+                $('#rowOfEmployees').html(data);
+                //----------thực hiện hiển thị dạng datatable---------------------
+                table = $('#Employee_HistoryList').DataTable({
+                    "language": {
+                        "url": "/vendors/DataTables/langs/Vietnamese.json"
+                    },
+                    "columnDefs": [{
+                        "searchable": false,
+                        "orderable": false,
+                        "targets": 0
+                    },
+                    {
+                        "searchable": false,
+                        "orderable": false,
+                        "targets": 10
+                    },
+                    ],
+                    "order": [[1, 'asc']]
+                });
+                table.on('order.dt search.dt', function () {
+                    table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+                //-------------hết phần hiển thị datatable--------------------
+            });
+
+        }
+    </script>
+}
+
+
+
+
+

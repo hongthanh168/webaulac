@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "Điều động bậc thang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>
+        <strong>Hướng dẫn</strong>
+        <br />
+        Nhấp vào link ở tên người trên tàu. Chương trình sẽ chọn thuyền viên tương ứng.<br />        
+        Để chọn thuyền viên thay thế cho thuyền viên trên tàu chọn <strong>Thay thế</strong>
+    </text>
+}
+<p class="noibat">BẢNG KẾ HOẠCH</p>
+<div id="DanhSachDieuDong"></div>
+<div id="DieuKienChon">
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+        <div class="col-md-12 col-xs-12 text-center">
+            <a id="LocChucDanh" class="btn btn-info"><i class="fa fa-refresh m-right-xs"></i>Lọc chức danh</a>
+            <a id="Replace" class="btn btn-success"><i class="fa fa-arrows m-right-xs"></i>Thay thế</a>
+            <a id="DeleteReplace" class="btn btn-warning"><i class="fa fa-arrow-down m-right-xs"></i>Hủy thay thế</a>
+        </div>
+    </div>
+</div>
+<div id="DanhSachThayThe"></div>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    @Styles.Render("~/vendors/DataTables/checkbox/css")
+}
+<style>
+    tfoot {
+        display: table-header-group;
+    }
+</style>
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/vendors/DataTables/checkbox/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+<script language="javascript">
+        var tblThuyenVien, tblDuTru, tblKeHoach;
+        var currentThuyenVien = -1, currentTau = -1;
+        var currentPosThuyenVien = -1, currentPosDuTru = -1;
+        var tatCa = 0;
+        var tatCaDuTru = 0;
+        $(document).ready(function () {
+            //hiển thị danh sách thuyền viên trên tất cả các tàu
+            $.ajax({
+                url: '@Url.Action("DanhSachDieuDong", "LichKiemTraTaus", new { chkPos = new int[] { } })',
+                type: 'get',
+                success: function (result) {
+                    $('#DanhSachDieuDong').html(result);
+                }
+            });
+        });
+
+        //XỬ LÝ CÁC SỰ KIỆN
+        $('#LocChucDanh').on('click', function () {
+            var url = '@Html.Raw(@Url.Action("locChucDanh", "LichKiemTraTaus"))';
+            //goi modal
+            $('#myModalContent').load(url, function () {
+
+                $.validator.unobtrusive.parse($('form'));
+
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+
+                bindFormLocChucDanh(this);
+            });
+
+            return false;
+        })
+        function bindFormLocChucDanh(dialog) {
+            $('form', dialog).submit(function () {
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            $('#myModal').modal('hide');
+                            $('#DanhSachDieuDong').html(result);
+                            //xóa hết các thông tin trong mục hiển thị người thay thế
+                            $('#DanhSachThayThe').html("");
+                            //thêm các sự kiện
+                            $('#DanhSachDieuDong').on('click', 'a', function (e) {
+                                var id = $(this).attr('id');
+                                var url = '@Html.Raw(@Url.Action("LayNguoiThayThe", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                                          .replace("dieudong-id", encodeURIComponent(id));
+                                        $.ajax({
+                                            url: url,
+                                            type: 'get',
+                                            success: function (result) {
+                                                $('#DanhSachThayThe').html(result);
+                                            }
+                                        });
+                                return false;
+                            });
+                        }
+                    });
+                    return false;
+                }
+            });
+            }
+        function FormatDanhSachDuTru() {
+            //----------thực hiện hiển thị dạng datatable---------------------
+            tblDuTru = $('#tblDuTru').DataTable({
+                "info": false,
+                "columnDefs": [
+                    {
+                        "orderable": false,
+                        "searchable": false,
+                        "className": 'select-checkbox',
+                        "targets": 0
+                    }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+            });
+            //-------------hết phần hiển thị datatable--------------------
+            //sự kiện click chọn
+            $('#tblDuTru tbody').on('click', '.select-checkbox', function (e) {
+                //lấy ra mã thuyền viên được chọn ở đây
+                var $row = $(this).closest('tr');
+                var currentDuTru = $row.attr('id');
+                currentPosDuTru = $row.attr('data-pos-id');
+                //if ((currentPosDuTru >= 20 && currentPosDuTru <= 27) || (currentPosThuyenVien >= 20 && currentPosThuyenVien <= 27))
+                //    KiemTraCrewMatrix(currentDuTru);
+            });
+        }
+        function KiemTraCrewMatrix(idOn)
+        {
+            
+        }
+        $('#Replace').on('click', function (e) {
+            //kiểm tra xem đã chọn người nào chưa
+            var anSelected1 = fnGetSelected(tblThuyenVien);
+            if (anSelected1.length == 0) {
+                alert("Chưa chọn thuyền viên trên tàu!");
+                return;
+            }
+            var tr1 = anSelected1[0];
+            var id1 = $(tr1).attr('id');
+
+            var anSelected2 = fnGetSelected(tblDuTru);
+            if (anSelected2.length == 0) {
+                alert("Chưa chọn thuyền viên dự trữ!");
+                return;
+            }
+            var tr2 = anSelected2[0];
+            var id2 = $(tr2).attr('id');
+            ThucHienLenhInsert(id1, id2);
+        })
+
+</script>
+}

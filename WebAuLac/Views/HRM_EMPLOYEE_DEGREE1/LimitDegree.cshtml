@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_DEGREE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <h2>Xem các bằng cấp sắp hết hạn của thuyền viên @ViewBag.TenThuyenVien</h2>
+}
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DegreeNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DegreeDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qualification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_DEGREE.DegreeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_POSITION.PositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_SCHOOL.SchoolName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DegreeNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DegreeDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpirationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qualification)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_DEGREE.DegreeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_POSITION.PositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_SCHOOL.SchoolName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.EmployeeCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeDegreeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmployeeDegreeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeDegreeID })
+        </td>
+    </tr>
+}
+
+</table>

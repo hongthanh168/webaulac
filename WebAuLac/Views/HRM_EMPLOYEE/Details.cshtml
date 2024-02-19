@@ -1,0 +1,376 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>THÔNG TIN CHI TIẾT NHÂN VIÊN</text>
+}
+@{
+    string hoten = Model.FirstName + " " + @Model.LastName;
+}
+<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+    <div class="profile_img">
+        <!-- Current avatar -->
+        @{
+            if (Model.Photo != null)
+            {
+                string imageBase64 = Convert.ToBase64String(Model.Photo);
+                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                <img src="@imageSrc" class="img-responsive avatar-view" />
+            }
+            else
+            {
+                <img class="img-responsive avatar-view" src="~/images/user.png" alt="Avatar">
+
+            }
+        }
+    </div>
+    <h3>
+        @hoten
+    </h3>
+    <ul class="list-unstyled user_data">
+        <li>
+            <i class="fa fa-map-marker user-profile-icon"></i> @Model.DiaChiFull
+        </li>
+        <li>
+            <i class="fa fa-calendar user-profile-icon"></i> @Html.DisplayFor(model => model.BirthDay)
+        </li>
+
+        <li>
+            <i class="fa fa-phone user-profile-icon"></i> @Model.CellPhone
+        </li>
+        <li>
+            <i class="fa fa-user user-profile-icon"></i> @Model.Height
+        </li>
+        <li>
+            <i class="fa fa-user user-profile-icon"></i> @Model.Weight
+        </li>
+        <li>
+            <i class="fa fa-heart user-profile-icon"></i> @Model.BloodType
+        </li>
+    </ul>
+    <a class="btn btn-success" href="@Url.Action("Edit", "HRM_EMPLOYEE", new { id=Model.EmployeeID })"><i class="fa fa-edit m-right-xs"></i>Chỉnh sửa</a>
+    <br />
+</div>
+<div class="col-md-9 col-sm-9 col-xs-12">
+    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+        <ul id="myTabs" class="nav nav-tabs bar_tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" title="Thông tin cơ bản">Chi tiết</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content2" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("EmploymentHistoryofEmloyee", "HRM_EMPLOYMENTHISTORY", new { EmployeeID=Model.EmployeeID })" title="Quá trình công tác">Quá trình công tác</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content3" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("DegreeOfOne", "HRM_EMPLOYEE_DEGREE", new { id=Model.EmployeeID })" title="Bằng cấp">Bằng cấp</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content4" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("RelativeOfOne", "HRM_EMPLOYEE_RELATIVE", new { EmployeeID=Model.EmployeeID })" title="Quan hệ gia đình">Quan hệ gia đình</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content5" role="tab" id="profile-tab5" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("ContractOfOne", "HRM_CONTRACTHISTORY", new { EmployeeID=Model.EmployeeID })" title="Hợp đồng lao động">Hợp đồng lao động</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content6" role="tab" id="profile-tab6" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("RetributionOfOne", "HRM_EMPLOYEE_RETRIBUTION", new { EmployeeID=Model.EmployeeID })" title="Khen thưởng">Khen thưởng</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content7" role="tab" id="profile-tab7" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("DisciplineOfOne", "HRM_EMPLOYEE_DISCIPLINE", new { EmployeeID=Model.EmployeeID })" title="Kỷ luật">Kỷ luật</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#tab_content8" role="tab" id="profile-tab8" data-toggle="tab" aria-expanded="false" data-url="@Url.Action("EmploymentHistoryofEmloyee_goc", "HRM_EMPLOYMENTHISTORY", new { EmployeeID=Model.EmployeeID })" title="QTCT Gốc">QTCT Gốc</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                <table class="table no-border table-striped table-hover">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.EmployeeCode):</th>
+                        <td>@Html.DisplayFor(model => model.EmployeeCode)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CardNo):</th>
+                        <td>@Html.DisplayFor(model => model.CardNo)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BirthDay):</th>
+                        <td>@Html.DisplayFor(model => model.BirthDay)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BirthPlace):</th>
+                        <td>@Html.DisplayFor(model => model.BirthPlace)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.IDCard):</th>
+                        <td>@Html.DisplayFor(model => model.IDCard)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.IDCardDate):</th>
+                        <td>@Html.DisplayFor(model => model.IDCardDate)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.IDCardPlace):</th>
+                        <td>@Html.DisplayFor(model => model.IDCardPlace)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.MainAddress):</th>
+                        <td>@Html.DisplayFor(model => model.MainAddress)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ContactAddress):</th>
+                        <td>@Html.DisplayFor(model => model.ContactAddress)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.EthnicID):</th>
+                        <td>@Html.DisplayFor(model => model.DIC_ETHNIC.EthnicName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.NationalityID):</th>
+                        <td>@Html.DisplayFor(model => model.DIC_NATIONALITY.NationalityName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ReligionID):</th>
+                        <td>@Html.DisplayFor(model => model.DIC_RELIGION.ReligionName)</td>
+                    </tr>
+                    <tr>
+                        <th>Nguyên quán:</th>
+                        <td>@Html.DisplayFor(model => model.Origin)</td>
+                    </tr>
+                    <tr>
+                        <th>Tình trạng hôn nhân:</th>
+                        <td>@Html.DisplayFor(model => model.MarriageStatus)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.HomePhone):</th>
+                        <td>@Html.DisplayFor(model => model.HomePhone)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Email):</th>
+                        <td>@Html.DisplayFor(model => model.Email)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Yahoo):</th>
+                        <td>@Html.DisplayFor(model => model.Yahoo)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Skype):</th>
+                        <td>@Html.DisplayFor(model => model.Skype)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.TaxNo):</th>
+                        <td>@Html.DisplayFor(model => model.TaxNo)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BankCode):</th>
+                        <td>@Html.DisplayFor(model => model.BankCode)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.BankName):</th>
+                        <td>@Html.DisplayFor(model => model.BankName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.InsuranceCode):</th>
+                        <td>@Html.DisplayFor(model => model.InsuranceCode)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.InsuranceDate):</th>
+                        <td>@Html.DisplayFor(model => model.InsuranceDate)</td>
+                    </tr>
+                    <tr>
+                        <th>Trình độ học vấn:</th>
+                        <td>@Html.DisplayFor(model => model.DIC_EDUCATION.EducationName)</td>
+                    </tr>
+                    <tr>
+                        <th>Tốt nghiệp trường:</th>
+                        <td>@Html.DisplayFor(model => model.DIC_SCHOOL.SchoolName)</td>                                              
+                    </tr>
+                    <tr>
+                        <th>Hệ đào tạo:</th>
+                        <td>@Html.DisplayFor(model => model.HeDaoTao.TenHeDaoTao)</td>  
+                    </tr>
+                    <tr>
+                        <th>Thời gian TN:</th>
+                        <td>@Html.DisplayFor(model => model.ThoiGianTotNghiep)</td>
+                    </tr>
+                    <tr>
+                        <th>Trình độ chuyên môn:</th>
+                        <td>@Html.DisplayFor(model => model.Qualification)</td>
+                    </tr>
+                    <tr>
+                        <th>Trình độ anh văn:</th>
+                        <td>@Html.DisplayFor(model => model.TrinhDoAnhVan.TenTrinhDoAnhVan)</td>
+                    </tr>
+                    <tr>
+                        <th>Trình độ vi tính:</th>
+                        <td>@Html.DisplayFor(model => model.TrinhDoViTinh.TenTrinhDoViTinh)</td>
+                    </tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                <!-- bang danh sach qua trinh cong tac -->
+                <!-- end user projects -->
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="profile-tab">
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content7" aria-labelledby="profile-tab">
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content8" aria-labelledby="profile-tab">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+      <!--Data Table-->
+@*<script type="text/javascript" src="~/vendors/DataTables/datatables.js"></script>*@
+
+    <script type="text/javascript">
+
+        function HienThiModal(href,tab) {
+            $('#myModalContent').load(href, function () {
+                // this is the first add
+                $.validator.unobtrusive.parse($('form'));
+                $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true }, $.datepicker.regional["vi"]);
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+                bindForm(this,tab);
+            });
+        };
+        function HienThiLargeModal(href, tab) {
+            $('#myModalContentLarge').load(href, function () {
+                // this is the first add
+                $.validator.unobtrusive.parse($('form'));
+                $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true }, $.datepicker.regional["vi"]);
+                $('#myModalLarge').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+
+                }, 'show');
+                //alert("show modal"); 
+                bindFormLarge(this, tab);
+            });
+        };
+        function bindFormLarge(dialog, tab) {
+            $('form', dialog).submit(function () {
+                var data = $(this).serialize();
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: data,
+                        success: function (result) {
+                            //đóng modal form
+                           
+                            $("#myModalLarge").modal('hide');
+                            //load lại bảng
+                            $("#" + tab).html(result);
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
+        function bindForm(dialog,tab) {
+            $('form', dialog).submit(function () {
+                var data = $(this).serialize();
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: data,
+                        success: function (result) {
+                            //đóng modal form
+                            $("#myModal").modal('hide');
+                            //load lại bảng
+                            $("#" + tab).html(result);
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
+        $('#myTabs a').click(function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr("data-url");
+            var href = this.hash;
+            var pane = $(this);
+
+            // ajax load from data-url
+            $(href).load(url, function (result) {
+                pane.tab('show');
+                /*Thêm sự kiện double click cho bảng relative*/
+                $('#EmployeeRelativeList tr').dblclick(function () {
+                    var id = $(this).attr('id');
+                    id = id.replace('HRM_EMPLOYEE_RELATIVE_', '');
+                    var url = '@Url.Action("Details", "HRM_EMPLOYEE_RELATIVE", new { id = "js-id", data_modal="" })'
+                      .replace("js-id", encodeURIComponent(id));
+                    $.get(url, function (data) {
+                        $('#myModalContent').html(data);
+                        $('#myModal').modal('show');
+                    });
+                });
+                /*Thêm sự kiện double click cho bảng relative*/
+                $('#EmploymentHistoryList tr').dblclick(function () {
+                    var id = $(this).attr('id');
+                    id = id.replace('HRM_EMPLOYMENTHISTORY_', '');
+                    var url = '@Url.Action("Details", "HRM_EMPLOYMENTHISTORY", new { id = "js-id", data_modal="" })'
+                      .replace("js-id", encodeURIComponent(id));
+                    $.get(url, function (data) {
+                        $('#myModalContent').html(data);
+                        $('#myModal').modal('show');
+                    });
+                });
+
+                //var table = $('#EmployeeDegreeList').DataTable();
+                ///*Thêm sự kiện double click cho bảng relative*/
+                //$('#EmployeeDegreeList tr').dblclick(function () {
+                //    table.ajax.reload();
+                //});
+               
+
+                //$("#hide").click(function () {
+                //    //alert($(table.row(dataIndex).node()).attr('ngaycap'));
+                //    $.fn.dataTable.ext.search.push(
+                //      function (settings, data, dataIndex) {
+                //          //alert($(table.row(dataIndex).node()).attr('ngaycap'));
+                //          return $(table.row(dataIndex).node()).attr('ngaycap') != "";
+                //      }
+                //    );
+                //    table.draw();
+                //});
+                //$("#reset").click(function () {
+                //    $.fn.dataTable.ext.search.pop();
+                //    table.draw();
+                //});
+            });
+          
+
+        });
+    </script>
+}
+
+ 
+    
+        
+
+ 

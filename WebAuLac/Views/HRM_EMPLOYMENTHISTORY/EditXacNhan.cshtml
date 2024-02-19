@@ -1,0 +1,220 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+
+@*<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Sửa thông tin quá trình công tác</h4>
+</div>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.EmploymentHistoryID)
+            @Html.HiddenFor(model => model.ContentDecision)
+            @Html.HiddenFor(model => model.CategoryDecisionID)
+            @Html.HiddenFor(model => model.DepartmentID)
+            @Html.HiddenFor(model => model.PositionID)
+            @Html.HiddenFor(model => model.InternshipPosition)
+            @Html.HiddenFor(model => model.PluralityID)
+            @Html.HiddenFor(model => model.IntershipPlurality)
+            @Html.HiddenFor(model => model.Note)
+            @Html.HiddenFor(model => model.PerPosition)
+            @Html.HiddenFor(model => model.PerPlurality)
+            @Html.HiddenFor(model => model.SalaryPluralityID)
+            @Html.HiddenFor(model => model.SalaryPositionID)
+            @Html.HiddenFor(model => model.DepartmentName)
+            @Html.HiddenFor(model => model.LoaiTauID)
+            @Html.HiddenFor(model => model.Gross)
+            @Html.HiddenFor(model => model.Power)
+            @Html.HiddenFor(model => model.DepartmentPluralityID)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeID, "Họ tên", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("EmployeeID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DecisionNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DecisionNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.DecisionNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DecisionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DecisionDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.DecisionDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EffectiveDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NgayXuongTau, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NgayXuongTau, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgayXuongTau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.CategoryDecisionID, "Loại quyết định", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CategoryDecisionID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryDecisionID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.SalaryStepID, "Bậc lương", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("SalaryStepID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SalaryStepID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.DepartmentID, "Phòng ban - Chức vụ - Hệ số", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.PositionID, "Phòng ban - Chức vụ - Hệ số", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PositionID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PositionID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Coefficient, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Coefficient, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Coefficient, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.CoefficientIns, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CoefficientIns, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CoefficientIns, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SalaryIns, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalaryIns, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalaryIns, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BHXH, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BHXH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BHXH, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BHYT, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BHYT, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BHYT, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BHTN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BHTN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BHTN, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.XacNhan, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                     
+                        @Html.EditorFor(model => model.XacNhan)
+                        @Html.ValidationMessageFor(model => model.XacNhan, "", new { @class = "text-danger" })
+                     
+                </div>
+            </div>
+
+             
+            </div>
+        </div>
+     <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#SalaryStepID').change(function () {
+            LoadRegion(this.value);
+        });
+
+        function LoadRegion(SalaryStepID) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetCoef", "HRM_EMPLOYMENTHISTORY")',
+                data: "{'SalaryStepID':'" + SalaryStepID + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                 //   $('#ddlRegion').get(0).options.length = 0;
+                //    $('#ddlRegion').get(0).options[0] = new Option("--Select--", "0");
+
+                    $.map(data, function (item) {
+                        $('#Coefficient').val(item.Coefficient);
+                        $('#Salary').val(item.Salary);
+                        $('#CoefficientIns').val(item.CoefficientIns);
+                        $('#SalaryIns').val(item.SalaryIns);
+                    //    $('#ddlRegion').get(0).options[$('#ddlRegion').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        }
+
+    });
+
+</script>
+
+

@@ -1,0 +1,153 @@
+﻿@model WebAuLac.Models.TuNgayDenNgay
+@{
+    ViewBag.Title = "Thống kê bổ nhiệm nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Thống kê danh sách bổ nhiệm nhân viên</text>
+}
+@{
+    IEnumerable<WebAuLac.Models.sp_LayDSBoNhiem_Result> bangKe = (IEnumerable<WebAuLac.Models.sp_LayDSBoNhiem_Result>)ViewBag.BangKe;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="text-align:center; margin-bottom:15px;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TuNgay, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.TuNgay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TuNgay, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DenNgay, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.DenNgay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DenNgay, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <div>
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-calculator"></i> Xem thông tin
+                    </button>
+                    @*<a href="@Url.Action("XuatDanhSachNghiViec", "HRM_EMPLOYEE", new {tungay = Model.TuNgay, denngay= Model.DenNgay,loaifile=2})" class="btn btn-info"><i class="fa fa-file-excel-o m-right-xs"></i>Xuất ra Excel</a>*@
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}
+@if (bangKe != null)
+{
+
+    <table class="table table-bordered table-striped table-hover" id="bangKe">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Họ tên
+                </th>
+                <th>
+                    Chức danh
+                </th>
+                <th>
+                    Số QĐ
+                </th>
+                <th>
+                    Ngày QĐ
+                </th>
+                <th>
+                    Ngày bổ nhiệm
+                </th>
+                <th>
+                    Phòng ban
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in bangKe)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        @{
+                            string hoTen = item.FirstName + " " + item.LastName;
+                            string ngayQD = "";
+                            string ngayHL = "";
+                            string ngaySinh = "";
+
+                            if (item.DecisionDate.HasValue)
+                            {
+                                ngayQD = item.DecisionDate.Value.ToString("dd/MM/yyyy");
+                            }
+                            if (item.NgayXuongTau.HasValue)
+                            {
+                                ngayQD = item.NgayXuongTau.Value.ToString("dd/MM/yyyy");
+                            }
+                        }
+                        <text>@hoTen</text>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChucVu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoQD)
+                    </td>
+                    <td>
+                        @ngayQD
+                    </td>
+                    <td>
+                        @ngayHL
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+
+
+                </tr>
+                            }
+        </tbody>
+    </table>
+                            }
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+    <script type="text/javascript">
+        var columnGroup = 4;
+        $(document).ready(function () {
+            LoadDatatable();
+        })
+        function LoadDatatable() {
+            t = $('#bangKe').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }]
+
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw()
+        }
+    </script>
+}

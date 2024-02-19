@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="353cf7e018414540b0eee24afc38cc11" Name="Diagram1">
+        <EntityTypeShape EntityType="AuLacModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AuLacModel.AspNetRole" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AuLacModel.AspNetUserClaim" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AuLacModel.AspNetUserLogin" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AuLacModel.AspNetUserRole" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.AspNetUser" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AuLacModel.ChungChiTau" Width="1.5" PointX="6" PointY="25.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_ACCIDENT" Width="1.5" PointX="13.5" PointY="66.5" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_ALLOWANCE" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_CATEGORYDECISION" Width="1.5" PointX="8.5" PointY="29.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_CLOTHING" Width="1.5" PointX="11.5" PointY="31.875" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_CONTRACTTYPE" Width="1.5" PointX="14.5" PointY="38.5" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_DEGREE" Width="1.5" PointX="10.5" PointY="77.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_DEPARTMENT" Width="1.5" PointX="3" PointY="33.5" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_DEPARTMENT_POSITION" Width="1.5" PointX="5.25" PointY="50.25" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_EDUCATION" Width="1.5" PointX="3" PointY="25.625" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_ETHNIC" Width="1.5" PointX="5.25" PointY="39.625" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_GROUPCONTRACTTYPE" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_GROUPPOSITION" Width="1.5" PointX="6.25" PointY="70.25" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_HOSPITAL" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_INFORMATIC" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_INTERSHIP" Width="1.5" PointX="8.5" PointY="31.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_JOB" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_KHUVUC" Width="1.5" PointX="5.25" PointY="55.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_LANGUAGE" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_LOAITAU" Width="1.5" PointX="0.75" PointY="36" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_MACHINE" Width="1.5" PointX="7.5" PointY="75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_NATIONALITY" Width="1.5" PointX="5.25" PointY="42.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_PHUONGXA" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_POSITION" Width="1.5" PointX="8.5" PointY="69" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_POSITION_DEGREE" Width="1.5" PointX="12.75" PointY="75.375" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_PROFESSIONAL" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_PROVINCE" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_QUANHUYEN" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_RANK" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_RELATIVE" Width="1.5" PointX="13.5" PointY="69.5" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_RELIGION" Width="1.5" PointX="5.25" PointY="63.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SALARY" Width="1.5" PointX="8.5" PointY="24.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SALARY_DEPARTMENT" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SALARY_STEP" Width="1.5" PointX="10.75" PointY="25.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SCHOOL" Width="1.5" PointX="5.25" PointY="58.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SHIFT" Width="1.5" PointX="7.5" PointY="78.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SKILL" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_STATUS" Width="1.5" PointX="5.25" PointY="65.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_SYMBOL" Width="1.5" PointX="7.5" PointY="65.75" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_TINHTHANHPHO" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_TYPE_OF_DISCIPLINE" Width="1.5" PointX="10.5" PointY="74.625" />
+        <EntityTypeShape EntityType="AuLacModel.DIC_TYPE_OF_RETRIBUTION" Width="1.5" PointX="13.5" PointY="72.625" />
+        <EntityTypeShape EntityType="AuLacModel.DieuDongBacThang" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="AuLacModel.HeDaoTao" Width="1.5" PointX="5.25" PointY="60.75" />
+        <EntityTypeShape EntityType="AuLacModel.HoSoCongTy" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.HoSoTau" Width="1.5" PointX="8.25" PointY="35.5" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_ACCIDENT" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_ATTLOG" Width="1.5" PointX="9.75" PointY="50.375" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_CLOTHING_DETAILS" Width="1.5" PointX="13.75" PointY="42" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_CLOTHING_TIMELINE" Width="1.5" PointX="11.5" PointY="35.25" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_CONTRACTHISTORY" Width="1.5" PointX="16.75" PointY="45.875" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_DEPARTMENT" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_DETAILPLAN" Width="1.5" PointX="5.25" PointY="27.875" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_DETAILSALARY" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE" Width="1.5" PointX="7.5" PointY="42.5" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_ACCIDENT" Width="1.5" PointX="15.75" PointY="50.375" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_CLOTHING" Width="1.5" PointX="9.75" PointY="58.375" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_DEGREE" Width="1.5" PointX="12.75" PointY="54.25" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_DISCIPLINE" Width="1.5" PointX="12.75" PointY="49.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_RELATIVE" Width="1.5" PointX="15.75" PointY="53.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_RETRIBUTION" Width="1.5" PointX="15.75" PointY="58.125" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYEE_SCHEDULE" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_EMPLOYMENTHISTORY" Width="1.5" PointX="10.75" PointY="37.875" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_PLAN" Width="1.5" PointX="3" PointY="28.625" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_QTCT" Width="1.5" PointX="19" PointY="38.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_ROLE" Width="1.5" PointX="8.75" PointY="13.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_SALARY" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_SALARYMONTH" Width="1.5" PointX="14.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_TIMEKEEPER" Width="1.5" PointX="9.75" PointY="53.5" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_TIMEKEEPER_TABLELIST" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_USER" Width="1.5" PointX="14.75" PointY="12.75" />
+        <EntityTypeShape EntityType="AuLacModel.HRM_USERROLES" Width="1.5" PointX="10.75" PointY="15.75" />
+        <EntityTypeShape EntityType="AuLacModel.LichKiemTra" Width="1.5" PointX="5.25" PointY="35.875" />
+        <EntityTypeShape EntityType="AuLacModel.LoaiKiemTra" Width="1.5" PointX="3" PointY="42.25" />
+        <EntityTypeShape EntityType="AuLacModel.sysdiagram" Width="1.5" PointX="12.75" PointY="15.75" />
+        <EntityTypeShape EntityType="AuLacModel.tbl_cosodaotao" Width="1.5" PointX="9.25" PointY="62.625" />
+        <EntityTypeShape EntityType="AuLacModel.tbl_ctdaotao" Width="1.5" PointX="13.75" PointY="46.125" />
+        <EntityTypeShape EntityType="AuLacModel.tbl_khoadaotao" Width="1.5" PointX="11.5" PointY="61.625" />
+        <EntityTypeShape EntityType="AuLacModel.tbl_LyDoNghiViec" Width="1.5" PointX="8.5" PointY="39.625" />
+        <EntityTypeShape EntityType="AuLacModel.tbl_QuanHe" Width="1.5" PointX="5.25" PointY="47" />
+        <EntityTypeShape EntityType="AuLacModel.tblLuongTam" Width="1.5" PointX="14.75" PointY="15.75" />
+        <EntityTypeShape EntityType="AuLacModel.TieuChuanCrewMatrix" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.TrinhDoAnhVan" Width="1.5" PointX="5.25" PointY="53.375" />
+        <EntityTypeShape EntityType="AuLacModel.TrinhDoViTinh" Width="1.5" PointX="5.25" PointY="44.75" />
+        <EntityTypeShape EntityType="AuLacModel.VideoFile" Width="1.5" PointX="4.75" PointY="16.75" />
+        <EntityTypeShape EntityType="AuLacModel.SYS_COMPANY" Width="1.5" PointX="6.75" PointY="16.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_EMPLOYMENTHISTORY_DauNam" Width="1.5" PointX="16.75" PointY="9.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_FirstEMPLOYMENTHISTORY" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_HRM_PLAN" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_NghiViec" Width="1.5" PointX="8.75" PointY="17.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_qtct_goc" Width="1.5" PointX="18.75" PointY="9.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_quatrinhcongtac" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="AuLacModel.view_quatrinhcongtacFull" Width="1.5" PointX="14.75" PointY="18.75" />
+        <EntityTypeShape EntityType="AuLacModel.viewHopDongGanNhat" Width="1.5" PointX="2.75" PointY="19.75" />
+        <EntityTypeShape EntityType="AuLacModel.viewHRM_EMPLOYMENTHISTORY" Width="1.5" PointX="16.75" PointY="19.75" />
+        <EntityTypeShape EntityType="AuLacModel.viewLuongCoBan" Width="1.5" PointX="18.75" PointY="19.75" />
+        <EntityTypeShape EntityType="AuLacModel.viewLuongThang" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuLacModel.viewNhanVien" Width="1.5" PointX="20.75" PointY="13.75" />
+        <EntityTypeShape EntityType="AuLacModel.viewNhanVienTongHop" Width="1.5" PointX="22.75" PointY="0.75" />
+        <AssociationConnector Association="AuLacModel.FK_HoSoTau_ChungChiTau" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_ACCIDENT_DIC_ACCIDENT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_CATEGORYDECISION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_CATEGORYDECISION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_CLOTHING_DETAILS_DIC_CLOTHING" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_CLOTHING_HRM_EMPLOYEE_CLOTHING" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_LABOURHISTORY_DIC_CATEGORYLABOUR" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_POSITION_DEGREE_DIC_DEGREE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DEGREE_DIC_DEGREE" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_DEPARTMENT_DIC_LOAITAU" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_DEPARTMENT_POSITION_DIC_DEPARTMENT" />
+        <AssociationConnector Association="AuLacModel.FK_HoSoTau_DIC_DEPARTMENT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_DETAILPLAN_DIC_DEPARTMENT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_DEPARTMENT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_DEPARTMENT1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_DEPARTMENT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_DEPARTMENT1" />
+        <AssociationConnector Association="AuLacModel.FK_LichKiemTra_DIC_DEPARTMENT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_NEW_DIC_DEPARTMENT_POSITION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_DETAILPLAN_DIC_EDUCATION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_NEW_DIC_EDUCATION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_NEW_DIC_ETHNIC" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_POSITION_DIC_GROUPPOSITION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_INTERSHIP" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_INTERSHIP1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_INTERSHIP" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_INTERSHIP1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DIC_KHUVUC" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_LOAITAU" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_LOAITAU" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_ATTLOG_DIC_MACHINE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_TIMEKEEPER_DIC_MACHINE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_TIMEKEEPER_DIC_MACHINE1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_NEW_DIC_NATIONALITY" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_PHUONGXA_DIC_QUANHUYEN" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_POSITION_DEGREE_DIC_POSITION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_CONTRACTHISTORY_DIC_POSITION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DEGREE_HRM_EMPLOYEE_NEW" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_POSITION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_POSITION1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_POSITION2" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_POSITION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_POSITION1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_POSITION2" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_QUANHUYEN_DIC_TINHTHANHPHO" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_RELATIVE_DIC_RELATIVE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_NEW_DIC_RELIGION" />
+        <AssociationConnector Association="AuLacModel.FK_DIC_SALARY_STEP_DIC_SALARY_RANK" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_SALARY" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_DIC_SALARY1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_SALARY" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_DIC_SALARY1" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DEGREE_DIC_SCHOOL" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DIC_SCHOOL" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_TIMEKEEPER_DIC_SHIFT" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_NEW_DIC_STATUS" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_TIMEKEEPER_DIC_SYMBOL" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DISCIPLINE_DIC_TYPE_OF_DISCIPLINE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_RETRIBUTION_DIC_TYPE_OF_RETRIBUTION" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_HeDaoTao" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_ATTLOG_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_CLOTHING_DETAILS_HRM_CLOTHING_TIMELINE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_CLOTHING_DETAILS_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_LABOURHISTORY_HRM_EMPLOYEE_NEW" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_DETAILPLAN_HRM_PLAN" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_ACCIDENT_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_CLOTHING_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DEGREE_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DISCIPLINE_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_RELATIVE_HRM_EMPLOYEE_NEW" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_RETRIBUTION_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_tbl_QuanHe" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_TrinhDoAnhVan" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_TrinhDoViTinh" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_TIMEKEEPER_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_tbl_ctdaotao_HRM_EMPLOYEE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYEE_DEGREE_HRM_EMPLOYEE_DEGREE" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_EMPLOYMENTHISTORY_tbl_LyDoNghiViec" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_HRM_EMPLOYMENTHISTORY" />
+        <AssociationConnector Association="AuLacModel.FK_HRM_QTCT_tbl_LyDoNghiViec" />
+        <AssociationConnector Association="AuLacModel.FK_LichKiemTra_LoaiKiemTra" />
+        <AssociationConnector Association="AuLacModel.FK_tbl_khoadaotao_tbl_cosodaotao" />
+        <AssociationConnector Association="AuLacModel.FK_tbl_ctdaotao_tbl_khoadaotao" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

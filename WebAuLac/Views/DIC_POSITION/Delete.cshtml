@@ -1,0 +1,37 @@
+﻿@model WebAuLac.Models.DIC_POSITION
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa chức danh này?</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PositionName):</th>
+            <td>@Html.DisplayFor(model => model.PositionName)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Description):</th>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <th>Nhóm chức danh:</th>
+            <td>@Html.DisplayFor(model => model.DIC_GROUPPOSITION.GroupPositionName)</td>
+        </tr>             
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+}
+
+

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebAuLac.Models.TrinhDoViTinh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Danh sách Trình độ vi tính</text>
+}
+<p>
+    <a data-modal href="@Url.Action("Create", "TrinhDoViTinh")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+</p>
+<table id="TrinhDoViTinhList" class="table table-striped jambo_table border-right action-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenTrinhDoViTinh)
+            </th> 
+                  
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "TrinhDoViTinh" + item.TrinhDoViTinhID.ToString();
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Details", "TrinhDoViTinh", new { id=item.TrinhDoViTinhID })" data-modal>@Html.DisplayFor(modelItem => item.TenTrinhDoViTinh)</a>
+                </td>
+
+                <td>
+                    <a href="@Url.Action("Edit", "TrinhDoViTinh", new { id=item.TrinhDoViTinhID })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete", "TrinhDoViTinh", new { id=item.TrinhDoViTinhID })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#TrinhDoViTinhList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets":1
+                },
+                ],
+                "order": [[1, 'asc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        $('#TrinhDoViTinhList tr').dblclick(function () {
+            var id = $(this).attr('id');
+            id = id.replace('TrinhDoViTinh', '');
+            var url = '@Url.Action("Details", "TrinhDoViTinh", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+        })
+    </script>
+}

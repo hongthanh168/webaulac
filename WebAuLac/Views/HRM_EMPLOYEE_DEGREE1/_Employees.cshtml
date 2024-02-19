@@ -1,0 +1,133 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_DEGREE>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@section huongdan{
+    <h2>Danh sách bằng cấp của thuyền viên @ViewBag.tenThuyenVien</h2>
+}
+<p>
+    <a href="@Url.Action("CreateOne", "HRM_EMPLOYEE_DEGREE1", new { EmployeeID =  ViewBag.idThuyenVien})" class="btn btn-primary" data-modal><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+ @*   <a href="@Url.Action("CreateOne", "HRM_EMPLOYEE_DEGREE1", new { EmployeeID = ViewBag.idThuyenVien })" class="fa fa-plus m-right-xs"><i>Thêm mới</i></a>*@
+
+</p>
+
+<table id="Employee_DegreeList" class="table table-striped jambo_table border-right action-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.DegreeNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DegreeDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qualification)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_DEGREE.DegreeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_POSITION.PositionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_SCHOOL.SchoolName)
+            </th>
+             
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegreeNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegreeDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpirationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qualification)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_DEGREE.DegreeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_POSITION.PositionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_SCHOOL.SchoolName)
+                </td>
+                
+                <td>
+                    <a href="@Url.Action("Edit", "HRM_EMPLOYEE_DEGREE1", new { id=item.EmployeeDegreeID })" class="btn btn-success btn-xs" data-modal ><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete", "HRM_EMPLOYEE_DEGREE1", new { id=item.EmployeeDegreeID })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a href="@Url.Action("Index", "HRM_EMPLOYEE3")" ><i class="fa fa-plus m-right-xs"></i>Trở lại danh sách thuyền viên</a>
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+
+        $(document).ready(function () {
+            var t = $('#Employee_DegreeList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets":3
+                },
+                ],
+                "order": [[1, 'asc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        $('#Employee_DegreeList tr').dblclick(function () {
+            var id = $(this).attr('id');
+            id = id.replace('DIC_EDUCATION_', '');
+            var url = '@Url.Action("Details", "DIC_EDUCATION", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+        })
+    </script>
+}

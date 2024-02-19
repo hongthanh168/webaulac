@@ -1,0 +1,232 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_EMPLOYMENTHISTORY>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DecisionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EffectiveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContentDecision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PerPosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PerPlurality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gross)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayXuongTau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XacNhan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DecisionNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceSalary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bonus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceBonus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalaryPlurality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceSalaryPlurality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BonusPlurality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceBonusPlurality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoiGianThucTap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT1.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_INTERSHIP.IntershipName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_INTERSHIP1.IntershipName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_LOAITAU.TenLoaiTau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_POSITION.PositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_POSITION1.PositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_POSITION2.PositionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_SALARY.SalaryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_SALARY1.SalaryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_LyDoNghiViec.LyDoNghiViec_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DecisionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EffectiveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContentDecision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PerPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PerPlurality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gross)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Power)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayXuongTau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.XacNhan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DecisionNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceSalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bonus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceBonus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalaryPlurality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceSalaryPlurality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BonusPlurality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceBonusPlurality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoiGianThucTap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_CATEGORYDECISION.CategoryDecisionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_DEPARTMENT.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_DEPARTMENT1.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_INTERSHIP.IntershipName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_INTERSHIP1.IntershipName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_LOAITAU.TenLoaiTau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_POSITION.PositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_POSITION1.PositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_POSITION2.PositionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_SALARY.SalaryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_SALARY1.SalaryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.EmployeeCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_LyDoNghiViec.LyDoNghiViec_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmploymentHistoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmploymentHistoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmploymentHistoryID })
+        </td>
+    </tr>
+}
+
+</table>

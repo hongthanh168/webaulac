@@ -1,0 +1,111 @@
+﻿@using WebAuLac.Models;
+@model IEnumerable<WebAuLac.Models.sp_LayKeHoachDieuDong_Result>
+@{ 
+    HRM_PLAN objPlan = (HRM_PLAN)ViewBag.objPlan;
+}
+<table id="PlanDetailList" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th colspan="4" class="text-center">DS THUYỀN VIÊN TRÊN TÀU VỀ DỰ TRỮ</th>
+            <th colspan="5" class="text-center">DS THUYỀN VIÊN DỰ TRỮ LÊN TÀU</th>
+            <th colspan="2"></th>
+        </tr>
+        <tr>            
+            <th>Tên tàu</th>
+            <!--Danh sách thuyền viên-->
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                Ngày lên tàu
+            </th>
+            <th>
+                Thời gian đi tàu
+            </th>
+            <!--Danh sách dự trữ-->
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                Quá trình đi tàu
+            </th>
+            <th>
+                Thời gian dự trữ
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th style="color:red">Phê duyệt</th>
+            <!--Thao tác xóa, sửa-->
+            <th style="width:50px;"></th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = item.DetailPlanID.ToString();
+            string hoTenThuyenVien = item.HoTen_CrewOff;
+            string hoTenDuTru = item.HoTen_CrewOn;
+            <tr id="@rowID">
+                <td>@Html.DisplayFor(modelItem => item.DepartmentName)</td>
+                <td>
+                    @hoTenThuyenVien
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrewOffPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeOff)
+                </td>
+                <!--danh sách dự trữ-->
+                <td>
+                    @hoTenDuTru
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrewOnPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrewOnHistory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @if ((objPlan.IsLock.HasValue && objPlan.IsLock.Value) || (item.DaDuyet.HasValue && item.DaDuyet.Value))
+                    {
+                        <text>Đã duyệt</text>
+                    }                    
+                </td>
+                <td style="width:50px;">
+                @if ((objPlan.IsLock.HasValue && objPlan.IsLock.Value) || (item.DaDuyet.HasValue && item.DaDuyet.Value))
+                {
+                    <a href="#" class="btn btn-success btn-xs" onclick="loadFormKeHoach('@Url.Action("Edit", "HRM_DETAILPLAN", new { id=item.DetailPlanID })')" style="pointer-events: none;"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-xs" onclick="loadFormKeHoach('@Url.Action("Delete", "HRM_DETAILPLAN", new { id=item.DetailPlanID })')" style="pointer-events: none;"><i class="fa fa-trash"></i></a>
+
+                }
+                else
+                {
+                    <a href="#" class="btn btn-success btn-xs" onclick="loadFormKeHoach('@Url.Action("Edit", "HRM_DETAILPLAN", new { id=item.DetailPlanID })')" data-modal><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger btn-xs" onclick="loadFormKeHoach('@Url.Action("Delete", "HRM_DETAILPLAN", new { id=item.DetailPlanID })')" data-modal><i class="fa fa-trash"></i></a>
+
+                }
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>

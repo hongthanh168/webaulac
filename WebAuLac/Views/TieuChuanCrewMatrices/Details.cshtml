@@ -1,0 +1,89 @@
+﻿@model WebAuLac.Models.TieuChuanCrewMatrix
+@{
+    string tieuDe = "Chi tiết tiêu chuẩn: " + Model.TieuChuanName;
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">@tieuDe</h4>
+</div>
+<div class="modal-body">
+    <h5>Tiêu chuẩn phối hợp</h5>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Tên tiêu chuẩn</th>
+            <th>With Company</th>
+            <th>In rank</th>
+            <th>This type of tanker</th>
+            <th>All type of tanker</th>
+        </tr>
+        <tr>
+            <td>Quản lý boong</td>            
+            <td>@Model.WithOperator_QuanLyBoong</td>
+            <td>@Model.InRank_QuanLyBoong</td>
+            <td>@Model.ThisTypeOfTanker_QuanLyBoong</td>
+            <td>@Model.AllTypeOfTanker_QuanLyBoong</td>            
+        </tr>
+        <tr>
+            <td>Vận hành boong</td>
+            <td>@Model.WithOperator_VanHanhBoong</td>
+            <td>@Model.InRank_VanHanhBoong</td>
+            <td>@Model.ThisTypeOfTanker_VanHanhBoong</td>
+            <td>@Model.AllTypeOfTanker_VanHanhBoong</td>
+        </tr>
+        <tr>
+            <td>Quản lý máy</td>
+            <td>@Model.WithOperator_QuanLyMay</td>
+            <td>@Model.InRank_QuanLyMay</td>
+            <td>@Model.ThisTypeOfTanker_QuanLyMay</td>
+            <td>@Model.AllTypeOfTanker_QuanLyMay</td>
+        </tr>
+        <tr>
+            <td>Vận hành máy</td>
+            <td>@Model.WithOperator_VanHanhMay</td>
+            <td>@Model.InRank_VanHanhMay</td>
+            <td>@Model.ThisTypeTanker_VanHanhMay</td>
+            <td>@Model.AllTypeOfTanker_VanHanhMay</td>
+        </tr>
+    </table>
+    <h5>Tiêu chuẩn của sỹ quan</h5>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Tên tiêu chuẩn</th>
+            <th>With Company</th>
+            <th>In rank</th>
+            <th>This type of tanker</th>
+            <th>All type of tanker</th>
+        </tr>
+        <tr>
+            <td>Thuyền trưởng</td>
+            <td>@Model.WithOperator_ThuyenTruong</td>
+            <td>@Model.InRank_ThuyenTruong</td>
+            <td>@Model.ThisTypeOfTanker_ThuyenTruong</td>
+            <td>@Model.AllTypeOfTanker_ThuyenTruong</td>
+        </tr>
+        <tr>
+            <td>Đại phó</td>
+            <td>@Model.WithOperator_DaiPho</td>
+            <td>@Model.InRank_DaiPho</td>
+            <td>@Model.ThisTypeOfTanker_DaiPho</td>
+            <td>@Model.AllTypeOfTanker_DaiPho</td>
+        </tr>
+        <tr>
+            <td>Máy trưởng</td>
+            <td>@Model.WithOperator_MayTruong</td>
+            <td>@Model.InRank_MayTruong</td>
+            <td>@Model.ThisTypeOfTanker_MayTruong</td>
+            <td>@Model.AllTypeOfTanker_MayTruong</td>
+        </tr>
+        <tr>
+            <td>Máy 2</td>
+            <td>@Model.WithOperator_May2</td>
+            <td>@Model.InRank_May2</td>
+            <td>@Model.ThisTypeOfTanker_May2</td>
+            <td>@Model.AllTypeOfTanker_May2</td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" data-dismiss="modal">OK</button>
+</div>

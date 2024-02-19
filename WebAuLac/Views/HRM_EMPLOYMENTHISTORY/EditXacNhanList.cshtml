@@ -1,0 +1,85 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+@{
+    ViewBag.Title = "Xác nhận";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <h2>
+        Xác nhận thông tin quyết định
+    </h2>
+}
+
+@*<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Thêm mới quyết định điều động</h4>
+    </div>*@
+
+@using (Ajax.BeginForm("EditXacNhanList", "HRM_EMPLOYMENTHISTORY", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "resultArea" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+             
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NgayXuongTau, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NgayXuongTau, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgayXuongTau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+              
+
+             
+            </div>
+        </div>
+     <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#SalaryStepID').change(function () {
+            LoadRegion(this.value);
+        });
+
+        function LoadRegion(SalaryStepID) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetCoef", "HRM_EMPLOYMENTHISTORY")',
+                data: "{'SalaryStepID':'" + SalaryStepID + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                 //   $('#ddlRegion').get(0).options.length = 0;
+                //    $('#ddlRegion').get(0).options[0] = new Option("--Select--", "0");
+
+                    $.map(data, function (item) {
+                        $('#Coefficient').val(item.Coefficient);
+                        $('#Salary').val(item.Salary);
+                        $('#CoefficientIns').val(item.CoefficientIns);
+                        $('#SalaryIns').val(item.SalaryIns);
+                    //    $('#ddlRegion').get(0).options[$('#ddlRegion').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        }
+
+    });
+
+</script>
+
+

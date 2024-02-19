@@ -1,0 +1,71 @@
+﻿@model WebAuLac.Models.LichKiemTra
+
+@{
+    ViewBag.Title = "Chỉnh sửa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>Chỉnh sửa lịch kiểm tra</text>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LichKiemTraID)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên đơn vị</label>
+            <div class="col-md-10">
+                @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Loại</label>
+            <div class="col-md-10">
+                @Html.DropDownList("LoaiKiemTraID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LoaiKiemTraID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Ngày</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ngay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ngay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tháng</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Thang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Thang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Năm</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nam, "", new { @class = "text-danger" })
+            </div>
+        </div>        
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="form-group">
+                    <a href="@Url.Action("Index", "LichKiemTras")" class="btn btn-default">Hủy</a>
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-save"></i> Lưu thông tin
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

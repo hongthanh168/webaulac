@@ -1,0 +1,253 @@
+﻿@model IEnumerable<WebAuLac.Models.viewLuongThang>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int currentDeptID = (int)ViewBag.CurrentDeptID;
+    HRM_SALARY bangLuong = (HRM_SALARY)ViewBag.bangLuong;
+    AuLacEntities db = new AuLacEntities();
+}
+@using WebAuLac.Models;
+@section huongdan{
+    <text>@bangLuong.HRMSalaryName</text>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-inline">
+        <div class="row" style="margin-bottom:15px; text-align:center">
+            <div class="form-group">
+                <label>Chọn tàu/phòng ban:</label>
+                @Html.DropDownList("DepartmentID", null, "Khối phòng ban", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" style="margin-bottom:0px" id="XemThongTin">Xem</button>
+                <a href="@Url.Action("XuatExcelLuong", "HRM_SALARY", new { DepartmentID = currentDeptID, id=bangLuong.HRMSalaryID })" class="btn btn-info"><i class="fa fa-file-excel-o m-right-xs"></i>Xuất bảng lương</a>   
+                <a href="@Url.Action("Refresh", "HRM_SALARY", new {id = bangLuong.HRMSalaryID })" class="btn btn-success"><i class="fa fa-refresh m-right-xs"></i>Tính lại bảng lương</a> 
+                <a href="@Url.Action("LoadTienLuong", "HRM_SALARY", new {id = bangLuong.HRMSalaryID })" class="btn btn-success"><i class="fa fa-refresh m-right-xs"></i>Lấy tiền lương</a>               
+            </div>
+        </div>
+    </div>
+
+}
+@if (Model != null)
+{
+    <table id="bangLuong" class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th rowspan="2">STT</th>
+                <th rowspan="2">Họ tên</th>
+                <th rowspan="2">Phòng ban</th>
+                <th rowspan="2">Chức vụ</th>
+                <th rowspan="2">Lương CB</th>
+                <th rowspan="2">PCTN</th>
+                <th rowspan="2">Thu nhập thỏa thuận</th>
+                <th rowspan="2">Số ngày công</th>
+                <th rowspan="2">Thu nhập trong tháng</th>
+                <th colspan="8" style="align-content:center">Các khoản khấu trừ</th>                    
+                <th rowspan="2">Còn lại</th>
+                <th rowspan="2"></th>
+            </tr>
+
+            <tr>
+                <th>BHXH</th>
+                <th>BHYT</th>
+                <th>KPCĐ</th>
+                <th>BHTN</th>
+                <th>Trừ CN</th>
+                <th>Người PT</th>
+                <th>Thuế TN</th>
+                <th>Trừ khác</th>
+            </tr>
+
+            @*<tr>
+                
+                <th></th>   
+                <th></th>              
+            </tr>*@
+            
+</thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                HRM_EMPLOYEE person = db.HRM_EMPLOYEE.Find(item.EmployeeID);
+                DIC_DEPARTMENT dept = db.DIC_DEPARTMENT.Find(item.DepartmentID);
+                //string salary = "";
+                //salary =
+
+                if (person != null)
+                {
+                    <tr>
+                        <td></td>
+
+                        <td><a href="@Url.Action("Details", "HRM_EMPLOYEE", new { id = item.EmployeeID })" target="_blank">@person.HoTen</a></td>
+
+                        @if (dept != null)
+                        {
+                            <td>@dept.DepartmentName</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        <td>@Html.DisplayFor(modelItem => item.ChucVu)</td>
+
+                        <td>
+                            @{
+                                string salary = item.Salary.Value.ToString("#,000");
+                            }
+                            <text>@salary</text>
+                        </td>
+
+                        <td>
+                            @{
+                                string allowanceSalary = item.AllowanceSalary.Value.ToString("#,000");
+                                if (item.AllowanceSalary.Value == 0)
+                                {
+                                    allowanceSalary = "";
+                                }
+                            }
+                            <text>@allowanceSalary</text>
+                        </td>
+                        
+                        <td>
+                            
+                            @{
+                                string bonus = item.Bonus.Value.ToString("#,000");
+                                if (item.Bonus.Value == 0)
+                                {
+                                    bonus = "";
+                                }
+
+                            }
+                            <text>@bonus</text>
+                        </td> 
+                        
+                        <td>@Html.DisplayFor(modelItem => item.NumOfDay)</td>                     
+
+                        <td>
+                            @{
+                                string tongThuNhap = item.TongThuNhap.Value.ToString("#,000");
+                                if (item.TongThuNhap.Value == 0)
+                                {
+                                    tongThuNhap = "";
+                                }
+                            }
+                            <text>@tongThuNhap</text>
+                        </td> 
+                        
+                        <td>
+                            @{
+                                string BHXH = item.BHXH.Value.ToString("#,000");
+                                if (item.BHXH.Value == 0)
+                                {
+                                    BHXH = "";
+                                }
+                            }
+                            <text>@BHXH</text>
+                        </td>     
+                        
+                        <td>
+                            @{
+                                string BHYT = item.BHYT.Value.ToString("#,000");
+                                if (item.BHYT.Value == 0)
+                                {
+                                    BHYT = "";
+                                }
+                            }
+                            <text>@BHYT</text>
+                        </td>     
+                        
+                        <td>
+                            @{
+                                string congDoan = item.CongDoan.Value.ToString("#,000");
+                                if (item.CongDoan.Value == 0)
+                                {
+                                    congDoan = "";
+                                }
+                            }
+                            <text>@congDoan</text>
+                        </td>     
+                        
+                        <td>
+                            @{
+                                string BHTN = item.BHTN.Value.ToString("#,000");
+                                if (item.BHTN.Value == 0)
+                                {
+                                    BHTN = "";
+                                }
+                            }
+                            <text>@BHTN</text>
+                        </td>
+                       
+                        <td>
+                            @*@if (item.IsGiamTruCaNhan.HasValue && item.IsGiamTruCaNhan.Value)
+                            {
+                                <i class="fa fa-check user-profile-icon"></i>
+                            }*@                           
+                        </td>
+
+                        <td>@Html.DisplayFor(modelItem => item.PhuThuoc)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ThueTNCN)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TruKhac)</td>
+
+                        <td>
+                            @{
+                                string conLai = item.ConLai.Value.ToString("#,000");
+                                if (item.ConLai.Value == 0)
+                                {
+                                    conLai = "";
+                                }
+                            }
+                            <text>@conLai</text>
+                        </td>
+                       
+
+                        <td>
+                            <a href="@Url.Action("Edit", "HRM_DETAILSALARY", new { id = item.HRMDetailSalaryID })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                        </td>
+                        @*<td>
+                            <a href="@Url.Action("UpdateSalary", "HRM_DETAILSALARY", new { id = item.HRMDetailSalaryID })" class="btn fa-refresh btn-xs" data-modal><i class="fa fa-refresh"></i></a>
+                        </td>*@
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    <style>
+        .table thead, .table th {text-align: center; vertical-align:middle}       
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#bangLuong').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }
+                ]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        
+    </script>
+}

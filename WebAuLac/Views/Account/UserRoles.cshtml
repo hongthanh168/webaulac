@@ -1,0 +1,58 @@
+﻿@model WebAuLac.Models.SelectUserRolesViewModel
+@{
+    ViewBag.Title = "User Roles";
+}
+<h2>Nhóm cho user: @Html.DisplayFor(model => model.UserName)</h2>
+<hr />
+@using (Html.BeginForm("UserRoles", "Account", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.UserName)
+            </div>
+        </div>
+        <h4>Chọn nhóm</h4>
+        <br />
+        <hr />
+
+
+
+
+        <table>
+            <tr>
+                <th>
+                    Chọn
+                </th>
+                <th>
+                </th>
+            </tr>
+
+            @for (int i = 0; i < @Model.Roles.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(x => x.Roles[i].RoleID)
+                        @Html.HiddenFor(x => x.Roles[i].RoleName)
+                        @Html.CheckBoxFor(x => x.Roles[i].Selected, new { id = string.Format("check{0}", i) })
+                        <label for=@string.Format("check{0}", i)>@Model.Roles[i].RoleName</label>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</div>

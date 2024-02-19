@@ -1,0 +1,633 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_LayDSThuyenVien_Result>
+@using WebAuLac.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AuLacEntities db = new AuLacEntities();
+    var idThuyen = db.DIC_DEPARTMENT.Where(x => x.ParentID == 8).Select(x => x.DepartmentID);
+    var idDuTru = db.DIC_DEPARTMENT.Where(x => x.ParentID == 17).Select(x => x.DepartmentID);
+}
+
+@section huongdan{
+    <text>DANH SÁCH THUYỀN VIÊN</text>
+}
+@using (Html.BeginForm("DSThuyenVien", "HRM_EMPLOYEE"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-inline">
+        <div class="row" style="margin-bottom:15px !important text-align:center">
+            <div class="form-group">
+                <label>Chọn tàu:</label>
+                @Html.DropDownList("DepartmentID", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" style="margin-bottom:0px" id="XemThongTin">Xem</button>
+                <a href="@Url.Action("XuatExcelDanhSachThuyenVien", "HRM_EMPLOYEE", new { TauID = ViewBag.TauID })" class="btn btn-info"><i class="fa fa-file-excel-o m-right-xs"></i>DS Thuyền viên</a>
+
+                <button id="btnExcel" class="btn btn-success"><i class="fa fa-file-excel-o m-right-xs"></i>Xuất danh sách ra file Excel mẫu ngang</button>
+
+                <a href="@Url.Action("BaoCaoThongKeThuyenVien", "HRM_EMPLOYEE")" class="btn btn-warning"><i class="fa fa-database m-right-xs"></i>Thống kê</a>
+                <a name="largeModal" href="@Url.Action("CrewMatrixTau", "HRM_EMPLOYEE", new {TauID=ViewBag.TauID})" class="btn btn-info" data-modal><i class="fa fa-table  m-right-xs"></i>Xem crew matrix tàu</a>
+                <a target="_blank" href="@Url.Action("CrewMatrixSyQuanTau", "HRM_EMPLOYEE", new {TauID=ViewBag.TauID})" class="btn btn-primary"><i class="fa fa-table m-right-xs"></i>Crew matrix sỹ quan tàu</a>
+
+            </div>
+        </div>
+    </div>
+
+}
+@if (Model != null)
+{
+    <table id="EmployeesList" class="table table-striped jambo_table border-right">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkall">
+                </th>
+                <th style="width:30px !important">STT</th>
+                <th style="width:80px !important">
+                    Họ
+                </th>
+                <th style="width:70px !important">
+                    Tên
+                </th>
+                @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                {
+                    <th style="width:40px !important">
+                        QH
+                    </th>
+                }
+                else
+                {
+                        <th style="width:40px !important">
+                            QH
+                        </th>
+                }
+
+                <th>
+                    NS
+                </th>
+                <th style="width:100px !important">Tàu</th>
+                <th>Chức danh</th>
+                <th>
+                    GCNCM
+                </th>
+                <th>
+                    Trình độ
+                </th>
+                <th>
+                    Ngày XT
+                </th>
+                <th style="width:60px !important">
+                    SNĐT
+                </th>
+                <th>
+                    Tàu đã đi
+                </th>
+                <th>SSĐĐ</th>                
+                @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                {
+                    <th>Ghi chú</th>
+                    <th style="width:80px !important"></th>
+                }
+                else
+                {
+                    <th>Ghi chú</th>
+                    <th style="width:80px !important"></th>
+                }
+                <th></th>
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th style="width:30px !important"></th>
+                <th style="width:30px !important"></th>
+                <th style="width:80px !important"><input style="width:70px" type="text" placeholder="Họ" /></th>
+                <th style="width:70px !important"><input style="width:60px" type="text" placeholder="Tên" /></th>
+                @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                {
+                    <th style="width:40px !important"><input style="width:30px" type="text" placeholder="QH" /></th>
+                }
+                else
+                {
+                    <th style="width:40px !important"><input style="width:30px" type="text" placeholder="QH" /></th>
+                }
+
+                <th><input style="width:80px" type="text" placeholder="NS" /></th>
+                <th style="width:100px !important"><input style="width:80px" type="text" placeholder="Tàu" /></th>
+                <th><input style="width:80px" type="text" placeholder="Chức danh" /></th>
+                <th><input style="width:80px" type="text" placeholder="GCNCM" /></th>
+                <th><input style="width:80px" type="text" placeholder="Trình độ" /></th>
+                <th><input style="width:80px" type="text" placeholder="Ngày XT" /></th>
+                <th style="width:60px !important"><input style="width:50px" type="text" placeholder="SNĐT" /></th>
+                <th><input style="width:100px" type="text" placeholder="Tàu đã đi" /></th>
+                <th></th>
+                @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                {
+                    <th><input style="width:80px" type="text" placeholder="Ghi chú" /></th>
+                    <th style="width:80px !important"></th>
+                }
+                else
+                {
+                    <th><input style="width:80px" type="text" placeholder="Ghi chú" /></th>
+                    <th style="width:80px !important"></th>
+                }
+
+                <th></th>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string rowID = "HRM_EMPLOYEE" + item.EmployeeID.ToString();
+                var person = db.HRM_EMPLOYEE.Find(item.EmployeeID);
+                string ghiChu = "";
+                Boolean toMau = false;
+                string ngaySinh = "";
+                string ngayXuongTau = "";
+                string spanNgaySinh = "";
+                string spanNgayXuongTau = "";
+                //tính ra ngày sinh và ngày xuống tàu theo format YYYYDDMM để sort cho đúng
+                if (item.BirthDay.HasValue)
+                {
+                    ngaySinh = item.BirthDay.Value.ToString("dd/MM/yyyy");
+                    spanNgaySinh = item.BirthDay.Value.ToString("yyyMMdd");
+                }
+                if (item.NgayXuongTau.HasValue)
+                {
+                    ngayXuongTau = item.NgayXuongTau.Value.ToString("dd/MM/yyyy");
+                    spanNgayXuongTau = item.NgayXuongTau.Value.ToString("yyyyMMdd");
+                }
+                if (
+                    (item.SoNgay > 240 && idThuyen.Contains(item.DepartmentID.Value))
+                    || (item.SoNgay > 30 && idDuTru.Contains(item.DepartmentID.Value))
+                    )
+                {
+                    toMau = true;
+                }
+                if (item.NgaySSDD.HasValue)
+                {
+                    ghiChu = "SSĐĐ ngày " + item.NgaySSDD.Value.ToString("dd/MM/yyyy");
+                }
+                if (item.GhiChuSSDD != null && item.GhiChuSSDD != "")
+                {
+                    if (ghiChu.Trim() != "")
+                    {
+                        ghiChu = ghiChu + " - " + item.GhiChuSSDD;
+                    }
+                    else
+                    {
+                        ghiChu = item.GhiChuSSDD;
+                    }
+                }
+                if (toMau)
+                {
+                    <tr id="@rowID" style="color:red">
+                        <td style="width:30px !important"></td>
+                        <td style="width:30px !important"></td>
+                        <td style="width:80px !important">
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")) || (User.IsInRole("BangCap") && User.IsInRole("CreateTTTV")) || (User.IsInRole("DaoTao") && User.IsInRole("CreateTTTV")))
+                        {
+                            <td style="width:70px !important">
+                                <a href="@Url.Action("Details", "HRM_EMPLOYEE", new { id = item.EmployeeID })">@Html.DisplayFor(modelItem => item.LastName)</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="width:70px !important">
+                                @Html.DisplayFor(modelItem => item.LastName)                                
+                            </td>
+                        }
+                        @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                        {
+                            <td style="width:40px !important">
+                                <a href="@Url.Action("Details", "tbl_QuanHe", new { id = item.QuanHeID })" data-modal>@Html.DisplayFor(modelItem => item.QuanHeID)</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="width:40px !important">
+                                @*<a href="@Url.Action("Details", "tbl_QuanHe", new { id = item.QuanHeID })" data-modal>@Html.DisplayFor(modelItem => item.QuanHeID)</a>*@
+                            </td>
+                        }
+
+                        <td>
+                            <span>@spanNgaySinh</span>@ngaySinh
+                        </td>
+                        <td style="width:100px !important">
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChucVu)
+                        </td>
+                        <td>
+                            <!--giấy chứng nhận chuyên môn-->
+                            @person.Qualification
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EducationName)
+                        </td>
+                        <td>
+                            <span>@spanNgayXuongTau</span>@ngayXuongTau
+                        </td>
+                        <td style="width:60px !important">
+                            @Html.DisplayFor(modelItem => item.TGDT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QTDT)
+                        </td>
+                        <td>
+                            @if (item.SSDD.HasValue && item.SSDD.Value)
+                            {
+                                <i class="fa fa-check user-profile-icon"></i>
+                            }
+                        </td>
+                        @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                        {
+                            <td>
+                                @ghiChu
+                            </td>
+                            <td style="width:80px !important">
+                                <a href="@Url.Action("EditNote", "HRM_EMPLOYEE", new { id=item.EmployeeID })" class="btn btn-success btn-xs" data-modal data-toggle="tooltip" title="Ghi chú cho thuyền viên"><i class="fa fa-sticky-note-o"></i></a>
+                                <a href="@Url.Action("InCrewCard", "HRM_EMPLOYEE", new { NhanVienID=item.EmployeeID })" class="btn btn-warning btn-xs" data-toggle="tooltip" title="In crew card"><i class="fa fa-file-excel-o"></i></a>
+                                <a href="@Url.Action("CrewMatrix", "HRM_EMPLOYEE", new { EmployeeID=item.EmployeeID, PositionID = item.PositionID })" class="btn btn-info btn-xs" data-modal data-toggle="tooltip" title="Thông tin crew matrix"><i class="fa fa-table"></i></a>
+                            </td>
+                        }
+                        else 
+                        {
+                            <td>
+                                
+                            </td>
+                            <td style="width:80px !important">
+                                <a href="@Url.Action("InCrewCard", "HRM_EMPLOYEE", new { NhanVienID=item.EmployeeID })" class="btn btn-warning btn-xs" data-toggle="tooltip" title="In crew card"><i class="fa fa-file-excel-o"></i></a>
+                                <a href="@Url.Action("CrewMatrix", "HRM_EMPLOYEE", new { EmployeeID=item.EmployeeID, PositionID = item.PositionID })" class="btn btn-info btn-xs" data-modal data-toggle="tooltip" title="Thông tin crew matrix"><i class="fa fa-table"></i></a>
+                            </td>
+                        }
+                        <th>@item.EmployeeID</th>
+                        
+
+                    </tr>
+                }
+                else
+                {
+                    <tr id="@rowID">
+                        <td style="width:30px !important"></td>
+                        <td style="width:30px !important"></td>
+                        <td style="width:80px !important">
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                       @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")) || (User.IsInRole("BangCap") && User.IsInRole("CreateTTTV")) || (User.IsInRole("DaoTao") && User.IsInRole("CreateTTTV")))
+                        {
+                            <td style="width:70px !important">
+                                <a href="@Url.Action("Details", "HRM_EMPLOYEE", new { id = item.EmployeeID })">@Html.DisplayFor(modelItem => item.LastName)</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="width:70px !important">
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>                            
+                        }
+
+                        @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                        {
+                            <td style="width:40px !important">
+                                <a href="@Url.Action("Details", "tbl_QuanHe", new { id=item.QuanHeID })" data-modal>@Html.DisplayFor(modelItem => item.QuanHeID)</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="width:40px !important"></td>
+                        }
+                        <td>
+                            <span>@spanNgaySinh</span>@ngaySinh
+                        </td>
+                        <td style="width:100px !important">
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChucVu)
+                        </td>
+                        <td>
+                            <!--giấy chứng nhận chuyên môn-->
+                            @person.Qualification
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EducationName)
+                        </td>
+                        <td>
+                            <span>@spanNgayXuongTau</span>@ngayXuongTau
+                        </td>
+                        <td style="width:60px !important">
+                            @Html.DisplayFor(modelItem => item.TGDT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QTDT)
+                        </td>
+                        <td>
+                            @if (item.SSDD.HasValue && item.SSDD.Value)
+                            {
+                                <i class="fa fa-check user-profile-icon"></i>
+                            }
+                        </td>                        
+                        @if (User.IsInRole("Boss") || (User.IsInRole("HR") && User.IsInRole("Create")) || (User.IsInRole("EduCenter") && User.IsInRole("CreateTTTV")))
+                        {
+                            <td>
+                                @ghiChu
+                            </td>
+                            <td style="width:80px !important">
+                                <a href="@Url.Action("EditNote", "HRM_EMPLOYEE", new { id=item.EmployeeID })" class="btn btn-success btn-xs" data-modal data-toggle="tooltip" title="Ghi chú cho thuyền viên"><i class="fa fa-sticky-note-o"></i></a>
+                                <a href="@Url.Action("InCrewCard", "HRM_EMPLOYEE", new { NhanVienID=item.EmployeeID })" class="btn btn-warning btn-xs" data-toggle="tooltip" title="In crew card"><i class="fa fa-file-excel-o"></i></a>
+                                <a href="@Url.Action("CrewMatrix", "HRM_EMPLOYEE", new { EmployeeID=item.EmployeeID, PositionID = item.PositionID })" class="btn btn-info btn-xs" data-modal data-toggle="tooltip" title="Thông tin crew matrix"><i class="fa fa-table"></i></a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                
+                            </td>
+                            <td style="width:80px !important">
+                                <a href="@Url.Action("InCrewCard", "HRM_EMPLOYEE", new { NhanVienID=item.EmployeeID })" class="btn btn-warning btn-xs" data-toggle="tooltip" title="In crew card"><i class="fa fa-file-excel-o"></i></a>
+                                <a href="@Url.Action("CrewMatrix", "HRM_EMPLOYEE", new { EmployeeID=item.EmployeeID, PositionID = item.PositionID })" class="btn btn-info btn-xs" data-modal data-toggle="tooltip" title="Thông tin crew matrix"><i class="fa fa-table"></i></a>
+                            </td>
+                        }
+                        <th>@item.EmployeeID</th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    <style>
+        #EmployeesList span {
+            display: none;
+        }
+
+        tfoot {
+            display: table-header-group;
+        }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+    @if (User.IsInRole("Boss") || User.IsInRole("HR")  || User.IsInRole("EduCenter") || User.IsInRole("DaoTao") || User.IsInRole("View") || User.IsInRole("BangCap"))
+    {
+        <script language="javascript">
+            $(document).ready(function() {
+                var t = $('#EmployeesList').DataTable({
+                    //nếu không phải là admin thì 14 cột, nếu là admin thì 17 cột
+                    "aoColumns": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    //"language": {
+                    //    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                    //},
+                    "iDisplayLength": 25,
+                    "columnDefs": [{
+                        "searchable": false,
+                        "className": 'select-checkbox',
+                        "orderable": false,
+                        "targets": 0
+                    },
+                    {
+
+                        "visible": false,
+                        "targets": 16
+                    },
+                    ],
+                    "select": {
+                        "style": 'os',
+                        "selector": 'td:first-child'
+                    }
+                });
+                t.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+
+                t.on('order.dt search.dt', function()
+                {
+                    t.column(1, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+                $('#checkall').click(function (event) {  //on click
+                    var checked = this.checked;
+                    t.rows({ search: 'applied' }).nodes().each(function () {
+                    //t.column(0).nodes().to$().each(function (index) {
+                        if (checked) {
+                            //$(this).find('.select-checkbox').prop('checked', 'checked');
+                            $(this).addClass('selected');
+                        } else {
+                            //$(this).find('.select-checkbox').removeProp('checked');
+                            $(this).removeClass('selected')
+                        }
+                    });
+                    //t.rows({ page: 'all' }).nodes().each(function () {
+                    //    $(this).removeClass('selected')
+                    //})
+                    //t.rows({ search: 'applied' }).nodes().each(function () {
+                    //    $(this).addClass('selected');
+                    //})
+                    t.draw();
+                });
+               //Nut chọn
+                    $('#btnExcel').click(function () {
+                        var listEmployeeID =[];
+                        //alert(table.rows('.selected').data().length + ' row(s) selected');
+                        var count=0;
+                             $.each(t.rows('.selected').data(), function () {
+                                 listEmployeeID[count] = this[16];
+                                 //alert(listEmployeeID[count]);
+                                 count++;
+
+                             });
+                             $.ajax({
+                                 type: "POST",
+                                 traditional: true,
+                                 url: '@Url.Action("XuatBaoCaoTest", "HRM_EMPLOYEE")',
+                                 data: JSON.stringify({function_param: listEmployeeID }),
+                                 contentType: "application/json; charset=utf-8",
+                                 async: true,
+                                 cache: false,
+                                 success: function (data) {
+                                     //get the file name for download
+                                     if (data.fileName != "") {
+                                         //use window.location.href for redirect to download action for download the file
+                                         window.location.href = "@Url.RouteUrl(new
+                                         { Controller = "HRM_EMPLOYEE", Action = "Download"})/?file=" + data.fileName;
+                                         }
+                                 },
+                                 error: function () {
+                                     alert("Có lỗi xảy ra");
+                                 }
+                             });
+
+                    });
+            });
+
+
+        </script>
+    }
+    else
+    {
+        <script language="javascript">
+            $(document).ready(function() {
+                var t = $('#EmployeesList').DataTable({
+                    //nếu không phải là admin thì 14 cột, nếu là admin thì 17 cột
+                    "aoColumns": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+
+                    //"language": {
+                    //    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                    //},
+                    "iDisplayLength": 25,
+                    "columnDefs": [{
+                        "searchable": false,
+                        "orderable": false,
+                        "className": 'select-checkbox',
+                        "targets": 0
+                    },
+                    {
+
+                        "visible": false,
+                        "targets": 13
+                    }, ],
+                    "select": {
+                        "style": 'os',
+                        "selector": 'td:first-child'
+                    },
+
+
+                });
+                t.columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+                t.on('order.dt search.dt', function()
+                {
+                    t.column(1, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+                $('#checkall').click(function (event) {  //on click
+                    var checked = this.checked;
+                    t.rows({ search: 'applied' }).nodes().each(function () {
+                        //t.column(0).nodes().to$().each(function (index) {
+                        if (checked) {
+                            //$(this).find('.select-checkbox').prop('checked', 'checked');
+                            $(this).addClass('selected');
+                        } else {
+                            //$(this).find('.select-checkbox').removeProp('checked');
+                            $(this).removeClass('selected')
+                        }
+                    });
+                    //t.rows({ page: 'all' }).nodes().each(function () {
+                    //    $(this).removeClass('selected')
+                    //})
+                    //t.rows({ search: 'applied' }).nodes().each(function () {
+                    //    $(this).addClass('selected');
+                    //})
+                    t.draw();
+                });
+                //Nut chọn
+                    $('#btnExcel').click(function () {
+                        var listEmployeeID =[];
+                        //alert(table.rows('.selected').data().length + ' row(s) selected');
+                        var count=0;
+                             $.each(t.rows('.selected').data(), function () {
+                                 listEmployeeID[count] = this[13];
+                                 //alert(listEmployeeID[count]);
+                                 count++;
+
+                             });
+                             $.ajax({
+                                 type: "POST",
+                                 traditional: true,
+                                 url: '@Url.Action("XuatBaoCaoTest", "HRM_EMPLOYEE")',
+                                 data: JSON.stringify({function_param: listEmployeeID }),
+                                 contentType: "application/json; charset=utf-8",
+                                 async: true,
+                                 cache: false,
+                                 success: function (data) {
+                                     //get the file name for download
+                                     if (data.fileName != "") {
+                                         //use window.location.href for redirect to download action for download the file
+                                         window.location.href = "@Url.RouteUrl(new
+                                         { Controller = "HRM_EMPLOYEE", Action = "Download"})/?file=" + data.fileName;
+                                         }
+                                 },
+                                 error: function () {
+                                     alert("Có lỗi xảy ra");
+                                 }
+                             });
+
+                    });
+                });
+
+
+
+        </script>
+    }
+
+
+
+}
+
+
+
+

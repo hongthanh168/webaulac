@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Theo dõi Hợp đồng sắp và hết hạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Thống kê danh sách nhân viên sắp và hết hạn hợp đồng</text>
+}
+@{
+    IEnumerable<WebAuLac.Models.sp_LayDSKhongDatHopDong_Result> bangKe = (IEnumerable<WebAuLac.Models.sp_LayDSKhongDatHopDong_Result>)ViewBag.BangKe;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="text-align:center; margin-bottom:15px;">
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.TuNgay, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.TuNgay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TuNgay, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DenNgay, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.DenNgay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DenNgay, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <div>
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-calculator"></i> Xem thông tin
+                    </button>
+                </div>
+            </div>*@
+        </div>
+
+
+    </div>
+}
+@if (bangKe != null)
+{
+
+    @*if (bangKe.Count() > 0)
+    {
+        decimal chiPhi = ViewBag.chiPhi;
+        int soNhanVien = ViewBag.soNhanVien;
+        <p style="text-align:center">
+            Số nhân viên đã được đi học: @soNhanVien
+            <br /> Tổng chi phí học tập: @chiPhi.ToString("#,#")
+        </p>
+    }*@
+    <table class="table table-bordered table-striped table-hover" id="bangKe">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Họ tên
+                </th>
+                <th>
+                    PB/Tàu
+                </th>
+                <th>
+                    Chức danh
+                </th>
+                <th>
+                    Số hợp đồng
+                </th>
+                <th>
+                    Ngày hợp đồng
+                </th>
+                <th>
+                    Loại hợp đồng
+                </th>
+                <th>
+                    Ngày hết hạn
+                </th>
+                <th>
+                    Ngày xuống tàu
+                </th>                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in bangKe)
+            {
+                string ngayHopDong = "";
+                string ngayHetHan = "";
+                string ngayXuongTau = "";
+                string spanNgayHopDong = "";
+                string spanNgayHetHan = "";
+                string spanNgayXuongTau = "";
+                if (item.ContractDate.HasValue)
+                {
+                    ngayHopDong = item.ContractDate.Value.ToString("dd/MM/yyyy");
+                    spanNgayHopDong = item.ContractDate.Value.ToString("yyyyMMdd");
+                }
+                if (item.ExpirationDate.HasValue)
+                {
+                    ngayHetHan = item.ExpirationDate.Value.ToString("dd/MM/yyyy");
+                    spanNgayHetHan = item.ExpirationDate.Value.ToString("yyyyMMdd");
+                }
+                if (item.NgayXuongTau.HasValue)
+                {
+                    ngayXuongTau = item.NgayXuongTau.Value.ToString("dd/MM/yyyy");
+                    spanNgayXuongTau = item.NgayXuongTau.Value.ToString("yyyyMMdd");
+                }
+                <tr>
+                    <td></td>
+                    <td>
+                        @{
+                            string hoTen = item.FirstName + " " + item.LastName;
+                        }
+                        <text>@hoTen</text>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChucVu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContractNo)
+                    </td>
+                    <td>
+                        <span>@spanNgayHopDong</span>@ngayHopDong
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContractTypeName)
+                    </td>
+                    <td>
+                        <span>@spanNgayHetHan</span>@ngayHetHan
+                    </td>
+                    <td>
+                        <span>@spanNgayXuongTau</span>@ngayXuongTau
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    <style>
+        #bangKe span {
+            display: none;
+        }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+    <script type="text/javascript">
+        var columnGroup = 4;
+        $(document).ready(function () {
+            LoadDatatable();
+        })
+        function LoadDatatable() {
+            t = $('#bangKe').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                //"order": [[1, 'asc']]
+                
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw()
+        }
+    </script>
+}
+
+
+

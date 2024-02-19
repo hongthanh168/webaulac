@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_DEGREE>
+<p>
+    @*<button class="btn btn-primary" onclick="HienThiModal('@Url.Action("CreateOne", "HRM_EMPLOYEE_DEGREE",new { id=ViewBag.EmployeeID})', 'tab_content3')"><i class="fa fa-plus m-right-xs"></i>Thêm mới</button>*@
+    <button class="btn btn-primary" onclick="HienThiModal('@Url.Action("CreateOneCheck", "HRM_EMPLOYEE_DEGREE",new { EmployeeID=ViewBag.EmployeeID})', 'tab_content3')"><i class="fa fa-plus m-right-xs"></i>Thêm mới</button>
+    <button class="btn btn-primary" onclick="HienThiModal('@Url.Action("CreateAll", "HRM_EMPLOYEE_DEGREE",new { id=ViewBag.EmployeeID})', 'tab_content3')"><i class="fa fa-plus m-right-xs"></i>Thêm mới theo chức danh</button>
+
+    <a href="@Url.Action("XuatDanhSachBangCapTheoThuyenVien", "HRM_EMPLOYEE_DEGREE", new {EmployeeID=ViewBag.EmployeeID})" class="btn btn-info"><i class="fa fa-file-excel-o m-right-xs"></i>In danh sách bằng cấp</a>
+   
+</p>
+ 
+ <table id="EmployeeDegreeList" class="table table-bordered action-table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                Loại bằng
+            </th>
+            <th>
+                Tên trường
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DegreeNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DegreeDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+            </th>
+            @*<th>
+                    Chức danh
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int stt = 0;
+        }
+        @foreach (var item in Model)
+        {
+            stt = stt + 1;
+            string rowID = item.DegreeDate.ToString();
+            <tr ngaycap ="@rowID">
+                <td>@stt</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_DEGREE.DegreeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_SCHOOL.SchoolName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegreeNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegreeDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpirationDate)
+                </td>
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.DIC_POSITION.PositionName)
+                    </td>*@
+                <td>
+                    <a href="#" onclick="HienThiModal('@Url.Action("Edit",  "HRM_EMPLOYEE_DEGREE",new { id=item.EmployeeDegreeID})', 'tab_content3')" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="HienThiModal('@Url.Action("DeleteAll",  "HRM_EMPLOYEE_DEGREE",new { id=item.EmployeeDegreeID})', 'tab_content3')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ 

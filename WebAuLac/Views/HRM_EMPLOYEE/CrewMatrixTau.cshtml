@@ -1,0 +1,312 @@
+﻿@using WebAuLac.Models
+@model WebAuLac.Models.sp_T_CrewMatrixTau_Result
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thông tin crew matrix của tàu</h4>
+</div>
+<div class="modal-body">
+    <h5>Tiêu chuẩn phối hợp (so sánh với tiêu chuẩn chung)</h5>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Tên tiêu chuẩn</th>
+            <th>With Company</th>
+            <th>In rank</th>
+            <th>This type of tanker</th>
+            <th>All type of tanker</th>
+        </tr>
+        <tr>
+            <td>Quản lý boong</td>
+            @if (@Model.WithOperator_QuanLyBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_QuanLyBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_QuanLyBoong.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_QuanLyBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_QuanLyBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_QuanLyBoong.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_QuanLyBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_QuanLyBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_QuanLyBoong.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_QuanLyBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_QuanLyBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_QuanLyBoong.Split('_')[1]</td>
+            }
+        </tr>  
+        <tr>
+            <td>Vận hành boong</td>
+            @if (@Model.WithOperator_VanHanhBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_VanHanhBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_VanHanhBoong.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_VanHanhBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_VanHanhBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_VanHanhBoong.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_VanHanhBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_VanHanhBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_VanHanhBoong.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_VanHanhBoong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_VanHanhBoong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_VanHanhBoong.Split('_')[1]</td>
+            }
+        </tr>  
+        <tr>
+            <td>Quản lý máy</td>
+            @if (@Model.WithOperator_QuanLyMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_QuanLyMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_QuanLyMay.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_QuanLyMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_QuanLyMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_QuanLyMay.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_QuanLyMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_QuanLyMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_QuanLyMay.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_QuanLyMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_QuanLyMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_QuanLyMay.Split('_')[1]</td>
+            }
+        </tr>  
+        <tr>
+            <td>Vận hành máy</td>
+            @if (@Model.WithOperator_VanHanhMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_VanHanhMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_VanHanhMay.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_VanHanhMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_VanHanhMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_VanHanhMay.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeTanker_VanHanhMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeTanker_VanHanhMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeTanker_VanHanhMay.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_VanHanhMay.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_VanHanhMay.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_VanHanhMay.Split('_')[1]</td>
+            }
+        </tr>     
+    </table>
+    <h5>Tiêu chuẩn của sỹ quan (so sánh với tiêu chuẩn chung)</h5>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>Tên tiêu chuẩn</th>
+            <th>With Company</th>
+            <th>In rank</th>
+            <th>This type of tanker</th>
+            <th>All type of tanker</th>
+        </tr>
+        <tr>
+            <td>Thuyền trưởng</td>
+            @if (@Model.WithOperator_ThuyenTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_ThuyenTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_ThuyenTruong.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_ThuyenTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_ThuyenTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_ThuyenTruong.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_ThuyenTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_ThuyenTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_ThuyenTruong.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_ThuyenTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_ThuyenTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_ThuyenTruong.Split('_')[1]</td>
+            }
+        </tr>
+        <tr>
+            <td>Đại phó</td>
+            @if (@Model.WithOperator_DaiPho.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_DaiPho.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_DaiPho.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_DaiPho.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_DaiPho.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_DaiPho.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_DaiPho.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_DaiPho.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_DaiPho.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_DaiPho.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_DaiPho.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_DaiPho.Split('_')[1]</td>
+            }
+        </tr>
+        <tr>
+            <td>Máy trưởng</td>
+            @if (@Model.WithOperator_MayTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_MayTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_MayTruong.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_MayTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_MayTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_MayTruong.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_MayTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_MayTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_MayTruong.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_MayTruong.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_MayTruong.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_MayTruong.Split('_')[1]</td>
+            }
+        </tr>
+        <tr>
+            <td>Máy 2</td>
+            @if (@Model.WithOperator_May2.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.WithOperator_May2.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.WithOperator_May2.Split('_')[1]</td>
+            }
+            @if (@Model.InRank_May2.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.InRank_May2.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.InRank_May2.Split('_')[1]</td>
+            }
+            @if (@Model.ThisTypeOfTanker_May2.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.ThisTypeOfTanker_May2.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.ThisTypeOfTanker_May2.Split('_')[1]</td>
+            }
+            @if (@Model.AllTypeOfTanker_May2.Split('_')[0] == "0")
+            {
+                <td style="background-color:orangered">@Model.AllTypeOfTanker_May2.Split('_')[1]</td>
+            }
+            else
+            {
+                <td>@Model.AllTypeOfTanker_May2.Split('_')[1]</td>
+            }
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" data-dismiss="modal">OK</button>
+</div>

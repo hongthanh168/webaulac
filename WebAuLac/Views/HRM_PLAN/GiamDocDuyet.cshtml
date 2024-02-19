@@ -1,0 +1,32 @@
+﻿@model WebAuLac.Models.HRM_PLAN
+@{ 
+    string tieuDe = "Duyệt bản kế hoạch: " + Model.PlanName;
+}    
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">@tieuDe</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.PlanID)
+           <p>
+               Nếu bạn bấm Duyệt thì kế hoạch sẽ bị khóa. Không thành viên nào có thể sửa được kế hoạch này. Chỉ có bạn mới có thể mở khóa và bỏ duyệt kế hoạch này.
+               Nếu đồng ý thì bấm Duyệt, nếu không thì bấm Hủy.
+           </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Duyệt
+        </button>
+    </div>
+}

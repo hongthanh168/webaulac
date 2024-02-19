@@ -1,0 +1,13 @@
+﻿@model bool?
+@if (Model.HasValue)
+{
+    if(Model.Value){
+        <i class="fa fa-check user-profile-icon"></i>
+    }
+    else
+    {
+        <i class="fa fa-remove user-profile-icon"></i>
+    }
+}else {<text> &nbsp; </text>}
+
+

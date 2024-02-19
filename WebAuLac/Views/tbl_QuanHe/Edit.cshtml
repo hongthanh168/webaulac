@@ -1,0 +1,32 @@
+﻿@model WebAuLac.Models.tbl_QuanHe
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Chỉnh sửa quan hệ</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.QuanHeID)
+            <div class="form-group">
+                @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit" onclick="postData()">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}

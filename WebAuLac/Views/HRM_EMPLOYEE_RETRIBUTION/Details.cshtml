@@ -1,0 +1,66 @@
+﻿@model HRM.Models.HRM_EMPLOYEE_RETRIBUTION
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>HRM_EMPLOYEE_RETRIBUTION</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RetributionNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RetributionNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RetributionDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RetributionDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Reason)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Reason)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DIC_TYPE_OF_RETRIBUTION.TypeOfRetributionName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DIC_TYPE_OF_RETRIBUTION.TypeOfRetributionName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeRetributionID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿@model WebAuLac.Models.LichKiemTra
+
+@{
+    ViewBag.Title = "Xác nhận xóa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>Bạn có chắc muốn xóa lịch kiểm tra</text>
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Tên đơn vị
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dd>
+        <dt>
+            Tên loại kiểm tra
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LoaiKiemTra.TenLoaiKiemTra)
+        </dd>
+
+        <dt>
+            Ngày
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ngay)
+        </dd>
+
+        <dt>
+            Tháng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Thang)
+        </dd>
+
+        <dt>
+            Năm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nam)
+        </dd>
+
+        
+
+        
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="form-group">
+                    <a href="@Url.Action("Index", "LichKiemTras")" class="btn btn-default">Hủy</a>
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-save"></i> Xóa
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

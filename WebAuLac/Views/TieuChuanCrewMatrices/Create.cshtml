@@ -1,0 +1,232 @@
+﻿@model WebAuLac.Models.TieuChuanCrewMatrix
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới tiêu chuẩn</h4>
+</div>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-4">Tên tiêu chuẩn</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.TieuChuanName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TieuChuanName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4"></label>
+                        <label class="control-label col-md-2">With operator</label>
+                        <label class="control-label col-md-2">In rank</label>
+                        <label class="control-label col-md-2">This type of tanker</label>
+                        <label class="control-label col-md-2">All type of tanker</label>
+                    </div>
+                </div>
+            </div>
+            <h5>Tiêu chuẩn phối hợp</h5>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Quản lý boong</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_QuanLyBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_QuanLyBoong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_QuanLyBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_QuanLyBoong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_QuanLyBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_QuanLyBoong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_QuanLyBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_QuanLyBoong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Vận hành boong</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_VanHanhBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_VanHanhBoong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_VanHanhBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_VanHanhBoong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_VanHanhBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_VanHanhBoong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_VanHanhBoong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_VanHanhBoong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Quản lý máy</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_QuanLyMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_QuanLyMay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_QuanLyMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_QuanLyMay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_QuanLyMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_QuanLyMay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_QuanLyMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_QuanLyMay, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Vận hành máy</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_VanHanhMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_VanHanhMay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_VanHanhMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_VanHanhMay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeTanker_VanHanhMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeTanker_VanHanhMay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_VanHanhMay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_VanHanhMay, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5>Tiêu chuẩn sỹ quan</h5>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Thuyền trưởng</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_ThuyenTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_ThuyenTruong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_ThuyenTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_ThuyenTruong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_ThuyenTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_ThuyenTruong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_ThuyenTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_ThuyenTruong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Đại phó</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_DaiPho, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_DaiPho, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_DaiPho, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_DaiPho, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_DaiPho, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_DaiPho, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_DaiPho, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_DaiPho, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Máy trưởng</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_MayTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_MayTruong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_MayTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_MayTruong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_MayTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_MayTruong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_MayTruong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_MayTruong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Máy 2</label>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.WithOperator_May2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WithOperator_May2, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.InRank_May2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InRank_May2, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.ThisTypeOfTanker_May2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ThisTypeOfTanker_May2, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AllTypeOfTanker_May2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AllTypeOfTanker_May2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit" onclick="postData()">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}
+

@@ -1,0 +1,16 @@
+﻿@model bool?
+@if (Model.HasValue)
+{
+    if (Model.Value)
+    {
+        <text>Nam</text>
+    }
+    else
+    {
+        <text>Nữ</text>
+    }
+}
+else
+{
+    <text> &nbsp; </text>
+}

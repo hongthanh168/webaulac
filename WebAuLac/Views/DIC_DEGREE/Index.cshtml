@@ -1,0 +1,103 @@
+﻿@model IEnumerable<WebAuLac.Models.DIC_DEGREE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Danh sách bằng cấp</text>
+}
+<p>
+    <a data-modal href="@Url.Action("Create", "DIC_DEGREE")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+</p>
+<table id="schoolList" class="table table-striped jambo_table border-right action-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.DegreeName)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.Unclos)
+            </th>   
+            <th>
+                @Html.DisplayNameFor(model => model.WarningBefore)
+            </th>         
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "DIC_DEGREE_" + item.DegreeID.ToString();
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Details", "DIC_DEGREE", new { id=item.DegreeID })" data-modal>@Html.DisplayFor(modelItem => item.DegreeName)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unclos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WarningBefore)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "DIC_DEGREE", new { id=item.DegreeID })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete", "DIC_DEGREE", new { id=item.DegreeID })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#schoolList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },                
+                ]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        $('#schoolList tr').dblclick(function () {
+            var id = $(this).attr('id');
+            id = id.replace('DIC_DEGREE_', '');
+            var url = '@Url.Action("Details", "DIC_DEGREE", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+        })
+    </script>
+}

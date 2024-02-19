@@ -1,0 +1,17 @@
+﻿@model WebAuLac.Models.DIC_TYPE_OF_DISCIPLINE
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Chi tiết loại kỷ luật</h4>
+</div>
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TypeOfDisciplineName):</th>
+            <td>@Html.DisplayFor(model => model.TypeOfDisciplineName)</td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" data-dismiss="modal">OK</button>
+</div>

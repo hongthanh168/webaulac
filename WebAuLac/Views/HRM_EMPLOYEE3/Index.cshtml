@@ -1,0 +1,140 @@
+﻿@*@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE>*@
+@model dynamic
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ @section huongdan{
+    <text>KIỂM TRA BẰNG CẤP THUYỀN VIÊN</text>
+
+
+}
+<table id="testdegree" class="display table table-striped jambo_table border-right action-table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Nơi sinh</th>
+            <th>Tên bằng</th>
+            <th>Số bằng</th>
+            <th>Ngày cấp bằng</th>
+            <th>Ngày hết hạn</th>
+            <th>Tiêu chuẩn</th>
+            <th>Rule</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @{
+            int stt = 0;
+        }
+        @foreach (var item in Model)
+        {
+            string rowID = "HRM_EMPLOYEE_" + item.EmployeeID.ToString();
+            stt++;
+            <tr id="@rowID">
+                <td>@stt</td>
+                <td>@item.EmployeeName</td>
+                <td>@item.BirthDay</td>
+                <td>@item.BirthPlace</td>
+                <td>@item.DegreeName</td>
+                <td>@item.DegreeNo</td>
+                <td style="width:50px">@item.DegreeDate</td>
+                <td>@item.ExpirationDate</td>
+                <td>@item.Qualification</td>
+                <td>@item.Unclos</td>
+                <td><a href="@Url.Action("Employees", "HRM_EMPLOYEE_DEGREE1", new { EmployeeID = item.EmployeeID })" class="btn btn-success btn-xs" target="_blank" ><i class="fa fa-edit"></i></a></td>         
+            </tr>
+        }
+    </tbody>
+
+</table>
+ 
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+  
+}
+<style>
+    tfoot {
+    display: table-header-group;
+}
+</style>
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        
+        $(document).ready(function () {
+            //var t = $('#testdegree').DataTable({
+               
+            //    "language": {
+            //        "url": "/vendors/DataTables/langs/Vietnamese.json"
+            //    },
+            //    "columnDefs": [{
+            //        "searchable": false,
+            //        "orderable": false,
+            //        "targets": 0
+            //    },
+            //    {
+            //        "searchable": false,
+            //        "orderable": false,
+            //        "targets":9
+            //    },
+            //    ],
+                 
+            //});
+            //t.on('order.dt search.dt', function () {
+            //    t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            //        cell.innerHTML = i + 1;
+            //    });
+            //}).draw();
+            
+            
+            // Setup - add a text input to each footer cell
+            $('#testdegree tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+            });
+
+                // DataTable
+                var table = $('#testdegree').DataTable();
+
+                // Apply the search
+                table.columns().every(function () {
+                    var that = this;
+
+                    $('input', this.footer()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+        });
+         
+          </script>
+
+    }
+

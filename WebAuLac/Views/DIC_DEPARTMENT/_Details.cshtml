@@ -1,0 +1,64 @@
+﻿@model WebAuLac.Models.DIC_DEPARTMENT
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Chi tiết phòng ban hoặc tàu</h4>
+</div>
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>Tên phòng ban/tàu:</th>
+            <td>@Html.DisplayFor(model => model.DepartmentName)</td>
+            <th>@Html.DisplayNameFor(model => model.Phone):</th>
+            <td>@Html.DisplayFor(model => model.Phone)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Quantity):</th>
+            <td>@Html.DisplayFor(model => model.Quantity)</td>
+            <th>@Html.DisplayNameFor(model => model.FactQuantity):</th>
+            <td>@Html.DisplayFor(model => model.FactQuantity)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Description):</th>
+            <td colspan="3">@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IMO):</th>
+            <td>@Html.DisplayFor(model => model.IMO)</td>
+            <th>@Html.DisplayNameFor(model => model.Gross):</th>
+            <td>@Html.DisplayFor(model => model.Gross)</td>
+        </tr>
+        <tr>
+            <th>Loại tàu:</th>
+            <td>@Html.DisplayFor(model => model.DIC_LOAITAU.TenLoaiTau)</td>
+            <th>@Html.DisplayNameFor(model => model.Net):</th>
+            <td>@Html.DisplayFor(model => model.Net)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Length):</th>
+            <td>@Html.DisplayFor(model => model.Length)</td>
+            <th>@Html.DisplayNameFor(model => model.YearOfBuilding):</th>
+            <td>@Html.DisplayFor(model => model.YearOfBuilding)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Breadth):</th>
+            <td>@Html.DisplayFor(model => model.Breadth)</td>
+            <th>@Html.DisplayNameFor(model => model.PlaceOfBuiding):</th>
+            <td>@Html.DisplayFor(model => model.PlaceOfBuiding)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Draft):</th>
+            <td>@Html.DisplayFor(model => model.Draft)</td>
+            <th>@Html.DisplayNameFor(model => model.PortOfRegistry):</th>
+            <td>@Html.DisplayFor(model => model.PortOfRegistry)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Power):</th>
+            <td>@Html.DisplayFor(model => model.Power)</td>
+            <th>@Html.DisplayNameFor(model => model.ClassificationAgency):</th>
+            <td>@Html.DisplayFor(model => model.ClassificationAgency)</td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" data-dismiss="modal">OK</button>
+</div>

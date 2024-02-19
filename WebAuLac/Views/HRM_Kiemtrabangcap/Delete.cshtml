@@ -1,0 +1,297 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>HRM_EMPLOYEE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marriage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marriage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MainAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MainAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CellPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CellPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomePhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomePhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Yahoo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Yahoo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Facebook)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Facebook)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDCard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDCard)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDCardDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDCardDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDCardPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDCardPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsuranceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsuranceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DegreeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DegreeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDaiDuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDaiDuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT_POSITION.Decription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_DEPARTMENT_POSITION.Decription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_EDUCATION.EducationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_EDUCATION.EducationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_ETHNIC.EthnicName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_ETHNIC.EthnicName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_NATIONALITY.NationalityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_NATIONALITY.NationalityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_RELIGION.ReligionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_RELIGION.ReligionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_STATUS.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_STATUS.StatusName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

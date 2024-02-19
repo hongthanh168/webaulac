@@ -1,0 +1,171 @@
+﻿@using WebAuLac.Models;
+@model IEnumerable<WebAuLac.Models.tbl_ctdaotao>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    tbl_khoadaotao khoaDaoTao = (tbl_khoadaotao)ViewBag.khoaDaoTao;
+    AuLacEntities db = new AuLacEntities();
+}
+@section huongdan{
+    <text>Thông tin chi tiết khóa đào tạo</text>
+}
+<table class="no-border bangGiuaTrang">
+        <tr>
+            <td>Tên lớp:</td>
+            <td>@khoaDaoTao.tenkhoadaotao</td>
+        </tr>
+        <tr>
+            <td>Môn học:</td>
+            <td>@khoaDaoTao.MonHoc</td>
+        </tr>
+        <tr>
+            <td>Cấp độ:</td>
+            <td>@khoaDaoTao.CapDo</td>
+        </tr>
+        <tr>
+            <td>Khóa đào tạo:</td>
+            <td>@khoaDaoTao.KhoaDaoTao</td>
+        </tr>
+        <tr>
+            <td>Cơ sở đào tạo:</td>
+            <td>@khoaDaoTao.tbl_cosodaotao.tencoso</td>
+        </tr>
+        <tr>
+            <td>Ngày bắt đầu:</td>
+            <td>@khoaDaoTao.ngaybatdau.Value.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <td>Học phí:</td>
+            <td>@khoaDaoTao.hocphi.Value.ToString("#,#")</td>
+        </tr>
+        <tr>
+            <td>Địa điểm:</td>
+            <td>@khoaDaoTao.diadiem</td>
+        </tr>
+        <tr>
+            <td>Theo yêu cầu:</td>
+            <td>@khoaDaoTao.TheoYeuCau</td>
+        </tr>
+        <tr>
+            <td>Giấy chứng nhận:</td>
+            <td>@khoaDaoTao.GiayChungNhan</td>
+        </tr>
+    </table>
+@if (User.IsInRole("EduCenter"))
+{
+    <p>
+        <a href="@Url.Action("CreateMultiple", "tbl_ctdaotao", new { idKhoaDaoTao = khoaDaoTao.id_khoadaotao})" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+
+
+
+        <a href="@Url.Action("InDanhSachRaExcel", "tbl_ctdaotao", new { khoaDaoTaoID = khoaDaoTao.id_khoadaotao})" class="btn btn-info"><i class="fa fa-file-excel-o m-right-xs"></i>Xuất ra Excel</a>
+    </p>
+}
+<table id="ctdaotaoList" class="table table-striped jambo_table border-right">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+               Họ tên
+            </th>
+            <th>Chức danh</th>
+            <th>Năm sinh</th>
+            <th>Nơi sinh</th>
+            <th>Kết quả</th> 
+            <th>Ghi chú</th> 
+            @if (User.IsInRole("EduCenter"))
+            {
+                <th></th>
+            }                 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "tbl_ctdaotao_" + item.id_ctdaotao.ToString();
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChucVu)
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.BirthDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.BirthPlace)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.ketqua)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GhiChu)
+                </td>                  
+                @if (User.IsInRole("EduCenter"))
+                {
+                    <td>
+                        <a href="@Url.Action("Edit", "tbl_ctdaotao", new { id=item.id_ctdaotao })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", "tbl_ctdaotao", new { id=item.id_ctdaotao })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                    </td>
+                }                
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    <style>
+        .bangGiuaTrang{
+            margin: 0 auto;
+        }
+        .bangGiuaTrang tr{
+            padding:20px;
+        }
+        .bangGiuaTrang tr td:first-child{
+            font-style:normal;
+            text-align: right;
+            padding-right: 20px;
+        }
+    </style>
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#ctdaotaoList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets":4
+                },
+                ],
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });        
+    </script>
+}
+
+

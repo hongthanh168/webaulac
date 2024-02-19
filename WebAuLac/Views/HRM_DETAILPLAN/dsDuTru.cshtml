@@ -1,0 +1,102 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_LayDSDuTruTheoKeHoach_Result>
+<table id="tblDuTru" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr> 
+            <th>STT</th>               
+            <th>
+                Họ tên
+            </th>
+            <th>NS</th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                QTĐT
+            </th>
+            <th>
+                TGDT
+            </th>
+            <th>
+                TN
+            </th>
+            <th>ĐĐ</th>
+            <th>Ghi chú</th>
+            <th>Order</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>  
+            <th></th>     
+            <th>
+                Họ tên
+            </th>
+            <th>NS</th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                QTĐT
+            </th>
+            <th>
+                TGDT
+            </th>
+            <th>
+                TN
+            </th>
+            <th>ĐĐ</th>
+            <th>Ghi chú</th>
+            <th>Order</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = item.EmployeeID.ToString();
+            string hoTen = item.FirstName + " " + item.LastName;
+            string thongTin = item.ThongTin;
+            int iOrder = int.Parse(thongTin.Substring(0, 1));
+            if (thongTin.StartsWith("0"))
+            {
+                thongTin = "";
+            }
+            else
+            {
+                thongTin = thongTin.Substring(2);
+            }
+            string namSinh = "";
+            if (item.BirthDay.HasValue)
+            {
+                namSinh = item.BirthDay.Value.Year.ToString();
+            }
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    @hoTen
+                </td> 
+                <td>
+                    @namSinh
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChucVu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QTDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TGDuTru)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThanNhan)
+                </td>
+                <td>                    
+                    @thongTin
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>@iOrder</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WebAuLac.Models.VideoFile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Lịch tàu</text>
+}
+<div class="col-sm-4 col-md-4 col-xs-12">
+
+    <div class="title" style="width:100px;"></div>
+    <div class="video-frame" style="width:900px; height:600px;">
+        <video style="width:900px; height:600px;" controls>
+            <source src="@Url.Content(ViewBag.filePath)" type="video/mp4" />
+        </video>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@*@model IEnumerable<WebAuLac.Models.VideoFile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LichTau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FilePath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LichTau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FilePath)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

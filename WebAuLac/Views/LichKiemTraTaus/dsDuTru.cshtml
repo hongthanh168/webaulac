@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_T_LayNguoiThayThe_Result>
+<table id="tblDuTru" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>            
+            <th>
+                Họ tên
+            </th>
+            <th>NS</th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                QTĐT
+            </th>
+            <th>
+               TGDT
+            </th>
+            <th>
+                TN
+            </th>
+            <th>SSDD</th>
+            <th>Ghi chú SSDD</th>
+            <th>Ghi chú</th>
+        </tr>
+    </thead>    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = item.EmployeeID.ToString();
+            string hoTen = item.FirstName + " " + item.LastName;
+            string ngaySinh = "";
+            string posID = item.PositionID.ToString();
+            if (item.BirthDay.HasValue)
+            {
+                ngaySinh = item.BirthDay.Value.ToString("dd/MM/yyyy");
+            }
+            <tr id="@rowID" data-pos-id="@posID">
+                <td></td>
+                <td>
+                    @hoTen
+                </td>  
+                <td>@ngaySinh</td>              
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChucVu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QTDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TGDuTru)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThanNhan)
+                </td>
+                <td>
+                    @if (item.SSDD.HasValue && item.SSDD.Value)
+                    {
+                        <text>SSĐĐ</text>
+                    }                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GhiChuSSDD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>               
+            </tr>
+        }
+    </tbody>
+
+</table>

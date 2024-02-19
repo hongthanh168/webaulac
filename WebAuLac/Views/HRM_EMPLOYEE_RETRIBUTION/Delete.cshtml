@@ -1,0 +1,65 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE_RETRIBUTION
+
+@{
+    string hoten = Model.HRM_EMPLOYEE.FirstName + " " + Model.HRM_EMPLOYEE.LastName;
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa QĐ này?</h4>
+</div>
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>QĐ khen thưởng của:</th>
+            <td>@hoten</td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RetributionNo):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.RetributionNo)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RetributionDate):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.RetributionDate)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.Reason)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_TYPE_OF_RETRIBUTION.TypeOfRetributionName):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_TYPE_OF_RETRIBUTION.TypeOfRetributionName)
+            </td>
+        </tr>
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+}

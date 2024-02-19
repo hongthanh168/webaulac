@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebAuLac.Models.DIC_POSITION>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Lọc chức danh điều động bậc thang</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-inline">
+            <!--LỌC THEO CHỨC VỤ-->
+            <p class="page-header thongtinchung">
+                Danh sách chức vụ
+            </p>
+            <div>
+                
+                <div class="checkbox">
+                    <label><input type="checkbox" value="0" name="chkPos" id="chkAllChucVu" />TẤT CẢ CHỨC VỤ</label>
+                </div>
+                @foreach (var item in Model)
+                {
+                    if (item.PositionID == ViewBag.SelectedPos)
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="@item.PositionID" name="chkPos" checked>@item.PositionName</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="@item.PositionID" name="chkPos">@item.PositionName</label>
+                        </div>
+                    }
+                }
+
+            </div>          
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lọc
+        </button>
+    </div>
+}

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<WebAuLac.Models.viewHRM_EMPLOYMENTHISTORY>
+@using WebAuLac.Models;
+
+@{
+    ViewBag.Title = "Thông tin crew matrix";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AuLacEntities db = new AuLacEntities();
+    string tieuDe = "THÔNG TIN CREW MATRIX CỦA SỸ QUAN TÀU " + ViewBag.TenTau;
+    int stt = 0;
+}
+
+@section huongdan{
+    <text>@tieuDe</text>
+}
+@if (Model != null)
+{
+    <table id="EmployeesList" class="table table-striped jambo_table border-right">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Họ tên
+                </th>                
+                <th>
+                    NS
+                </th>
+                <th>Chức danh</th>
+                <th>With operator</th>
+                <th>In rank</th>
+                <th>This type of tanker</th>
+                <th>All type of tanker</th>    
+                <th>Watch keeping</th>                     
+            </tr>
+        </thead>
+        <tbody>            
+            @foreach (var item in Model)
+            {
+                HRM_EMPLOYEE person = null;
+                string ngaySinh = "";
+                string hoTen = "";
+                double withOperator = 0;
+                double inRank = 0;
+                double thisType = 0;
+                double allType = 0;
+                double watchKeeping = 0;
+                stt++;
+             <tr>                
+                <td>@stt</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.EmployeeID);
+                    var kq = db.sp_LayThongTinMatrix(item.PositionID, item.EmployeeID).First();
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    if (kq.WithOperator.HasValue)
+                    {
+                        withOperator = (double)kq.WithOperator.Value / 365;
+                    }
+                    if (kq.InRank.HasValue)
+                    {
+                        inRank = (double)kq.InRank.Value / 365;
+                    }
+                    if (kq.ThisTypeOfTanker.HasValue)
+                    {
+                        thisType = (double)kq.ThisTypeOfTanker.Value / 365;
+                    }
+                    if (kq.AllTypeOfTanker.HasValue)
+                    {
+                        allType = (double)kq.AllTypeOfTanker.Value / 365;
+                    }
+                    if (kq.WatchKeeping.HasValue)
+                    {
+                        watchKeeping = (double)kq.WatchKeeping.Value / 365;
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>@item.ChucVu</td>
+                    <td>@withOperator.ToString("N2")</td>
+                    <td>@inRank.ToString("N2")</td>
+                    <td>@thisType.ToString("N2")</td>
+                    <td>@allType.ToString("N2")</td>
+                    <td>@watchKeeping.ToString("N2")</td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")    
+}
+
+
+
+

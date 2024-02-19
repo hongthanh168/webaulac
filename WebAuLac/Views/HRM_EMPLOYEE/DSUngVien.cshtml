@@ -1,0 +1,146 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_T_LayDanhSachNhanVien_Result>
+@using WebAuLac.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AuLacEntities db = new AuLacEntities();
+}
+@section huongdan{
+    <text>DANH SÁCH ỨNG VIÊN</text>
+}
+<p>    
+ <a href="@Url.Action("CreateShort", "HRM_EMPLOYEE")" class="btn btn-primary" data-modal><i class="fa fa-plus m-right-xs"></i>Thêm ứng viên</a>       
+</p>
+@if (Model != null)
+{
+    <table id="EmployeesList" class="table table-striped jambo_table border-right">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Họ
+                </th>
+                <th>
+                    Tên
+                </th>
+                @if (User.IsInRole("Boss") || User.IsInRole("HR"))
+                {
+                    <th>
+                        QH
+                    </th>
+                }
+                <th>
+                    NS
+                </th>                
+                <th>
+                    GCNCM
+                </th>
+                <th>
+                    Trình độ
+                </th>
+                <th>Địa chỉ</th>
+                <th>SĐT</th>
+                @if (User.IsInRole("HR"))
+                {                 
+                    <th style="width:70px;"></th>
+                }  
+                                         
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string rowID = "HRM_EMPLOYEE" + item.EmployeeID.ToString();
+                var person = db.HRM_EMPLOYEE.Find(item.EmployeeID);
+                string ngaySinh = "";
+                if (person.BirthDay.HasValue)
+                {
+                    ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                }
+                <tr id="@rowID">
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    @if (User.IsInRole("Boss") || User.IsInRole("HR"))
+                    {
+                        <td>
+                            <a href="@Url.Action("Details", "tbl_QuanHe", new { id=item.QuanHeID })" data-modal>@Html.DisplayFor(modelItem => item.QuanHeID)</a>
+                        </td>
+                    }
+                    <td>
+                        @ngaySinh
+                    </td>
+                    
+                    <td>
+                        <!--giấy chứng nhận chuyên môn-->
+                        @person.Qualification
+                    </td>
+                    <td>
+                        @if (person.DIC_EDUCATION != null)
+                        {
+                            <text>@person.DIC_EDUCATION.EducationName</text>             
+                        }                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactAddress)                        
+                    </td>
+                    <td>
+                      @person.CellPhone                          
+                    </td>
+                    @if (User.IsInRole("HR"))
+                    {                        
+                        <td style="width:70px;">
+                            @*<a href="@Url.Action("CreateWithEmployee", "HRM_EMPLOYMENTHISTORY", new { EmployeeID=item.EmployeeID })" class="btn btn-success btn-xs" data-modal data-toggle="tooltip" title="Quyết định tuyển dụng"><i class="fa fa-sticky-note-o"></i></a>*@
+                            <a href="@Url.Action("EditShort", "HRM_EMPLOYEE", new { id=item.EmployeeID })" class="btn btn-success btn-xs" data-modal data-toggle="tooltip" title="Sửa thông tin ứng viên"><i class="fa fa-edit"></i></a>
+                            <a href="@Url.Action("DeleteShort", "HRM_EMPLOYEE", new { id=item.EmployeeID })" class="btn btn-danger btn-xs" data-modal data-toggle="tooltip" title="Xóa ứng viên"><i class="fa fa-trash"></i></a>
+                        </td>
+                    }                   
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#EmployeesList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },  
+                ]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        })
+    </script>
+}
+
+
+
+

@@ -1,0 +1,48 @@
+﻿@using WebAuLac.Models;
+@model WebAuLac.Models.DIC_POSITION_DEGREE
+@{ 
+//AuLacEntities db = new AuLacEntities();
+//string posName = "";
+//string deName = "";
+//DIC_POSITION objPos = db.DIC_POSITION.Find(Model.PositionID);
+//DIC_DEGREE objDe = db.DIC_DEGREE.Find(Model.DegreeID);
+//if (objDe != null)
+//{
+//    deName = objDe.DegreeName;
+//}
+//if (objPos != null)
+//{
+//    posName = objPos.PositionName;
+//}
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa bằng cấp theo chức danh này?</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>Chức danh:</th>
+            <td>@Html.DisplayFor(model => model.DIC_POSITION.PositionName)</td>
+        </tr>
+        <tr>
+            <th>Bằng cấp:</th>
+            <td>@Html.DisplayFor(model => model.DIC_DEGREE.DegreeName)</td>
+        </tr>        
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+}
+
+

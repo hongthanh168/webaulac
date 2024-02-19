@@ -1,0 +1,112 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_DETAILSALARY>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HRMSalaryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmploymentHistoryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PositionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceSalary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bonus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceBonus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumOfDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TruKhac)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhuThuoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HRMSalaryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmploymentHistoryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PositionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Position)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceSalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bonus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowanceBonus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumOfDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TruKhac)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhuThuoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GhiChu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.HRMDetailSalaryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HRMDetailSalaryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HRMDetailSalaryID })
+        </td>
+    </tr>
+}
+
+</table>

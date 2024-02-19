@@ -1,0 +1,463 @@
+﻿@{
+    ViewBag.Title = "Lịch kiểm tra tàu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Lịch kiểm tra tàu</text>
+}
+@{
+    IEnumerable<WebAuLac.Models.tableDieuDongBacThang> bangKe = (IEnumerable<WebAuLac.Models.tableDieuDongBacThang>)ViewBag.BangKe;
+
+}
+<div id="ChiTietKeHoach">
+    @if (bangKe != null)
+    {
+        <table class="table table-bordered table-striped table-hover" id="bangKe">
+            <thead>
+                <tr>
+                    <th></th>
+                    @{
+                        List<string> tieuDe = ViewBag.TieuDe;
+                        foreach (string s in tieuDe)
+                        {
+                            <th>@s</th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    //khai báo mảng màu
+                    string[] lightColors = new string[]
+                     {
+                    "#FFD1DC", // lightpink
+                    "#FFFAF0",  // floralwhite
+                    "#FFA07A", // lightsalmon
+                    "#90EE90", // lightgreen
+                    "#20B2AA", // lightseagreen
+                    "#FFFFE0", // lightyellow
+                    "#E0FFFF", // lightcyan
+                    "#FAFAD2", // lightgoldenrodyellow
+                    "#ADD8E6", // lightblue
+                    "#F0FFF0", // honeydew
+                    "#9370DB", // MediumOrchid
+                    "#CD853F", // Peru
+                    "#E6E6FA", // lavender
+                    "#B0C4DE", // lightsteelblue
+                    "#FFE4E1", // mistyrose
+                    "#F08080", // lightcoral
+                    "#FFF0F5", // lavenderblush
+                    "#FFF5EE", // seashell
+                    "#F5FFFA", // mintcream
+                    "#F5F5F5", // whitesmoke
+                    "#D3D3D3", // lightgray
+             };
+
+                    int stt = -1;
+                    int idDept = 0;
+                }
+                @foreach (var item in bangKe)
+                {
+                    if (idDept != item.DepartmentID)
+                    {
+                        stt++;
+                        idDept = item.DepartmentID;
+                    }
+                    <tr>
+                        <td style="background-color: @lightColors[stt];">@item.Description</td>
+                        @{//bắt đầu hiển thị thông tin của các cột
+                            int viTriMerge = 0;
+                            int soCotDuocMerge = 1;
+                            string tenNguoi = "";
+                            for (int i = 1; i <= 21; i++)
+                            {
+                                string s = item.LayGiaTriCot(i);
+                                if (s != null && s != "")
+                                {
+                                    //tách chuỗi
+                                    string[] ss = s.Split('_');
+                                    if (item.Loai == "LICHKIEMTRA")
+                                    {
+                                        int idLich = int.Parse(ss[2]);
+                                        string tenLich = @ss[0] + " " + @ss[1];
+                                        <td style="background-color: @lightColors[stt];" onclick="updateLink(this)">
+                                            @tenLich
+                                            <span class="hidden-value">@idLich</span>
+                                        </td>
+                                    }
+                                    else //loại điều động bậc thang
+                                    {
+                                        //lấy ra số tháng, chính là số cột được merge
+                                        soCotDuocMerge = int.Parse(ss[2]) - 1;
+                                        tenNguoi = ss[0];
+                                        //cột đầu tiên sẽ là cột ghi ngày
+                                        <td style="background-color: @lightColors[stt];">
+                                            @ss[1]
+                                        </td>
+                                    }
+                                }
+                                else //nếu chuỗi của cột là null
+                                {
+                                    if (item.Loai == "LICHKIEMTRA")
+                                    {
+                                        <td></td>
+                                    }
+                                    else //các loại điều động bậc thang khi chuỗi bằng null
+                                    {
+                                        //kiểm tra xem có đang merge hay không?
+                                        if (tenNguoi == "")
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            if (viTriMerge == 0) //cột thứ 2 ngay sau cột tháng
+                                            {
+                                                <td style="background-color: @lightColors[stt]; text-align:center" colspan="@soCotDuocMerge">
+                                                    @tenNguoi
+                                                </td>
+                                            }
+                                            viTriMerge++;
+                                            if (viTriMerge == soCotDuocMerge)
+                                            {
+                                                viTriMerge = 0;
+                                                soCotDuocMerge = 1;
+                                                tenNguoi = "";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<!--Đây là một số chức năng dành cho giám đốc
+    - Ghi chú cho toàn bộ kế hoạch: thêm một điều động mới chẳng hạn
+    - Lọc thuyền viên
+    - Lọc dự trữ
+-->
+<div id="DieuKienChon">
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+        <div class="col-md-12 col-xs-12 text-center">
+            <a id="LocThuyenVien" class="btn btn-info">Lấy tất cả thuyền viên</a>
+            <a href="@Url.Action("GiamDocEdit", "HRM_PLAN", new { id=objPlan.PlanID })" class="btn btn-warning" data-modal><i class="fa fa-edit"></i> Ghi chú kế hoạch</a>
+            @if (objPlan.IsLock.HasValue && objPlan.IsLock.Value)
+            {
+                <a href="@Url.Action("GiamDocBoDuyet", "HRM_PLAN", new { id=objPlan.PlanID })" class="btn btn-success" data-modal><i class="fa fa-edit"></i>Cho phép chỉnh kế hoạch</a>
+            }
+            else
+            {
+                <a href="@Url.Action("GiamDocDuyet", "HRM_PLAN", new { id=objPlan.PlanID })" class="btn btn-success" data-modal><i class="fa fa-edit"></i>Duyệt kế hoạch</a>
+            }
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="noibat">DS THUYỀN VIÊN</p>
+            <div id="ChonThuyenVien">
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="noibat">DS DỰ TRỮ</p>
+            <div id="ChonDuTru">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    @Styles.Render("~/vendors/DataTables/checkbox/css")
+}
+<style>
+    tfoot {
+        display: table-header-group;
+    }
+
+    #ChonThuyenVien div.row:first-child, #ChonDuTru div.row:first-child {
+        display: none;
+    }
+</style>
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/vendors/DataTables/checkbox/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        var tblThuyenVien, tblDuTru;
+        var currentThuyenVien = -1, currentTau = -1; tatCa = 0;
+        function FormatChiTietKeHoach() {
+            //----------thực hiện format danh sách điều động---------------------
+            tblKeHoach = $('#PlanDetailList').DataTable({
+                "info": false,
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "columnDefs": [
+                    { "visible": false, "targets": 0 },
+                    { "visible": false, "targets": 13 }
+                ],
+                "order": [[0, 'asc']],
+                "displayLength": 25,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(0, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group" style="background-color:#fff;color:blue"><td colspan="13">Tàu: <strong>' + group + '</strong></td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData[13] == "1") {
+                        $('td', nRow).css('background-color', 'LightBlue');
+                    }
+                }
+            });
+        }
+        $(document).ready(function () {
+            FormatChiTietKeHoach();
+            //hiển thị danh sách thuyền viên trên tất cả các tàu
+            //nhưng có thông báo thuyền viên nào đã được điều động
+            //$("#loadingImage").show();
+            $.ajax({
+                url: '@Url.Action("dsThuyenVienDieuDong", "HRM_DETAILPLAN", new { PlanID=objPlan.PlanID })',
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    //$("#loadingImage").hide();
+                    $('#ChonThuyenVien').html(result);
+                    FormatDanhSachThuyenVien();
+                }
+            });
+        });
+        $('#LocThuyenVien').on('click', function () {
+            if (tatCa == 1) {
+                tatCa = 0;
+                $('#LocThuyenVien').text('Lấy tất cả thuyền viên');
+            } else {
+                tatCa = 1;
+                $('#LocThuyenVien').text('Lọc thuyền viên đã đi trên 8 tháng');
+            }
+            var url = '@Html.Raw(@Url.Action("GDLocThuyenVien8Thang", "HRM_DETAILPLAN", new { PlanID="plan-id", TatCa="loc-tat-ca"}))'
+              .replace("plan-id", encodeURIComponent(@objPlan.PlanID))
+              .replace("loc-tat-ca", encodeURIComponent(tatCa));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    $('#ChonThuyenVien').html(result);
+                    FormatDanhSachThuyenVien();
+                }
+            });
+        })
+        /* Get the rows which are currently selected */
+        function fnGetSelected(oTableLocal) {
+            return oTableLocal.$('tr.selected');
+        }
+
+        //LẤY DANH SÁCH DỰ TRỮ THEO THUYỀN VIÊN CHỌN Ở TRÊN
+        function LayDanhSachDuTru() {
+            var url = '@Html.Raw(@Url.Action("dsDuTru", "HRM_DETAILPLAN", new { TauID = "tau-id", PlanID="plan-id", ThuyenVienID ="thuyenvien-id"}))'
+              .replace("tau-id", encodeURIComponent(currentTau))
+              .replace("plan-id", encodeURIComponent(@objPlan.PlanID))
+              .replace("thuyenvien-id", encodeURIComponent(currentThuyenVien));
+            //$("#loadingImage").show();
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    //$("#loadingImage").hide();
+                    $('#ChonDuTru').html(result);
+                    FormatDanhSachDuTru();
+                }
+            });
+        }
+        function FormatDanhSachThuyenVien() {
+            //thiết lập phần search
+            $('#tblThuyenVien tfoot th').each(function () {
+                var title = $(this).text().trim();
+                if (title != '') {
+                    switch (title) {
+                        case 'Họ tên':
+                            $(this).html('<input style="width:80px" type="text" placeholder="' + title + '" />');
+                            break;
+                        default:
+                            $(this).html('<input style="width:50px" type="text" placeholder="' + title + '" />');
+                    }
+                } else {
+                    $(this).html('');
+                }
+            });
+
+            //----------thực hiện hiển thị dạng datatable---------------------
+            tblThuyenVien = $('#tblThuyenVien').DataTable({
+                "info": false,
+                "columnDefs": [
+                {
+                    "orderable": false,
+                    "searchable": false,
+                    "className": 'select-checkbox',
+                    "targets": 0
+                },
+                {
+                    className: "col_songay",
+                    "targets": [0]
+                },
+                { "visible": false, "targets": 6 },
+                { "visible": false, "targets":7 }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData[7] == "Đã ĐĐ") {
+                        $('td', nRow).css('background-color', 'LightBlue');
+                    }
+                }
+            });
+            //-------------hết phần hiển thị datatable--------------------
+            //sự kiện click chọn
+            $('#tblThuyenVien tbody').on('click', '.select-checkbox', function (e) {
+                //lấy ra mã thuyền viên được chọn ở đây
+                var $row = $(this).closest('tr');
+                currentThuyenVien = $row.attr('id');
+                currentTau = $row.attr('data-dept-id');
+                //lấy danh sách thuyền viên dự trữ tương ứng
+                LayDanhSachDuTru();
+            });
+            // Apply the search
+            tblThuyenVien.columns().every(function (index) {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    that
+                        .search(this.value)
+                        .draw();
+
+
+                });
+            });
+        }
+
+        function FormatDanhSachDuTru() {
+            //thiết lập phần search
+            $('#tblDuTru tfoot th').each(function () {
+                var title = $(this).text().trim();
+                if (title != '') {
+                    switch(title) {
+                        case 'Họ tên':
+                            $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'Chức danh':
+                            $(this).html('<input style="width:80px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'ĐĐ':
+                            $(this).html('<input style="width:50px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'QTĐT':
+                            $(this).html('<input style="width:130px" type="text" placeholder="' + title + '" />');
+                            break;
+                        default:
+                            $(this).html('<input style="width:50px" type="text" placeholder="' + title + '" />');
+                    }
+
+                } else {
+                    $(this).html('');
+                }
+            });
+            //----------thực hiện hiển thị dạng datatable---------------------
+            tblDuTru = $('#tblDuTru').DataTable({
+                "info": false,
+                "columnDefs": [{
+                    "orderable": false,
+                    "searchable": false,
+                    "targets": 0
+                },
+                {
+                    "visible":false,
+                    "targets": 8
+                }
+                ],
+                "order": [[8, 'asc']]
+            });
+            tblDuTru.on('order.dt search.dt', function () {
+                tblDuTru.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+            //-------------hết phần hiển thị datatable--------------------
+            // Apply the search
+            tblDuTru.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        }
+        function loadFormKeHoach(href) {
+            $('#myModalContent').load(href, function () {
+                // this is the first add
+                $.validator.unobtrusive.parse($('form'));
+                $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true }, $.datepicker.regional["vi"]);
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+                bindFormKeHoach(this);
+            });
+        };
+        function bindFormKeHoach(dialog) {
+            $('form', dialog).submit(function () {
+                var data = $(this).serialize();
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: data,
+                        success: function (result) {
+                            $("#myModal").modal('hide');
+                            //load lại bảng
+                            //hiển thị danh sách chi tiết tại đây
+                            $.ajax({
+                                url: '@Url.Action("ChiTietKeHoach", "HRM_PLAN", new { id=objPlan.PlanID })',
+                                type: 'get',
+                                success: function (result) {
+                                    //load bang thong tin o day
+                                    $('#ChiTietKeHoach').html(result);
+                                    FormatChiTietKeHoach();
+                                }
+                            });
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
+    </script>
+}

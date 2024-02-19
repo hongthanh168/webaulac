@@ -1,0 +1,399 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_T_CrewMatrixTau_Result>
+@using WebAuLac.Models;
+
+@{
+    ViewBag.Title = "Thông tin crew matrix";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AuLacEntities db = new AuLacEntities();
+    string tieuDe = "THÔNG TIN CREW MATRIX CỦA SỸ QUAN TÀU " + ViewBag.TenTau;
+}
+
+@section huongdan{
+    <text>@tieuDe</text>
+}
+<p>    
+    <a target="_blank" href="@Url.Action("CrewMatrixSyQuanTau_Full", "HRM_EMPLOYEE", new {TauID=ViewBag.TauID})" class="btn btn-primary"><i class="fa fa-table m-right-xs"></i>Crew matrix sỹ quan tàu đầy đủ</a>
+    <a href="@Url.Action("XuatExcelCrewMatrixSyQuanTau", "HRM_EMPLOYEE", new { TauID = ViewBag.TauID })" class="btn btn-info"><i class="fa fa-file-excel-o m-right-xs"></i>Xuất excel</a>
+
+</p>
+<table id="EmployeesList" class="table table-striped jambo_table border-right">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Họ tên
+                </th>                
+                <th>
+                    NS
+                </th>
+                <th>Chức danh</th>
+                <th>With operator</th>
+                <th>In rank</th>
+                <th>This type of tanker</th>
+                <th>All type of tanker</th>    
+                <th>Watch keeping</th>                     
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                HRM_EMPLOYEE person = null;
+                string ngaySinh = "";
+                string hoTen = "";
+                sp_T_CrewMatrixTau_Result item = Model.First();
+                sp_LayThongTinMatrix_Result kq = null;
+                double withOperator = 0;
+                double inRank = 0;
+                double thisType = 0;
+                double allType = 0;
+                double watchKeeping = 0;
+            }
+            <tr>
+                <!--thuyền trưởng-->
+                <td>1</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.ThuyenTruongID);
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Thuyền trưởng</td>
+                    <td>@item.WithOperator_ThuyenTruong.Split('_')[1]</td>
+                    <td>@item.InRank_ThuyenTruong.Split('_')[1]</td>
+                    <td>@item.ThisTypeOfTanker_ThuyenTruong.Split('_')[1]</td>
+                    <td>@item.AllTypeOfTanker_ThuyenTruong.Split('_')[1]</td>
+                    <td>@item.WatchKeeping_ThuyenTruong</td>
+                }
+            </tr>
+            <tr>
+                <!--đại phó-->
+                <td>2</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.DaiPhoID);
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Đại phó</td>
+                    <td>@item.WithOperator_DaiPho.Split('_')[1]</td>
+                    <td>@item.InRank_DaiPho.Split('_')[1]</td>
+                    <td>@item.ThisTypeOfTanker_DaiPho.Split('_')[1]</td>
+                    <td>@item.AllTypeOfTanker_DaiPho.Split('_')[1]</td>
+                    <td>@item.WatchKeeping_DaiPho</td>
+                }
+            </tr>
+            <tr>
+                <!--Phó 2-->
+                <td>3</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.Pho2ID);
+                    kq = db.sp_LayThongTinMatrix(22, item.Pho2ID).First();
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    if (kq.WithOperator.HasValue)
+                    {
+                        withOperator = (double)kq.WithOperator.Value / 365;
+                    }
+                    if (kq.InRank.HasValue)
+                    {
+                        inRank = (double)kq.InRank.Value / 365;
+                    }
+                    if (kq.ThisTypeOfTanker.HasValue)
+                    {
+                        thisType = (double)kq.ThisTypeOfTanker.Value / 365;
+                    }
+                    if (kq.AllTypeOfTanker.HasValue)
+                    {
+                        allType = (double)kq.AllTypeOfTanker.Value / 365;
+                    }
+                    if (kq.WatchKeeping.HasValue)
+                    {
+                        watchKeeping = (double)kq.WatchKeeping.Value / 365;
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Phó 2</td>
+                    <td>@withOperator.ToString("N2")</td>
+                    <td>@inRank.ToString("N2")</td>
+                    <td>@thisType.ToString("N2")</td>
+                    <td>@allType.ToString("N2")</td>
+                    <td>@watchKeeping.ToString("N2")</td>
+                }
+            </tr>
+            <tr>
+                <!--Phó 3-->
+                <td>4</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.Pho3ID);
+                    kq = db.sp_LayThongTinMatrix(23, item.Pho3ID).First();
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    if (kq.WithOperator.HasValue)
+                    {
+                        withOperator = (double)kq.WithOperator.Value / 365;
+                    }
+                    if (kq.InRank.HasValue)
+                    {
+                        inRank = (double)kq.InRank.Value / 365;
+                    }
+                    if (kq.ThisTypeOfTanker.HasValue)
+                    {
+                        thisType = (double)kq.ThisTypeOfTanker.Value / 365;
+                    }
+                    if (kq.AllTypeOfTanker.HasValue)
+                    {
+                        allType = (double)kq.AllTypeOfTanker.Value / 365;
+                    }
+                    if (kq.WatchKeeping.HasValue)
+                    {
+                        watchKeeping = (double)kq.WatchKeeping.Value / 365;
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Phó 3</td>
+                    <td>@withOperator.ToString("N2")</td>
+                    <td>@inRank.ToString("N2")</td>
+                    <td>@thisType.ToString("N2")</td>
+                    <td>@allType.ToString("N2")</td>
+                    <td>@watchKeeping.ToString("N2")</td>
+                }
+            </tr>
+            <tr>
+                <!--Máy trưởng-->
+                <td>5</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.MayTruongID);
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Máy trưởng</td>
+                    <td>@item.WithOperator_MayTruong.Split('_')[1]</td>
+                    <td>@item.InRank_MayTruong.Split('_')[1]</td>
+                    <td>@item.ThisTypeOfTanker_MayTruong.Split('_')[1]</td>
+                    <td>@item.AllTypeOfTanker_MayTruong.Split('_')[1]</td>
+                    <td>@item.WatchKeeping_MayTruong</td>
+                }
+            </tr>
+            <tr>
+                <!--máy 2-->
+                <td>6</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.May2ID);
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Máy 2</td>
+                    <td>@item.WithOperator_May2.Split('_')[1]</td>
+                    <td>@item.InRank_May2.Split('_')[1]</td>
+                    <td>@item.ThisTypeOfTanker_May2.Split('_')[1]</td>
+                    <td>@item.AllTypeOfTanker_May2.Split('_')[1]</td>
+                    <td>@item.WatchKeeping_May2</td>
+                }
+            </tr>
+            <tr>
+                <!--máy 3-->
+                <td>7</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.May3ID);
+                    kq = db.sp_LayThongTinMatrix(26, item.May3ID).First();
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    if (kq.WithOperator.HasValue)
+                    {
+                        withOperator = (double)kq.WithOperator.Value / 365;
+                    }
+                    if (kq.InRank.HasValue)
+                    {
+                        inRank = (double)kq.InRank.Value / 365;
+                    }
+                    if (kq.ThisTypeOfTanker.HasValue)
+                    {
+                        thisType = (double)kq.ThisTypeOfTanker.Value / 365;
+                    }
+                    if (kq.AllTypeOfTanker.HasValue)
+                    {
+                        allType = (double)kq.AllTypeOfTanker.Value / 365;
+                    }
+                    if (kq.WatchKeeping.HasValue)
+                    {
+                        watchKeeping = (double)kq.WatchKeeping.Value / 365;
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Máy 3</td>
+                    <td>@withOperator.ToString("N2")</td>
+                    <td>@inRank.ToString("N2")</td>
+                    <td>@thisType.ToString("N2")</td>
+                    <td>@allType.ToString("N2")</td>
+                    <td>@watchKeeping.ToString("N2")</td>
+                }
+            </tr>
+            <tr>
+                <!--Máy 4-->
+                <td>8</td>
+                @{
+                    person = db.HRM_EMPLOYEE.Find(item.May4ID);
+                    kq = db.sp_LayThongTinMatrix(27, item.May4ID).First();
+                    if (person != null)
+                    {
+                        hoTen = person.HoTen;
+                        if (person.BirthDay.HasValue)
+                        {
+                            ngaySinh = person.BirthDay.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngaySinh = "";
+                        }
+                    }
+                    else
+                    {
+                        hoTen = "";
+                    }
+                    if (kq.WithOperator.HasValue)
+                    {
+                        withOperator = (double)kq.WithOperator.Value / 365;
+                    }
+                    if (kq.InRank.HasValue)
+                    {
+                        inRank = (double)kq.InRank.Value / 365;
+                    }
+                    if (kq.ThisTypeOfTanker.HasValue)
+                    {
+                        thisType = (double)kq.ThisTypeOfTanker.Value / 365;
+                    }
+                    if (kq.AllTypeOfTanker.HasValue)
+                    {
+                        allType = (double)kq.AllTypeOfTanker.Value / 365;
+                    }
+                    if (kq.WatchKeeping.HasValue)
+                    {
+                        watchKeeping = (double)kq.WatchKeeping.Value / 365;
+                    }
+                    <td>@hoTen</td>
+                    <td>@ngaySinh</td>
+                    <td>Máy 4</td>
+                    <td>@withOperator.ToString("N2")</td>
+                    <td>@inRank.ToString("N2")</td>
+                    <td>@thisType.ToString("N2")</td>
+                    <td>@allType.ToString("N2")</td>
+                    <td>@watchKeeping.ToString("N2")</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")    
+}
+
+
+
+

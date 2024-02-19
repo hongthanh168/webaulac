@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Lịch kiểm tra tàu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Lịch kiểm tra tàu</text>
+}
+@{
+    IEnumerable<WebAuLac.Models.tableDieuDongBacThang > bangKe = (IEnumerable<WebAuLac.Models.tableDieuDongBacThang>)ViewBag.BangKe;
+
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="text-align:left; margin-bottom:15px;">
+            <div class="form-group">
+                <div>
+                    <a href="@Url.Action("Create", "LichKiemTraTaus")" class="btn btn-primary" data-modal><i class="fa fa-plus m-left-xs"></i>Thêm mới</a>
+                    <a id="btnEdit" href="" class="btn btn-success" data-modal><i class="fa fa-edit"></i>Sửa lịch</a>
+                    <a id="btnDelete" href="" class="btn btn-danger" data-modal><i class="fa fa-trash"></i>Xóa lịch</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}
+@if (bangKe != null)
+{
+
+    <table class="table table-bordered table-striped table-hover" id="bangKe">
+        <thead>
+            <tr>
+                <th></th>
+                @{
+                    List<string> tieuDe = ViewBag.TieuDe;
+                    foreach (string s in tieuDe)
+                    {
+                        <th>@s</th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                //khai báo mảng màu
+                string[] lightColors = new string[]
+                {
+                    "lightpink",
+                    "lightsalmon",
+                    "lightcoral",
+                    "lightseagreen",
+                    "lightgreen",
+                    "lightyellow",
+                    "lightgoldenrodyellow",
+                    "lightcyan",
+                    "lightblue",
+                    "lightsteelblue",
+                    "lightgray",
+                    "MediumOrchid",
+                    "Peru",
+                    "lavender",
+                    "lavenderblush",
+                    "mistyrose",
+                    "mintcream",
+                    "honeydew",
+                    "seashell",
+                    "whitesmoke",
+                    "floralwhite"
+                };
+                int stt = 0;
+            }
+            @foreach (var item in bangKe)
+            {
+            <tr>
+                <td style="background-color: @lightColors[stt];">@item.Description</td>
+                @{
+                    for (int i = 1; i <= 21; i++)
+                    {
+                        string s = item.LayGiaTriCot(i);
+                        if (s != "")
+                        {
+                            //tách chuỗi
+                            string[] ss = s.Split('_');
+                            int idLich = int.Parse(ss[2]);
+                            string noiDung = ss[0] + " " + ss[1];
+                            noiDung = noiDung.Trim();
+                            <td style="background-color: @lightColors[stt];" onclick="updateLink(this)">
+                                @noiDung
+                                <span class="hidden-value">@idLich</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }                    
+                }
+            </tr>
+             stt++;
+            }
+        </tbody>
+    </table>
+}
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    <style type="text/css">
+        .hidden-value {
+            display: none;
+        }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+<script language="javascript">
+            // Hàm cập nhật giá trị href của link khi click vào ô
+            function updateLink(cell) {
+            // Lấy giá trị ẩn từ biến ẩn trong ô
+            var hiddenValue = cell.querySelector('.hidden-value').textContent;
+
+            // Cập nhật href của link với giá trị từ ô
+            var linkDel = document.getElementById('btnDelete');
+            var urlDel = '@Html.Raw(@Url.Action("Delete", "LichKiemTraTaus", new { id="kt-id"}))'
+            .replace("kt-id", encodeURIComponent(hiddenValue));
+            linkDel.href = urlDel;
+            var linkEdit = document.getElementById('btnEdit');
+            var urlDel = '@Html.Raw(@Url.Action("Edit", "LichKiemTraTaus", new { id="kt-id"}))'
+            .replace("kt-id", encodeURIComponent(hiddenValue));
+             linkEdit.href = urlDel;
+        }
+</script>
+}

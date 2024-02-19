@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>QL Nhân sự Âu Lạc</title>
+
+    <!-- Bootstrap and Au Lac theme-->
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Font Awesome -->
+    @Styles.Render("~/vendors/fontawesome/css")
+
+    <link href="@Url.Content("~/Content/themes/base/all.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/vendors/fontawesome/css/font-awesome.min.css")" rel="stylesheet" />
+    <!--Đoạn này dành cho chức năng chọn text search trong drop-->
+    <link href="@Url.Content("~/Content/bootstrap-select.min.css")" rel="stylesheet" />
+
+    <style type="text/css">
+        .table.no-border tr td, .table.no-border tr th {
+            border-width: 0;
+        }
+
+        .table.no-border th {
+            width: 30%;
+        }
+        /*bảng có cột kẻ ngang*/
+        .jambo_table.border-right tr td {
+            border-right: 1px solid rgba(221, 221, 221, 0.78);
+        }
+
+            .jambo_table.border-right tr td:last-child {
+                border-right: none;
+            }
+        /*bảng action*/
+        .action-table tr td:first-child {
+            width: 20px;
+        }
+
+        .action-table tr td:last-child {
+            width: 70px;
+            text-align: center;
+        }
+        /*require field*/
+        .required:after {
+            content: " *";
+            color: #f00;
+        }
+        /*nút trong bảng*/
+        .table .btn {
+            margin-right: 0px;
+        }
+        /*textare*/
+        .width-textarea{
+            max-width: 200px /* whatever you please */ !important
+        }
+    </style>
+    @RenderSection("Styles", false)
+
+</head>
+
+<body>
+    <!--PHẦN DÀNH CHO HIỂN THỊ MODAL-->
+    <div id='myModal' class='modal fade in'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
+    </div>
+
+    <div id='myModalLarge' class='modal fade in'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div id='myModalContentLarge'></div>
+            </div>
+        </div>
+    </div>
+
+    <!--HẾT PHẦN DÀNH CHO HIỂN THỊ MODAL-->
+    <!--DANG NHAP, DANG XUAT-->
+    <div class="container-fluid text-right">
+        @Html.Partial("_LoginPartial")
+    </div>
+    <!--HET PHAN DANG NHAP, DANG XUAT-->
+    <!--LOGO VA TIEU DE CUA PHAN MEM-->
+    <div class="container text-center logo">
+        <div class="row">
+            <div class="col-md-3"><img src="~/images/logo.png" height="66px"></img></div>
+            <div class="col-md-9"><h3 class="title">PHẦN MỀM QUẢN LÝ</h3></div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <section class="menu-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="navbar-collapse collapse ">
+                                <ul id="menu-top" class="nav navbar-nav navbar-right">
+                                    <li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
+                                    @if (User.IsInRole("HR") || User.IsInRole("Boss") || User.IsInRole("Luong"))
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
+                                                Nhân viên
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("DS nhân viên", "Index", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS ứng viên", "DSUngVien", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("Lập Quyết định Tuyển dụng", "IndexTuyenDung", "QuyetDinhTuyenDung")</li>
+                                                <li>@Html.ActionLink("Lập Quyết định Nghỉ việc", "IndexNghiViec", "QuyetDinhNghiViec")</li>
+                                                <li>@Html.ActionLink("Lập Quyết định kỷ luật", "Index", "QuyetDinhKyLuat")</li> 
+                                                <li>@Html.ActionLink("Hủy kết quả Tuyển dụng", "IndexHuyKetQuaTuyenDung", "HuyKetQuaTuyenDung")</li> 
+                                                <li>@Html.ActionLink("Xác nhận hồ sơ gốc", "Index", "HRM_EMPLOYMENTHISTORY_GOC")</li> 
+                                                <li>@Html.ActionLink("Danh mục Lương", "Index", "DIC_SALARY_DEPARTMENT")</li> 
+                                                @if (User.IsInRole("Luong"))
+                                                {
+                                                    <li>@Html.ActionLink("Tiền lương", "Index", "HRM_SALARY")</li>
+                                                }                                                
+                                            </ul>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("DS nhân viên", "Index", "HRM_EMPLOYEE")</li>
+                                    }                                    
+                                    <li>@Html.ActionLink("DS thuyền viên", "DSThuyenVien", "HRM_EMPLOYEE")</li>
+                                    @if (User.IsInRole("Boss"))
+                                    {
+                                        <li>@Html.ActionLink("Duyệt KH điều động", "IndexGiamDoc", "HRM_PLAN")</li>
+                                    }
+                                    else
+                                            if (User.IsInRole("EduCenter"))
+                                            {
+                                                <li class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                        Điều động thuyền viên
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>@Html.ActionLink("Lập kế hoạch", "Index", "HRM_PLAN")</li>
+                                                        <li>@Html.ActionLink("Lập quyết định điều động", "IndexQuyetDinh", "HRM_PLAN")</li>
+                                                        <li>@Html.ActionLink("Xác nhận thực hiện KH", "IndexXacNhan", "HRM_PLAN")</li>
+                                                    </ul>
+                                                </li>
+                                    } 
+                                    
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            Kiểm soát bằng cấp
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Cảnh báo Passport", "IndexPassport", "HRM_BangCapHetHan")</li>
+                                            <li>@Html.ActionLink("Bằng cấp hết hạn của thuyền viên", "Index", "HRM_BangCapHetHan")</li>
+                                            <li>@Html.ActionLink("Bằng cấp hết hạn của nhân viên", "Index_NhanVien", "HRM_BangCapHetHan")</li>
+                                            @*<li>@Html.ActionLink("Nhập bằng cấp", "Index", "HRM_KiemTraBangCap")</li>*@
+                                        </ul>
+                                    </li>                                       
+                                    
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            Hồ sơ pháp lý
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Hồ sơ công ty", "Index", "HoSoCongTy")</li>
+                                            <li>@Html.ActionLink("Danh sách tàu", "DSTau", "HoSoTau")</li>
+                                            <li>@Html.ActionLink("Danh mục hồ sơ tàu", "Index", "ChungChiTau")</li>
+                                            <li>@Html.ActionLink("Hồ sơ tàu", "DSChungChiTau", "HoSoTau")</li>
+                                            <li>@Html.ActionLink("Lịch kiểm tra năm", "Index", "LichKiemTras")</li>
+                                            <li>@Html.ActionLink("Bảng theo dõi giấy tờ", "TheoDoiGiayToTau", "HoSoTau")</li>
+                                        </ul>
+                                    </li>
+
+                                    @if (User.IsInRole("EduCenter") || User.IsInRole("HR") || User.IsInRole("Boss") || User.IsInRole("DaoTao"))
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                Đào tạo
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Cơ sở đào tạo", "Index", "tbl_cosodaotao")</li>
+                                                <li>@Html.ActionLink("Khóa đào tạo", "Index", "tbl_khoadaotao")</li>                                                
+                                                <li>@Html.ActionLink("TK theo thời gian - Nhân viên", "ThongKeTuNgayDenNgayNhanVien", "ThongKeDaoTao")</li>
+                                                <li>@Html.ActionLink("TK theo thời gian - Thuyền viên", "ThongKeTuNgayDenNgayThuyenVien", "ThongKeDaoTao")</li>
+                                                <li>@Html.ActionLink("Thống kê theo nhân viên", "ThongKeCaNhan", "ThongKeDaoTao")</li>
+                                               
+                                            </ul>
+                                        </li>
+
+                                    }
+                                    
+                                     @if (1==1)
+                                     {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                 Lịch tàu
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Lịch tàu", "Index", "VideoFiles")</li>   
+                                                <li>@Html.ActionLink("Điều động bậc thang", "DieuDongBacThang", "LichKiemTraTaus")</li>
+                                            </ul>
+                                        </li>
+                                     }     
+
+
+                                    @if (1 == 1)
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                               Báo cáo
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("DS Sinh nhật", "SinhNhat", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS tuyển dụng nhân viên văn phòng", "ThongKeNVienTuyenDung", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS bổ nhiệm nhân viên văn phòng", "ThongKeBoNhiemNV", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS nhân viên nghỉ việc", "ThongKeNVienNghiViec", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS kỷ luật nhân viên văn phòng", "ThongKeKyLuatNV", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS tuyển dụng thuyền viên", "ThongKeTVienTuyenDung", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS bổ nhiệm thuyền viên", "ThongKeBoNhiemTV", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS thuyền viên nghỉ việc", "ThongKeTVienNghiViec", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS kỷ luật thuyền viên", "ThongKeKyLuatTV", "HRM_EMPLOYEE")</li>
+                                                <li>@Html.ActionLink("DS nhân viên theo ngày", "Index", "DanhSachThuyenVienTheoNgay")</li>
+                                                <li>@Html.ActionLink("DS thuyền viên sắp và hết hạn hợp đồng", "Index", "ThongKeHetHanHopDong")</li>
+                                                <li>@Html.ActionLink("DS thân nhân", "Index", "ThongKeDSThanNhan")</li>
+                                                @*<li>@Html.ActionLink("DS thuyền viên hủy tuyển dụng", "ThongKeHuyKetQuaTuyenDung", "HRM_EMPLOYEE")</li>*@
+                                                <li>@Html.ActionLink("Thống kê bằng cấp", "ThongKeBangCap", "ThongKeDaoTao")</li>
+                                                <li>@Html.ActionLink("Thống kê theo loại chức danh", "ThongKeTheoLoaiChucDanh", "ThongKeDaoTao")</li>
+
+                                            </ul>
+                                        </li>
+                                    }
+                                    
+
+                                    
+                                                       
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quản lý danh mục <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Phòng ban", "Index", "jsTree")</li>
+                                                <li>@Html.ActionLink("Chức danh", "Index", "DIC_POSITION")</li>
+                                                <li>@Html.ActionLink("Bằng cấp", "Index", "DIC_DEGREE")</li>
+                                                <li>@Html.ActionLink("Bằng cấp theo chức danh", "DSChucDanh", "DIC_POSITION_DEGREE")</li>
+                                                <li>@Html.ActionLink("Trình độ học vấn", "Index", "DIC_EDUCATION")</li>
+                                                <li>@Html.ActionLink("Trường học", "Index", "DIC_SCHOOL")</li>
+                                                <li>@Html.ActionLink("Quan hệ gia đình", "Index", "DIC_RELATIVE")</li>
+                                                <li>@Html.ActionLink("Quan hệ thân nhân", "Index", "tbl_QuanHe")</li>                                                
+                                                <li>@Html.ActionLink("Loại hợp đồng", "Index", "DIC_CONTRACTTYPE")</li>
+                                                <li>@Html.ActionLink("Quốc tịch", "Index", "DIC_NATIONALITY")</li>
+                                                <li>@Html.ActionLink("Tôn giáo", "Index", "DIC_RELIGION")</li>
+                                                <li>@Html.ActionLink("Phân loại kiểm tra", "Index", "LoaiKiemTras")</li>
+                                                <li>@Html.ActionLink("Loại khen thưởng", "Index", "DIC_TYPE_OF_RETRIBUTION")</li>
+                                                <li>@Html.ActionLink("Loại kỷ luật", "Index", "DIC_TYPE_OF_DISCIPLINE")</li>
+                                                <li>@Html.ActionLink("Tiêu chuẩn crew matrix", "Index", "TieuChuanCrewMatrices")</li>
+                                                <li>@Html.ActionLink("Hệ đào tạo", "Index", "HeDaoTao")</li>
+                                                <li>@Html.ActionLink("Trình độ anh văn", "Index", "TrinhDoAnhVan")</li>
+                                                <li>@Html.ActionLink("Trình độ vi tính", "Index", "TrinhDoViTinh")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-users"></i> Quản lý người dùng <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Quản lý người dùng", "Index", "Account")</li>
+                                                <li>@Html.ActionLink("Quản lý nhóm", "Index", "HRM_ROLE")</li>
+                                                <li>@Html.ActionLink("Quản lý Role", "Index", "Roles")</li>
+                                            </ul>
+                                        </li>
+                                    }
+
+                                                                   
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- /.navbar-top-links -->
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="page-header thongtinchung">
+                            @RenderSection("huongdan", false)
+                        </p>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!--FOOTER-->
+    <div class="container-fluid footer">
+        <div class="footerText text-center">
+            Copyright © 2017 by Au Lac
+        </div>
+    </div>
+    <!--/FOOTER-->
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+    <!-- Bootstrap -->
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- Custom Theme Scripts -->
+    <script src="@Url.Content("~/Scripts/bootstrap-select.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/thanh_utilities.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.inputmask.bundle.js")"></script>
+    <script src="@Url.Content("~/Scripts/waitingAjax.js")"></script>
+    @RenderSection("scripts", required: false)    
+</body>
+
+</html>

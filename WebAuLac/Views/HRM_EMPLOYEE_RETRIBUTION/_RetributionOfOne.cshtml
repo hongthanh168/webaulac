@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_RETRIBUTION>
+
+<p>
+    <button class="btn btn-primary" onclick="HienThiModal('@Url.Action("CreateOne", "HRM_EMPLOYEE_RETRIBUTION",new { EmployeeID=ViewBag.EmployeeID})', 'tab_content6')"><i class="fa fa-plus m-right-xs"></i>Thêm mới</button>
+</p>
+<table id="EmployeeRetributionList" class="table table-bordered action-table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.RetributionNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RetributionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfRetributionID)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int stt = 0;
+        }
+        @foreach (var item in Model)
+        {
+            stt = stt + 1;
+            string rowID = "HRM_EMPLOYEE_RETRIBUTION_" + item.EmployeeRetributionID.ToString();
+            <tr id="@rowID">
+                <td>@stt</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RetributionNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RetributionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_TYPE_OF_RETRIBUTION.TypeOfRetributionName)
+                </td>
+                <td>
+                    <a href="#" onclick="HienThiModal('@Url.Action("Edit",  "HRM_EMPLOYEE_RETRIBUTION",new { id=item.EmployeeRetributionID})', 'tab_content7')" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="HienThiModal('@Url.Action("Delete",  "HRM_EMPLOYEE_RETRIBUTION",new { id=item.EmployeeRetributionID})', 'tab_content7')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

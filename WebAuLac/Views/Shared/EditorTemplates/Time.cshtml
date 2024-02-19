@@ -1,0 +1,10 @@
+﻿@model  DateTime?
+@{ 
+    string thoiGian = "";
+    string name = ViewData.TemplateInfo.HtmlFieldPrefix;
+    if (Model.HasValue)
+    {
+        thoiGian = Model.Value.Hour.ToString("00") + ":" + Model.Value.Minute.ToString("00");
+    }
+}
+<input name="@name" type="text" class="form-control" value="@thoiGian" data-inputmask="'mask': '99:99'" data-val="true" data-val-validtime="Bạn phải nhập thời gian dạng giờ:phút"/>

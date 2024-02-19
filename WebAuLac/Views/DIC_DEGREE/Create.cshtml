@@ -1,0 +1,51 @@
+﻿@model WebAuLac.Models.DIC_DEGREE
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới chức danh</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DegreeName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DegreeName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DegreeName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Unclos, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Unclos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Unclos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.WarningBefore, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.WarningBefore, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WarningBefore, "", new { @class = "text-danger" })
+                </div>
+            </div>  
+        </div>
+    </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+                <i class="fa fa-ban"></i> Hủy
+            </button>
+            <button class="btn btn-success" type="submit" onclick="postData()">
+                <i class="fa fa-save"></i> Lưu thông tin
+            </button>
+        </div>
+}

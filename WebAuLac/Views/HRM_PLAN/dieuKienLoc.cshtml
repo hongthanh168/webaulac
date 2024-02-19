@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WebAuLac.Models.DIC_POSITION>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Điều kiện để lọc danh sách thuyền viên dự trữ</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-inline">
+            <!--LỌC THEO CHỨC VỤ-->
+            <p class="page-header thongtinchung">
+                Danh sách chức vụ
+            </p>
+            <div>
+                @if (ViewBag.SelectedPos == -1)
+                {
+                    <!--lọc lấy tất cả-->
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="0" name="chkPos" id="chkAllChucVu" checked />TẤT CẢ</label>
+                    </div>
+                    foreach (var item in Model)
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="@item.PositionID" name="chkPos" disabled="true">@item.PositionName</label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="0" name="chkPos" id="chkAllChucVu" />TẤT CẢ CHỨC VỤ</label>
+                    </div>
+                    foreach (var item in Model)
+                    {
+                        if (item.PositionID == ViewBag.SelectedPos)
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="@item.PositionID" name="chkPos" checked>@item.PositionName</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="@item.PositionID" name="chkPos">@item.PositionName</label>
+                            </div>
+                        }
+                    }
+                }
+
+            </div>
+            <!--LỌC THEO ĐIỀU KIỆN DỰ TRỮ-->
+            <p class="page-header thongtinchung">
+                Loại dự trữ
+            </p>
+            <div class="checkbox">
+                <label><input type="checkbox" value="0" name="chkLoaiDuTru" id="chkAllDuTru" checked />TẤT CẢ THUYỀN VIÊN DỰ TRỮ</label>
+            </div>
+            @foreach (WebAuLac.Models.DIC_DEPARTMENT item in ViewBag.LoaiDuTru)
+            {
+                <div class="checkbox">
+                    <label><input type="checkbox" value="@item.DepartmentID" name="chkLoaiDuTru" disabled="true">@item.DepartmentName</label>
+                </div>
+            }
+            <!--LỌC THEO SỐ NGÀY DỰ TRỮ-->
+            <p class="page-header thongtinchung">
+                Số tháng dự trữ
+            </p>
+            <div class="form-group">
+                <label class="control-label">Từ:</label>
+                <input class="form-control text-box single-line"
+                       data-val="true"
+                       data-val-number="Chỉ được nhập số."
+                       data-val-regex="Chỉ được nhập số."
+                       data-val-regex-pattern="([0-9]+)"
+                       id="soThangTu" name="soThangTu" type="text" value="0">
+                <span class="field-validation-valid text-danger"
+                      data-valmsg-for="SoThangTu" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Đến:</label>
+                <input class="form-control text-box single-line"
+                       data-val="true"
+                       data-val-number="Chỉ được nhập số."
+                       data-val-regex="Chỉ được nhập số."
+                       data-val-regex-pattern="([0-9]+)"
+                       id="soThangDen" name="soThangDen" type="text" value="0">
+                <span class="field-validation-valid text-danger"
+                      data-valmsg-for="SoThangDen" data-valmsg-replace="true"></span>
+            </div>
+
+            <input type="hidden" value="@ViewBag.DepartmentID" name="DepartmentID" />
+            <input type="hidden" value="@ViewBag.PlanID" name="PlanID" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lọc
+        </button>
+    </div>
+}

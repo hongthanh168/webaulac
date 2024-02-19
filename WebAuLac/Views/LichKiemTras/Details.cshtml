@@ -1,0 +1,59 @@
+﻿@model WebAuLac.Models.LichKiemTra
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LichKiemTra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Thang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Thang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ngay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ngay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiKiemTra.TenLoaiKiemTra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiKiemTra.TenLoaiKiemTra)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LichKiemTraID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

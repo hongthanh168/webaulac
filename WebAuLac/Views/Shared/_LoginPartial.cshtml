@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@using WebAuLac.Models;
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        AuLacEntities db = new AuLacEntities();
+        AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
+        string tenDangNhap = "";// user.FirstName + " " + user.LastName;
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Người đăng nhập: " + tenDangNhap, "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

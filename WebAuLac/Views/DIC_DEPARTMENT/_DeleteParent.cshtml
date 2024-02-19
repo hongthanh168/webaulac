@@ -1,0 +1,14 @@
+﻿@model WebAuLac.Models.DIC_DEPARTMENT
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Xóa phòng ban</h4>
+</div>
+<div class="modal-body">
+    <p><strong>@Model.DepartmentName</strong> đang bao gồm một số phòng ban trực thuộc nên không thể xóa.
+    <br/>
+    Bạn chỉ có thể xóa các phòng ban không có phòng ban trực thuộc.
+    </p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" data-dismiss="modal">OK</button>
+</div>

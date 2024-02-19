@@ -1,0 +1,147 @@
+﻿@model IEnumerable<WebAuLac.Models.tbl_khoadaotao>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>Danh sách Khóa đào tạo</text>
+}
+
+<p>
+    <a data-modal href="@Url.Action("Create", "tbl_khoadaotao")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+</p>
+
+<table id="khoadaotaoList" class="table table-striped jambo_table border-right">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.tenkhoadaotao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonHoc)
+            </th>            
+            <th>
+                Cơ sở đào tạo
+            </th>
+            <th>
+                Bắt đầu
+            </th>
+            <th>
+                Kết thúc
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hocphi)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.TheoYeuCau)
+            </th>
+            @if (User.IsInRole("EduCenter"))
+            {
+                <th>
+                </th>
+            }            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "tbl_khoadaotao_" + item.id_khoadaotao.ToString();
+            string tuNgay = "";
+            string denNgay = "";
+            string spanTuNgay = "";
+            string spanDenNgay = "";
+            if (item.ngaybatdau.HasValue)
+            {
+                tuNgay = item.ngaybatdau.Value.ToString("dd/MM/yyyy");
+                spanTuNgay = item.ngaybatdau.Value.ToString("yyyyMMdd");
+            }
+            if (item.NgayKetThuc.HasValue)
+            {
+                denNgay = item.NgayKetThuc.Value.ToString("dd/MM/yyyy");
+                spanDenNgay = item.NgayKetThuc.Value.ToString("yyyyMMdd");
+            }
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Details", "tbl_khoadaotao", new { id=item.id_khoadaotao })">@Html.DisplayFor(modelItem => item.tenkhoadaotao)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonHoc)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_cosodaotao.tencoso)
+                </td>
+                <td>
+                    <span>@spanTuNgay</span>@tuNgay
+                </td>
+                <td>
+                    <span>@spanDenNgay</span>@denNgay
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hocphi)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.TheoYeuCau)
+                </td>
+                @if (User.IsInRole("EduCenter"))
+                {
+                    <td>
+                        <a href="@Url.Action("Edit", "tbl_khoadaotao", new { id=item.id_khoadaotao })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", "tbl_khoadaotao", new { id=item.id_khoadaotao })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                    </td>
+                }               
+                
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    <style>
+        #khoadaotaoList span {
+            display: none;
+        }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#khoadaotaoList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                ],
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        $('#khoadaotaoList tr').dblclick(function () {
+            var id = $(this).attr('id');
+            id = id.replace('tbl_khoadaotao_', '');
+            var url = '@Url.Action("Details", "tbl_khoadaotao", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+        })
+    </script>
+}

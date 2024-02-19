@@ -1,0 +1,212 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE_DEGREE
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới bằng cấp</h4>
+   
+</div>
+
+
+
+
+
+@using (Ajax.BeginForm("CreateOne", "HRM_EMPLOYEE_DEGREE1", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "resultArea" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.EmployeeID)
+
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    <b>Họ tên</b>
+                </div>
+                <div class="col-md-4">
+                    @ViewBag.HoTen
+                </div>
+                <div class="col-md-6">
+                    @{
+                        if (ViewBag.Photo != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(ViewBag.Photo);
+                            string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                            <img src="@imageSrc" class="img-thumbnail avatar-view" width="80px" height="80px" />
+                        }
+                        else
+                        {
+                            <img class="img-thumbnail avatar-view" src="~/images/user.png" alt="Avatar">
+
+                        }
+                    }
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    <b>Ngày sinh</b>
+                </div>
+                <div class="col-md-4">
+                    @ViewBag.NgaySinh
+                </div>
+                <div class="control-label col-md-2">
+                    <b>Nơi sinh</b>
+                </div>
+                <div class="col-md-4">
+                    @ViewBag.NoiSinh
+                </div>
+
+
+            </div>
+            <div class="form-group">
+               
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DegreeID, "Bằng cấp", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DegreeID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DegreeID, "", new { @class = "text-danger" })
+                </div>
+               
+            </div>
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    <b>Quy tắc</b>
+                </div>
+                <div class="col-md-4">
+                    <input style="width:100%" type="text" name="txtRule" id="txtRule" onkeypress="handle(event)" />
+                </div>
+                <text>Nhập quy tắc vào ô quy tắc và bấm Enter để kiểm tra quy tắc có đúng không.</text>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DegreeNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.DegreeNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DegreeNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DegreeDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.DegreeDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DegreeDate, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+               
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PositionID, "Chức vụ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownList("PositionID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PositionID, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.SchoolID, "Trường", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownList("SchoolID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SchoolID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+               
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsBC, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsBC)
+                        @Html.ValidationMessageFor(model => model.IsBC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+        <div>@ViewBag.ThongBao</div>
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+                        }
+<script type="text/javascript">
+
+    function handle(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault(); // Ensure it is only this code that rusn
+            TestRules($("#DegreeID").val(), $("#txtRule").val());
+          //  alert("Enter was pressed was presses");
+        }
+    }
+
+    function TestRules(DegreeID, rules) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("TestRules", "HRM_EMPLOYEE_DEGREE1")',
+            data: "{'DegreeID':'" + DegreeID + "', 'rule':'" + rules + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                //   $('#ddlRegion').get(0).options.length = 0;
+                //    $('#ddlRegion').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    //Lấy dữ liệu và so sánh
+                    if (item.Unclos == rules) {
+                        alert("Bằng cấp đúng");
+                    }
+                   else
+                        alert("Kiểm tra lại bằng cấp. Dữ liệu đúng là: (" +item.Unclos + ")")
+                    //$('#Coefficient').val(item.Coefficient);
+                    //$('#Salary').val(item.Salary);
+                    //$('#CoefficientIns').val(item.CoefficientIns);
+                    //$('#SalaryIns').val(item.SalaryIns);
+                    //    $('#ddlRegion').get(0).options[$('#ddlRegion').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Có lỗi xảy ra");
+            }
+        });
+    }
+    //$(document).ready(function () {
+
+    //    $("#btntestRule").click(function () {
+    //        TestRules($("#DegreeID").val(), $('#Rules').val());
+    //    });
+
+
+
+
+    //});
+
+</script>

@@ -1,0 +1,386 @@
+﻿@*@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE>*@
+@model dynamic
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>DANH SÁCH CÁC BẰNG CẤP HẾT HẠN, SẮP HẾT HẠN VÀ SAI THÔNG TIN CỦA THUYỀN VIÊN</text>
+  
+
+}
+<!--Lọc theo bằng cấp-->
+<form class="form-inline">
+    <div class="form-group">
+        <label class="control-label">Lọc loại bằng cấp:</label>
+        <select id="dropdownBangCap" class="form-control">
+           
+            <option value="0">Hết hạn</option>
+            <option value="1">Sắp hết hạn</option>
+             
+            <option value="4">Sai thông tin</option>
+        </select>
+    </div>
+       <div class="form-group">
+        <button id="btnExcel" class="btn btn-success"><i class="fa fa-file-excel-o m-right-xs"></i>Xuất danh sách ra file Excel</button>
+    </div> 
+
+</form>
+@using (Html.BeginForm("Index", "HRM_BangCapHetHan"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-inline">
+        <div class="row" style="margin-bottom:15px; text-align:center">
+            <div class="form-group">
+                <label class="control-label">Lọc hồ sơ sẽ hết hạn trong số tháng tới:</label>
+                <input name="soThangHetHan" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning" style="margin-bottom:0px" id="XemThongTin">Xem</button>
+            </div>
+        </div>
+    </div>
+
+}
+    <!-- modal placeholder-->
+    <table id="EmployeesList1" class="display table table-striped jambo_table border-right action-table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkall">
+                </th>
+                 
+                <th>
+                    Họ tên
+                </th>
+                <th>
+                    Ngày sinh
+                </th>
+
+                <th>
+                    Nơi sinh
+                </th>
+                <th>
+                    Chức danh
+                </th>
+                <th>
+                    Phòng ban
+                </th>
+                <th>
+                    Tên bằng
+                </th>
+                <th>
+                    Số bằng
+                </th>
+                <th>
+                    NCấp
+                </th>
+                <th>
+                    NHHạn
+                </th>
+                <th>
+                    Trường hợp
+                </th>
+                <th>
+                    Mã
+                </th>
+
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Họ tên</th>
+                <th>Ngày sinh
+                </th>
+                <th>Nơi sinh
+                </th>
+                <th>Chức danh
+                </th>
+                <th>Phòng ban
+                </th>
+                <th>Tên bằng
+                </th>
+                <th>Số bằng
+                </th>
+                <th>NCấp
+                </th>
+                <th>NHHạn
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string rowID = item.EmployeeID.ToString();
+                string ngaySinh = "";
+                if (item.BirthDay != null)
+                {
+                    ngaySinh = item.BirthDay.ToString("dd/MM/yyyy");
+                }
+
+                @*<tr id="@rowID" class="@(item.TH ? "co" : "khong")">*@
+                <tr id="@rowID" >
+                    <td></td>
+                    <td>
+                        @item.EmployeeName
+                    </td>
+                    <td>
+                        @ngaySinh
+                    </td>
+                    <td>
+                        @item.BirthPlace
+
+                    </td>
+
+                    <td>
+                        @item.PositionName
+
+                    </td>
+                    <td>
+                        @item.DepartmentName
+
+                    </td>
+                    <td>
+                        @item.DegreeName
+                    </td>
+                    <td>
+                        @item.DegreeNo
+                    </td>
+                    <td>
+                        @item.DegreeDate
+                    </td>
+                    <td>
+                        @item.ExpirationDate
+                    </td>
+
+                    <td>
+                        @item.TH
+                    </td>
+                    <td>
+                        @item.EmployeeID | @item.DegreeID
+                    </td>
+                    @*<td>
+                    <a href="@Url.Action("Employees", "HRM_EMPLOYEE_DEGREE1", new { EmployeeID=item.EmployeeID })" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+
+                </td>*@
+                </tr>
+                }
+            </tbody>
+
+    </table>
+
+ 
+   
+    @section Styles{
+        @Styles.Render("~/vendors/DataTables/css")
+        @Styles.Render("~/vendors/DataTables/Buttons/css")
+        <style>
+            .co {
+                color: blue !important;
+                /*background: yellow !important;*/
+            }
+
+            .khong {
+                color: red !important;
+                /*background: violet !important;*/
+            }
+        </style>
+    }
+    @section scripts{
+        @Scripts.Render("~/vendors/DataTables/js")
+        @Scripts.Render("~/vendors/DataTables/Buttons/js")
+        @Scripts.Render("~/bundles/jqueryval")
+        <!--modal form-->
+        @Scripts.Render("~/bundles/modalform")
+        <style>
+            tfoot {
+                display: table-header-group;
+            }
+        </style>
+        <script language="javascript">
+
+            $(document).ready(function () {
+                $('#EmployeeID').addClass('selectpicker');
+                $('#EmployeeID').attr('data-live-search', 'true');
+                $('#EmployeeID').selectpicker('refresh');
+                //var t = $('#EmployeesList1').DataTable({
+                //    "language": {
+                //        "url": "/vendors/DataTables/langs/Vietnamese.json"
+                //    },
+                //    "columnDefs": [{
+                //        "searchable": false,
+                //        "orderable": false,
+                //        "targets": 0
+                //    },
+
+                //    {
+                //        "searchable": false,
+                //        "orderable": false,
+                //        "targets": 5
+                //    },
+                //     {
+
+                //         "visible": false,
+                //         "targets": 10
+                //     },
+                //    ]
+                //});
+                //t.on('order.dt search.dt', function () {
+                //    t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                //        cell.innerHTML = i + 1;
+                //    });
+                //}).draw();
+                // Setup - add a text input to each footer cell
+                    $('#EmployeesList1 tfoot th').each(function () {
+                        var title = $(this).text();
+                        if (title != '') {
+                            $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+                        } else {
+                            $(this).html('');
+                        }
+                        // $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+                    });
+
+                    // DataTable
+                    var table = $('#EmployeesList1').DataTable({
+
+                        "columnDefs": [{
+                            "searchable": false,
+                            "orderable": false,
+                            "className": 'select-checkbox',
+                            "targets": 0
+                        },
+
+                                {
+                                    "searchable": false,
+                                    "orderable": false,
+                                    "targets": 11
+                                },
+                                 {
+
+                                     "visible": false,
+                                     "targets": 10
+                                 },
+                                  {
+
+                                      "visible": false,
+                                      "targets": 11
+                                  },
+                        ],
+                        "select": {
+                            "style":    'os',
+                            "selector": 'td:first-child'
+                }
+                        });
+                    // Apply the search
+                    table.columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+
+                    $('#dropdownBangCap').on('change', function () {
+
+                        table.columns(10).search(this.value).draw();
+                    });
+
+                
+                // Find indexes of rows which have `Yes` in the second column
+                    var indexes = table.rows().eq(0).filter(function (rowIdx) {
+                        return table.cell(rowIdx, 1).data() === 'Yes' ? true : false;
+                    });
+
+                    $('#checkall').click(function (event) {  //on click
+                        var checked = this.checked;
+                        table.rows({ search: 'applied' }).nodes().each(function () {
+                            //t.column(0).nodes().to$().each(function (index) {
+                            if (checked) {
+                                //$(this).find('.select-checkbox').prop('checked', 'checked');
+                                $(this).addClass('selected');
+                            } else {
+                                //$(this).find('.select-checkbox').removeProp('checked');
+                                $(this).removeClass('selected')
+                            }
+                        });
+                        //t.rows({ page: 'all' }).nodes().each(function () {
+                        //    $(this).removeClass('selected')
+                        //})
+                        //t.rows({ search: 'applied' }).nodes().each(function () {
+                        //    $(this).addClass('selected');
+                        //})
+                        t.draw();
+                    });
+
+                //Nut chọn
+                    $('#btnExcel').click(function () {
+                        var listEmployeeID =[];
+                        //alert(table.rows('.selected').data().length + ' row(s) selected');
+                        var count=0;
+                             $.each(table.rows('.selected').data(), function () {
+                                 listEmployeeID[count] = this[11];
+                                 //alert(listEmployeeID[count]);
+                                 count++;
+                                 
+                             });
+                             $.ajax({
+                                 type: "POST",
+                                 traditional: true,
+                                 url: '@Url.Action("XuatBaoCaoTest", "HRM_bangcaphethan")',
+                                 data: JSON.stringify({function_param: listEmployeeID }),
+                                 contentType: "application/json; charset=utf-8",
+                                 async: true,                                
+                                 cache: false,
+                                 success: function (data) {
+                                     //get the file name for download
+                                     if (data.fileName != "") {
+                                         //use window.location.href for redirect to download action for download the file
+                                         window.location.href = "@Url.RouteUrl(new 
+                                         { Controller = "HRM_bangcaphethan", Action = "Download"})/?file=" + data.fileName;
+                                         }
+                                 },
+                                 error: function () {
+                                     alert("Có lỗi xảy ra");
+                                 }
+                             });
+                        @*$.ajax({
+                            type: "POST",
+                            url: '@Url.Action("XuatBaoCaoTest", "HRM_bangcaphethan")',
+                            data: JSON.stringify({ function_param: listEmployeeID }),
+                             contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).done(function (data) {
+                            //console.log(data.result);
+                            $.unblockUI();
+
+                            //get the file name for download
+                            if (data.fileName != "") {
+                                //use window.location.href for redirect to download action for download the file
+                                window.location.href = "@Url.RouteUrl(new 
+                                { Controller = "HRM_bangcaphethan", Action = "Download"})/?file=" + data.fileName;
+                                }
+                        });*@
+                        //var ids = $.map(table.rows('.selected').data(), function (item) {
+                        //    return item[1];
+                        //});
+                        //alert(ids);
+                         
+                       // alert(table.rows('.selected').data().length + ' row(s) selected');
+                    });
+                });
+            
+        </script>
+    }
+
+
+
+
+

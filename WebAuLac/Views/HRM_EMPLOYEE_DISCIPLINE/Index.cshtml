@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HRM.Models.HRM_EMPLOYEE_DISCIPLINE>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DisciplineNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisciplineDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_TYPE_OF_DISCIPLINE.TypeOfDisciplineName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisciplineNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisciplineDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIC_TYPE_OF_DISCIPLINE.TypeOfDisciplineName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.EmployeeCode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeDisciplineID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.EmployeeDisciplineID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeDisciplineID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

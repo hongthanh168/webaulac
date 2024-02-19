@@ -1,0 +1,109 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới ứng viên</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label required col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BirthDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.BirthDay, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BirthDay, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Sex)
+                            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>   
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EducationID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownList("EducationID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EducationID, "", new { @class = "text-danger" })
+                        </div>
+                        <label class="control-label col-md-2">Trình độ chuyên môn</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.ContactAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContactAddress, "", new { @class = "text-danger" })
+                        </div>
+                        <label class="control-label col-md-2">Mối quan hệ</label>
+                        <div class="col-md-4">
+                            @Html.DropDownList("QuanHeID", null, "(Không chọn)", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.QuanHeID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CellPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>                           
+        </div>
+    </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+                <i class="fa fa-ban"></i> Hủy
+            </button>
+            <button class="btn btn-success" type="submit">
+                <i class="fa fa-save"></i> Lưu thông tin
+            </button>
+        </div>
+}

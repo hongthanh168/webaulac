@@ -1,0 +1,165 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_LayKeHoachDieuDong_Result>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    WebAuLac.Models.HRM_PLAN objPlan = ViewBag.Plan;
+    string thongTin = "CHI TIẾT: " + objPlan.PlanName + " NGÀY " + objPlan.PlanDate.Value.ToString("dd/MM/yyyy");
+}
+@section huongdan{
+    <text>
+        <strong>@thongTin</strong>        
+    </text>
+}
+<div>
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+        <div class="col-md-12 col-xs-12 text-center">
+            <a href="@Url.Action("InKeHoachDieuDong", "HRM_DETAILPLAN", new { PlanID=objPlan.PlanID })" class="btn btn-default">In kế hoạch</a>         
+            
+        </div>
+    </div>
+</div>
+<table id="PlanDetailList" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Tên tàu</th>
+            <th colspan="4" class="text-center">DANH SÁCH THUYỀN VIÊN TRÊN TÀU RÚT VỀ DỰ TRỮ</th>
+            <th colspan="5" class="text-center">DANH SÁCH THUYỀN VIÊN DỰ TRỮ LÊN TÀU</th>
+            <th></th>
+        </tr>
+        <tr>
+            <!--Danh sách thuyền viên-->
+            <th></th>
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                Ngày lên tàu
+            </th>
+            <th>
+                TG đi tàu
+            </th>
+            <!--Danh sách dự trữ-->
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Chức danh
+            </th>
+            <th>
+                Quá trình đi tàu
+            </th>
+            <th>
+                TG dự trữ
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = item.DetailPlanID.ToString();
+            string hoTenThuyenVien = item.HoTen_CrewOff;
+            string hoTenDuTru = item.HoTen_CrewOn;
+            <tr id="@rowID">
+                <td>@Html.DisplayFor(modelItem => item.DepartmentName)</td>
+                <td>
+                    @hoTenThuyenVien
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrewOffPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeOff)
+                </td>
+                <!--danh sách dự trữ-->
+                <td>
+                    @hoTenDuTru
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrewOnPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CrewOnHistory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <a href="@Url.Action("InKeHoachDieuDong", "HRM_DETAILPLAN", new { id=item.DetailPlanID })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+
+        $(document).ready(function () {
+            tblKeHoach = $('#PlanDetailList').DataTable({
+                "info": false,
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "columnDefs": [
+                    { "visible": false, "targets": 0 }
+                ],
+                "order": [[0, 'asc']],
+                "displayLength": 25,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(0, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group" style="background-color:#fff;color:blue"><td colspan="10">Tàu: <strong>' + group + '</strong></td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                }
+            });
+            $('#XuatExcel').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("XuatDSDieuDongExcel", "HRM_DETAILPLAN", new { PlanID=objPlan.PlanID })',
+                    type: 'get',
+                    success: function (result) {                        
+                    }
+                });
+            })
+
+        });
+    </script>
+}
+
+

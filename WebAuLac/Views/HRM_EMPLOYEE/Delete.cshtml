@@ -1,0 +1,104 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Bấm <strong>Xóa</strong> để xóa hẳn nhân viên khỏi dữ liệu công ty. Nếu bạn không muốn làm thế, đơn giản hãy chọn <strong>chỉnh sửa hồ sơ nhân viên</strong> và chọn TÌNH TRẠNG là NGHỈ VIỆC.</text>
+}
+<div>
+    @{
+        string hoten = Model.FirstName + " " + @Model.LastName;
+    }
+    <h3>@hoten</h3>
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EmployeeCode):</th>
+            <td>@Html.DisplayFor(model => model.EmployeeCode)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CardNo):</th>
+            <td>@Html.DisplayFor(model => model.CardNo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.BirthDay):</th>
+            <td>@Html.DisplayFor(model => model.BirthDay)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.BirthPlace):</th>
+            <td>@Html.DisplayFor(model => model.BirthPlace)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IDCard):</th>
+            <td>@Html.DisplayFor(model => model.IDCard)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IDCardDate):</th>
+            <td>@Html.DisplayFor(model => model.IDCardDate)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IDCardPlace):</th>
+            <td>@Html.DisplayFor(model => model.IDCardPlace)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MainAddress):</th>
+            <td>@Html.DisplayFor(model => model.MainAddress)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ContactAddress):</th>
+            <td>@Html.DisplayFor(model => model.ContactAddress)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.HomePhone):</th>
+            <td>@Html.DisplayFor(model => model.HomePhone)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Email):</th>
+            <td>@Html.DisplayFor(model => model.Email)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Yahoo):</th>
+            <td>@Html.DisplayFor(model => model.Yahoo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Skype):</th>
+            <td>@Html.DisplayFor(model => model.Skype)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TaxNo):</th>
+            <td>@Html.DisplayFor(model => model.TaxNo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.BankCode):</th>
+            <td>@Html.DisplayFor(model => model.BankCode)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.BankName):</th>
+            <td>@Html.DisplayFor(model => model.BankName)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.InsuranceCode):</th>
+            <td>@Html.DisplayFor(model => model.InsuranceCode)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.InsuranceDate):</th>
+            <td>@Html.DisplayFor(model => model.InsuranceDate)</td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Xóa
+                    </button>
+                    <a href="@Url.Action("Index", "HRM_EMPLOYEE")" class="btn btn-link"><i class="fa fa-arrow-left m-right-xs"></i>Quay về danh sách</a>
+                </div>
+            </div>
+        </div>       
+    }
+</div>

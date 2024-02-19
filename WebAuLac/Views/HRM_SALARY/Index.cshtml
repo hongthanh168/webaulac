@@ -1,0 +1,128 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_SALARY>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>Danh sách các bảng lương</text>
+}
+<p>
+    <a data-modal href="@Url.Action("Create", "HRM_SALARY")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+</p>
+<table id="bangLuongList" class="table table-striped jambo_table border-right action-table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.HRMSalaryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Years)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Months)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerBHXH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerBHYT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerBHTN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerCongDoan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeSo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Details", "HRM_SALARY", new { id=item.HRMSalaryID})">@Html.DisplayFor(modelItem => item.HRMSalaryName)</a>
+                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Years)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Months)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerBHXH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerBHYT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerBHTN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerCongDoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeSo)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "HRM_SALARY", new { id=item.HRMSalaryID })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete", "HRM_SALARY", new { id=item.HRMSalaryID })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#bangLuongList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets":10
+                },
+                ]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });        
+    </script>
+}
+
+

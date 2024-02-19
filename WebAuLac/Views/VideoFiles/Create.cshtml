@@ -1,0 +1,175 @@
+﻿@model WebAuLac.Models.VideoFile
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới lịch tàu</h4>
+</div>
+
+@using (Html.BeginForm("Create", "VideoFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+               
+                @Html.LabelFor(model => model.LichTau, "Lịch tàu", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LichTau, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LichTau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FilePath, "File Video", htmlAttributes: new { @class = "control -label col-md-2" })
+                <div class="col-md-9">
+                    <input type="file" id="Avatar" name="upload" accept=".mp4" />
+                    @*<img id="hienThi" src="#" style="display:none;" width="200" />
+                        <button id="XoaHinhAnh" type="button" onclick="XoaHinh()" style="display:none;">Xóa hình ảnh</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="button" id="SaveRecord">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}
+<script>
+     $(document).ready(function () {
+         $("#Avatar").on("change", function (e) {
+             if (this.files[0].size > 30000000) {
+                 alert("Dung lượng file không được quá 30M!");
+                 this.value = "";
+             };
+         });
+            $("#SaveRecord").click(function () {
+                var formData = new FormData();
+
+                formData.append("upload", $('#Avatar')[0].files[0]); //append the image file
+
+                var other_data = $('form').serializeArray();
+                $.each(other_data, function (key, input) { //append other input value
+                    formData.append(input.name, input.value);
+                });
+                //alert("Tới đây");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CreateWithUpload", "VideoFiles")',//UploadVideo
+                    data: formData,
+                    //async: false,
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    success: function (result) {
+                        if (result.success) {
+                            //alert("Success");
+                            window.location.href = '@Url.Action("Index", "VideoFiles")';
+                            //$("#MyModal").modal("hide"); //this line is unnecessary because the user has been redirect
+                        } else alert("Bạn cần nhập đầy đủ thông tin cần thiết!")
+
+                    }
+                })
+            });
+            //$("#Avatar").click(function () {
+            //    alert("");
+                //var frmData = new FormData();
+                //var filebase = $("#photo").get(0);
+                //var files = filebase.files;
+                //frmData.append("firstname", "hi");
+                //frmData.append(files[0].name, files[0]);
+                //$.ajax({
+                //    url: '/Home/SaveEmployee',
+                //    type: "POST",
+                //    contentType: false,
+                //    processData: false,
+                //    data: frmData,
+                //    success: function (data) {
+                //        $('#myModal').modal('show');
+                //        $('#txtMessage').html(data.message);
+                //        if (data.success) {
+                //            $('.modal-header').addClass('alert alert-success');
+                //        } else {
+                //            $('.modal-header').addClass('alert alert-info');
+                //        }
+                //    },
+                //    error: function (err) {
+                //        $('#myModal').modal('show');
+                //        $('.modal-header').addClass('alert alert-danger');
+                //        $('#txtMessage').html(err.statusText);
+                //    }
+                //});
+            //});
+
+//End of the document ready function...
+        });
+</script>
+
+
+
+
+@*@model WebAuLac.Models.VideoFile
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("UploadVideo", "VideoFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="form-group">
+        <label>Lịch tàu</label>
+        <input type="text" name="lichtau" class="form-control" id="lichtau" aria-describedby="lichTau" placeholder="Nhập lịch tàu">
+    </div>
+    <div class="form-group">
+        <label>Chọn file:</label>
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" id="fileupload" name="fileupload" class="custom-file-input" />
+                <label class="custom-file-label"></label>
+            </div>
+            <div class="input-group-append">
+                <input type="submit" id="btnUpload" class="btn btn-secondary" value="Upload" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>VideoFile</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LichTau, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LichTau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LichTau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <div class="input-group-append">
+            <input type="submit" id="btnUpload" class="btn btn-secondary" value="Upload" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

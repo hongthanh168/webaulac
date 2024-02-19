@@ -1,0 +1,380 @@
+﻿/*Thanh sửa hàm lấy quá trình đi tàu*************************************/
+ALTER FUNCTION [dbo].[fc_QuaTrinhDiTau] 
+(
+	-- Add the parameters for the function here
+	@employeeID int
+)
+RETURNS nvarchar(MAX)
+AS
+BEGIN
+	
+	Declare @kq nvarchar(MAX)
+	set @kq = ''
+	-- Add the T-SQL statements to compute the return value here	           
+                         
+	declare cs cursor for select dbo.DIC_DEPARTMENT.Description from dbo.DIC_DEPARTMENT INNER JOIN
+	dbo.HRM_EMPLOYMENTHISTORY ON dbo.DIC_DEPARTMENT.DepartmentID = dbo.HRM_EMPLOYMENTHISTORY.DepartmentID where EmployeeID = @employeeID and ParentID = 8
+	open cs
+	declare @qtct varchar(max)
+	fetch next from cs into @qtct
+	while @@FETCH_STATUS=0
+	begin
+		set @kq = @kq + ', ' + @qtct
+		fetch next from cs into @qtct
+	end
+	close cs
+	deallocate cs 
+
+	-- Return the result of the function
+	if (@kq <> '')
+		set @kq = SUBSTRING(@kq, 2, len(@kq)-1)
+	RETURN @kq
+
+END
+go
+/*QUyen sua format ngay thang 21/12
+
+USE [AuLac]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_ListCrewTemp]    Script Date: 21/12/2016 3:26:46 CH ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER FUNCTION [dbo].[fn_ListCrewTemp]
+(	
+	-- Add the parameters for the function here
+ @planID int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	 
+SELECT        dbo.HRM_DETAILPLAN.CrewOffID as CrewID,  
+(SELECT (DBO.HRM_EMPLOYEE.FirstName + '' + DBO.HRM_EMPLOYEE.LastName) 
+FROM HRM_EMPLOYEE 
+WHERE DBO.HRM_EMPLOYEE.EmployeeID = DBO.HRM_DETAILPLAN.CrewOffID) AS CrewName,
+dbo.HRM_DETAILPLAN.CrewOffDepartmentID as DepartmentID,
+(SELECT dbo.DIC_DEPARTMENT.DepartmentName 
+FROM DBO.DIC_DEPARTMENT WHERE
+DBO.HRM_DETAILPLAN.CrewOffDepartmentID=DBO.DIC_DEPARTMENT.DepartmentID) AS OffDepartment ,
+N'Dự trữ' as OnDepartment,dbo.HRM_DETAILPLAN.OffPositionID as PositionID, dbo.HRM_DETAILPLAN.CrewOffPosition as Position,
+dbo.HRM_DETAILPLAN.PlanID,
+dbo.HRM_DETAILPLAN.DetailPlanID,
+DBO.HRM_DETAILPLAN.CrewOffHistoryID as HistoryID,
+(SELECT TOP 1 DBO.HRM_EMPLOYMENTHISTORY.DECISIONNO 
+FROM DBO.HRM_EMPLOYMENTHISTORY
+WHERE DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID = DBO.HRM_DETAILPLAN.CrewOffHistoryID
+ORDER BY DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID DESC) AS DecisionNo,
+(SELECT TOP 1  CONVERT(varchar, DBO.HRM_EMPLOYMENTHISTORY.DecisionDate, 103)  as DecisionDate
+FROM DBO.HRM_EMPLOYMENTHISTORY
+WHERE DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID = DBO.HRM_DETAILPLAN.CrewOffHistoryID 
+ORDER BY DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID DESC) AS DecisionDate
+FROM            dbo.HRM_DETAILPLAN                         
+WHERE dbo.HRM_DETAILPLAN.CrewOffID !=0 AND DBO.HRM_DETAILPLAN.CrewOffDepartmentID IS NOT NULL 
+AND dbo.HRM_DETAILPLAN.PlanID =@planID
+
+UNION
+
+SELECT        dbo.HRM_DETAILPLAN.CrewOnID  as CrewID,  
+(SELECT (DBO.HRM_EMPLOYEE.FirstName + '' + DBO.HRM_EMPLOYEE.LastName) FROM HRM_EMPLOYEE WHERE
+DBO.HRM_EMPLOYEE.EmployeeID = DBO.HRM_DETAILPLAN.CrewOnID) AS CrewName,
+17 as DepartmentID,
+N'Dự trữ' as OffDepartment,  
+(SELECT dbo.DIC_DEPARTMENT.DepartmentName FROM DBO.DIC_DEPARTMENT WHERE
+DBO.HRM_DETAILPLAN.CrewOffDepartmentID=DBO.DIC_DEPARTMENT.DepartmentID) AS OnDepartment , 
+ dbo.HRM_DETAILPLAN.OnPositionID as PositionID, dbo.HRM_DETAILPLAN.CrewOnPosition as Position,
+					dbo.HRM_DETAILPLAN.PlanID,
+					dbo.HRM_DETAILPLAN.DetailPlanID,
+					DBO.HRM_DETAILPLAN.CrewOnHistoryID as HistoryID,
+(SELECT TOP 1 DBO.HRM_EMPLOYMENTHISTORY.DECISIONNO 
+FROM DBO.HRM_EMPLOYMENTHISTORY
+WHERE DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID = DBO.HRM_DETAILPLAN.CrewOnHistoryID
+ORDER BY DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID DESC) AS DecisionNo,
+(SELECT TOP 1 CONVERT(varchar, DBO.HRM_EMPLOYMENTHISTORY.DecisionDate, 103)  as DecisionDate
+FROM DBO.HRM_EMPLOYMENTHISTORY
+WHERE DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID = DBO.HRM_DETAILPLAN.CrewOnHistoryID
+ORDER BY DBO.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID DESC) AS DecisionDate
+FROM            dbo.HRM_DETAILPLAN                         
+WHERE dbo.HRM_DETAILPLAN.CrewOnID !=0 AND dbo.HRM_DETAILPLAN.PlanID =@planID
+
+)
+
+ 
+
+
+
+/*Quyen sua function hien thi ngay thang format*/
+USE [AuLac]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_DegreeLimitList]    Script Date: 21/12/2016 11:15:14 SA ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER FUNCTION [dbo].[fn_DegreeLimitList]
+(	
+	-- Add the parameters for the function here
+ 
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+ 
+ SELECT dbo.HRM_EMPLOYEE.EmployeeID,dbo.HRM_EMPLOYEE.FirstName + dbo.HRM_EMPLOYEE.LastName as EmployeeName,
+  CONVERT(varchar, dbo.HRM_EMPLOYEE.BirthDay, 103) as BirthDay,
+  dbo.HRM_EMPLOYEE.BirthPlace, 
+   dbo.fc_GetPosition(dbo.HRM_EMPLOYEE.EmployeeID) as PositionName,
+ (select d.Description from dbo.DIC_DEPARTMENT d where d.DepartmentID = dbo.fc_GetDepartment(dbo.HRM_EMPLOYEE.EmployeeID)) as DepartmentName,
+
+ dbo.HRM_EMPLOYEE_DEGREE.DegreeID, dbo.HRM_EMPLOYEE_DEGREE.DegreeNo, 
+ dbo.DIC_DEGREE.DegreeName,
+ CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.DegreeDate, 103) as DegreeDate,
+ CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate, 103) as ExpirationDate, TH= CAST(0 AS BIT)
+ FROM            dbo.DIC_DEGREE INNER JOIN
+                         dbo.HRM_EMPLOYEE_DEGREE ON dbo.DIC_DEGREE.DegreeID = dbo.HRM_EMPLOYEE_DEGREE.DegreeID INNER JOIN
+						 dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYEE_DEGREE.EmployeeID = dbo.HRM_EMPLOYEE.EmployeeID
+WHERE   GETDATE() >= dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate
+           
+UNION
+
+ 
+ SELECT dbo.HRM_EMPLOYEE.EmployeeID,dbo.HRM_EMPLOYEE.FirstName + dbo.HRM_EMPLOYEE.LastName as EmployeeName, 
+ CONVERT(varchar, dbo.HRM_EMPLOYEE.BirthDay, 103) as BirthDay,
+ dbo.HRM_EMPLOYEE.BirthPlace, 
+  dbo.fc_GetPosition(dbo.HRM_EMPLOYEE.EmployeeID) as PositionName,
+ (select d.Description from dbo.DIC_DEPARTMENT d where d.DepartmentID = dbo.fc_GetDepartment(dbo.HRM_EMPLOYEE.EmployeeID)) as DepartmentName,
+ dbo.HRM_EMPLOYEE_DEGREE.DegreeID, dbo.HRM_EMPLOYEE_DEGREE.DegreeNo,
+ dbo.DIC_DEGREE.DegreeName, 
+CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.DegreeDate, 103) as DegreeDate,
+ CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate, 103) as ExpirationDate, TH= CAST(1 AS BIT)
+ FROM            dbo.DIC_DEGREE INNER JOIN
+                         dbo.HRM_EMPLOYEE_DEGREE ON dbo.DIC_DEGREE.DegreeID = dbo.HRM_EMPLOYEE_DEGREE.DegreeID INNER JOIN
+						 dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYEE_DEGREE.EmployeeID = dbo.HRM_EMPLOYEE.EmployeeID
+WHERE  
+           GETDATE() < dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate AND   dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate <= (GETDATE() + dbo.DIC_DEGREE.WarningBefore )
+		  )
+
+
+		  --------------------------------------------
+
+
+		  --------------------------------------------
+
+
+
+/*Thanh cập nhật 19/12/2016=======================================*/
+ALTER VIEW [dbo].[viewHRM_EMPLOYMENTHISTORY]
+AS
+SELECT        dbo.HRM_EMPLOYEE.EmployeeID, dbo.HRM_EMPLOYEE.EmployeeCode, dbo.HRM_EMPLOYEE.FirstName, dbo.HRM_EMPLOYEE.LastName, dbo.HRM_EMPLOYEE.BirthDay, dbo.HRM_EMPLOYEE.BirthPlace, 
+                         dbo.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID, dbo.HRM_EMPLOYMENTHISTORY.DecisionNo, dbo.HRM_EMPLOYMENTHISTORY.DecisionDate, dbo.HRM_EMPLOYMENTHISTORY.ContentDecision, 
+                         dbo.HRM_EMPLOYMENTHISTORY.CategoryDecisionID, dbo.HRM_EMPLOYMENTHISTORY.DepartmentID, dbo.DIC_DEPARTMENT.DepartmentName, dbo.HRM_EMPLOYMENTHISTORY.PositionID, 
+                         dbo.DIC_POSITION.PositionName, dbo.HRM_EMPLOYMENTHISTORY.InternshipPosition, dbo.HRM_EMPLOYMENTHISTORY.PluralityID, DIC_POSITION_1.PositionName AS PluralityName, 
+                         dbo.HRM_EMPLOYMENTHISTORY.IntershipPlurality, dbo.DIC_EDUCATION.EducationName, dbo.DIC_EDUCATION.Description AS EducationDescription, dbo.DIC_EDUCATION.EducationID, 
+                         dbo.fc_GetPosition(dbo.HRM_EMPLOYMENTHISTORY.EmployeeID) AS ChucVu, dbo.HRM_EMPLOYEE.ContactAddress, dbo.DIC_DEPARTMENT.Description AS DepartmentDescription
+FROM            dbo.HRM_EMPLOYMENTHISTORY INNER JOIN
+                         dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYMENTHISTORY.EmployeeID = dbo.HRM_EMPLOYEE.EmployeeID INNER JOIN
+                         dbo.DIC_DEPARTMENT ON dbo.HRM_EMPLOYMENTHISTORY.DepartmentID = dbo.DIC_DEPARTMENT.DepartmentID LEFT OUTER JOIN
+                         dbo.DIC_EDUCATION ON dbo.HRM_EMPLOYEE.EducationID = dbo.DIC_EDUCATION.EducationID LEFT OUTER JOIN
+                         dbo.DIC_POSITION AS DIC_POSITION_1 ON dbo.HRM_EMPLOYMENTHISTORY.PluralityID = DIC_POSITION_1.PositionID LEFT OUTER JOIN
+                         dbo.DIC_POSITION ON dbo.HRM_EMPLOYMENTHISTORY.PositionID = dbo.DIC_POSITION.PositionID
+WHERE        (dbo.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID IN
+                             (SELECT        MAX(EmploymentHistoryID) AS Expr1
+                               FROM            dbo.HRM_EMPLOYMENTHISTORY AS HRM_EMPLOYMENTHISTORY_1
+                               GROUP BY EmployeeID))
+
+GO
+
+/* Thanh - cập nhật 15/12/2016====================================*/
+/*Sửa lại viewHRM_EMPLOYMENTHISTORY*/
+ALTER VIEW [dbo].[viewHRM_EMPLOYMENTHISTORY]
+AS
+SELECT        dbo.HRM_EMPLOYEE.EmployeeID, dbo.HRM_EMPLOYEE.EmployeeCode, dbo.HRM_EMPLOYEE.FirstName, dbo.HRM_EMPLOYEE.LastName, dbo.HRM_EMPLOYEE.BirthDay, dbo.HRM_EMPLOYEE.BirthPlace, 
+                         dbo.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID, dbo.HRM_EMPLOYMENTHISTORY.DecisionNo, dbo.HRM_EMPLOYMENTHISTORY.DecisionDate, dbo.HRM_EMPLOYMENTHISTORY.ContentDecision, 
+                         dbo.HRM_EMPLOYMENTHISTORY.CategoryDecisionID, dbo.HRM_EMPLOYMENTHISTORY.DepartmentID, dbo.DIC_DEPARTMENT.DepartmentName, dbo.HRM_EMPLOYMENTHISTORY.PositionID, 
+                         dbo.DIC_POSITION.PositionName, dbo.HRM_EMPLOYMENTHISTORY.InternshipPosition, dbo.HRM_EMPLOYMENTHISTORY.PluralityID, DIC_POSITION_1.PositionName AS PluralityName, 
+                         dbo.HRM_EMPLOYMENTHISTORY.IntershipPlurality, dbo.DIC_EDUCATION.EducationName, dbo.DIC_EDUCATION.Description AS EducationDescription, dbo.DIC_EDUCATION.EducationID, 
+                         dbo.fc_GetPosition(dbo.HRM_EMPLOYMENTHISTORY.EmployeeID) AS ChucVu, dbo.HRM_EMPLOYEE.ContactAddress
+FROM            dbo.HRM_EMPLOYMENTHISTORY INNER JOIN
+                         dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYMENTHISTORY.EmployeeID = dbo.HRM_EMPLOYEE.EmployeeID INNER JOIN
+                         dbo.DIC_DEPARTMENT ON dbo.HRM_EMPLOYMENTHISTORY.DepartmentID = dbo.DIC_DEPARTMENT.DepartmentID LEFT OUTER JOIN
+                         dbo.DIC_EDUCATION ON dbo.HRM_EMPLOYEE.EducationID = dbo.DIC_EDUCATION.EducationID LEFT OUTER JOIN
+                         dbo.DIC_POSITION AS DIC_POSITION_1 ON dbo.HRM_EMPLOYMENTHISTORY.PluralityID = DIC_POSITION_1.PositionID LEFT OUTER JOIN
+                         dbo.DIC_POSITION ON dbo.HRM_EMPLOYMENTHISTORY.PositionID = dbo.DIC_POSITION.PositionID
+WHERE        (dbo.HRM_EMPLOYMENTHISTORY.EmploymentHistoryID IN
+                             (SELECT        MAX(EmploymentHistoryID) AS Expr1
+                               FROM            dbo.HRM_EMPLOYMENTHISTORY AS HRM_EMPLOYMENTHISTORY_1
+                               GROUP BY EmployeeID))
+
+GO
+
+/* Thanh - cập nhật: 14/12/2016 ====================================*/
+CREATE PROCEDURE  [dbo].[sp_LayDSThuyenVienDieuDong]
+	-- Add the parameters for the stored procedure here	
+	@planID int	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON; 
+ 
+declare @ngayBaoCao as smalldatetime
+select @ngayBaoCao = PlanDate from HRM_PLAN where PlanID = @planID
+
+SELECT h.*, abs(DATEDIFF(day, DecisionDate, @ngayBaoCao)) As SoNgay, dbo.fc_GetYMD(DecisionDate, @ngayBaoCao) as TGDT  
+from viewHRM_EMPLOYMENTHISTORY h, HRM_DETAILPLAN ct
+where h.EmployeeID = ct.CrewOffID
+and ct.PlanID = @planID
+END
+GO
+/************************************************************************/
+CREATE FUNCTION [dbo].[fc_T_LayThongTinDuTru] 
+(
+	-- Add the parameters for the function here
+	@employeeID int,
+	@crewOffID int,
+	@planID int
+)
+RETURNS nvarchar(100)
+AS
+BEGIN	
+	Declare @kq nvarchar(100)
+	Declare @realCrewOffID int
+	if exists (select * from HRM_DETAILPLAN where CrewOnID=@employeeID and PlanID = @planID)
+		begin
+			select @realCrewOffID = CrewOffID
+			from HRM_DETAILPLAN
+			where PlanID = @planID
+			and CrewOnID = @employeeID	
+			if (@realCrewOffID>0)
+				begin
+					if @realCrewOffID=@crewOffID
+						begin
+							set @kq = '1-' + N'Thay cho ' + dbo.fc_GetHoTen(@realCrewOffID) /* Thay dung nguoi*/
+						end
+					else
+						begin
+							set @kq = '2-' + N'Thay cho ' + dbo.fc_GetHoTen(@realCrewOffID) /* Thay cho 1 nguoi nao do*/
+						end
+				end
+			else 
+				begin
+					set @kq = '3-' + N'Đã được điều động' /* Thay cho 1 nguoi nao do*/
+				end		
+		end
+	else
+		begin
+			set @kq = N'4-Không nằm trong ds điều động'
+		end		
+	RETURN @kq
+END
+GO
+/**********************************************************/
+create PROCEDURE  [dbo].[sp_LayDSDuTruTheoKeHoach]
+	-- Add the parameters for the stored procedure here	
+	@planID int,
+	@departmentID int,
+	@crewOffID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON; 
+ 
+declare @ngayBaoCao as smalldatetime
+select @ngayBaoCao = PlanDate from HRM_PLAN where PlanID = @planID
+
+SELECT *, abs(DATEDIFF(day, DecisionDate, @ngayBaoCao)) As SoNgay, 
+	dbo.fc_GetYMD(DecisionDate, @ngayBaoCao) as TGDuTru, 
+	dbo.fc_QuaTrinhDiTau(EmployeeID) as QTDT, 
+	dbo.fc_DsThanNhanTrenTau(EmployeeID, @departmentID) as ThanNhan, 
+	dbo.fc_T_LayThongTinDuTru(EmployeeID, @crewOffID, @planID) as ThongTin
+from viewHRM_EMPLOYMENTHISTORY 
+where dbo.fc_GetParentDepartment(EmployeeID) = 17
+END
+GO
+/*=====================hết phần cập nhật ngày 14/12/2016============*/ 
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.HRM_EMPLOYEE_DEGREE ADD
+	GhiChu nvarchar(500) NULL,
+	IsBC bit NULL
+GO
+ALTER TABLE dbo.HRM_EMPLOYEE_DEGREE SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+#############Upload store bằng cấp hết hạn
+USE [AuLac]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_DegreeLimitList]    Script Date: 12/12/2016 2:53:29 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER FUNCTION [dbo].[fn_DegreeLimitList]
+(	
+	-- Add the parameters for the function here
+ 
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+ 
+ SELECT dbo.HRM_EMPLOYEE.EmployeeID,dbo.HRM_EMPLOYEE.FirstName + dbo.HRM_EMPLOYEE.LastName as EmployeeName,
+  dbo.HRM_EMPLOYEE.BirthDay,
+  dbo.HRM_EMPLOYEE.BirthPlace, 
+   dbo.fc_GetPosition(dbo.HRM_EMPLOYEE.EmployeeID) as PositionName,
+ (select DepartmentName from dbo.DIC_DEPARTMENT d where d.DepartmentID = dbo.fc_GetDepartment(dbo.HRM_EMPLOYEE.EmployeeID)) as DepartmentName,
+
+ dbo.HRM_EMPLOYEE_DEGREE.DegreeID, dbo.HRM_EMPLOYEE_DEGREE.DegreeNo, 
+ dbo.DIC_DEGREE.DegreeName,
+ CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.DegreeDate, 103) as DegreeDate,
+ CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate, 103) as ExpirationDate, TH= CAST(0 AS BIT)
+ FROM            dbo.DIC_DEGREE INNER JOIN
+                         dbo.HRM_EMPLOYEE_DEGREE ON dbo.DIC_DEGREE.DegreeID = dbo.HRM_EMPLOYEE_DEGREE.DegreeID INNER JOIN
+						 dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYEE_DEGREE.EmployeeID = dbo.HRM_EMPLOYEE.EmployeeID
+WHERE   GETDATE() >= dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate
+           
+UNION
+
+ 
+ SELECT dbo.HRM_EMPLOYEE.EmployeeID,dbo.HRM_EMPLOYEE.FirstName + dbo.HRM_EMPLOYEE.LastName as EmployeeName, 
+ dbo.HRM_EMPLOYEE.BirthDay, 
+ dbo.HRM_EMPLOYEE.BirthPlace, 
+  dbo.fc_GetPosition(dbo.HRM_EMPLOYEE.EmployeeID) as PositionName,
+ (select DepartmentName from dbo.DIC_DEPARTMENT d where d.DepartmentID = dbo.fc_GetDepartment(dbo.HRM_EMPLOYEE.EmployeeID)) as DepartmentName,
+ dbo.HRM_EMPLOYEE_DEGREE.DegreeID, dbo.HRM_EMPLOYEE_DEGREE.DegreeNo,
+ dbo.DIC_DEGREE.DegreeName, 
+CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.DegreeDate, 103) as DegreeDate,
+ CONVERT(varchar, dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate, 103) as ExpirationDate, TH= CAST(1 AS BIT)
+ FROM            dbo.DIC_DEGREE INNER JOIN
+                         dbo.HRM_EMPLOYEE_DEGREE ON dbo.DIC_DEGREE.DegreeID = dbo.HRM_EMPLOYEE_DEGREE.DegreeID INNER JOIN
+						 dbo.HRM_EMPLOYEE ON dbo.HRM_EMPLOYEE_DEGREE.EmployeeID = dbo.HRM_EMPLOYEE.EmployeeID
+WHERE  
+           GETDATE() < dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate AND   dbo.HRM_EMPLOYEE_DEGREE.ExpirationDate <= (GETDATE() + dbo.DIC_DEGREE.WarningBefore )
+		  )
+
+
+		  --------------------------------------------

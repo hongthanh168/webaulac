@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebAuLac.Models.HoSoTau>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayCap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayHetHan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileDinhKem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChungChiTau.TenChungChi)
+        </th>
+        <th>Nơi cấp</th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayCap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayHetHan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileDinhKem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChungChiTau.TenChungChi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoiCap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_DEPARTMENT.DepartmentName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.HoSoTauID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HoSoTauID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HoSoTauID })
+        </td>
+    </tr>
+}
+
+</table>

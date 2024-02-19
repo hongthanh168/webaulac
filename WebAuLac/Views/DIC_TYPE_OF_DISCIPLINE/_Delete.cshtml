@@ -1,0 +1,31 @@
+﻿@model WebAuLac.Models.DIC_TYPE_OF_DISCIPLINE
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa loại kỷ luật này?</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TypeOfDisciplineName):</th>
+            <td>@Html.DisplayFor(model => model.TypeOfDisciplineName)</td>
+        </tr>
+    </table>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+}
+

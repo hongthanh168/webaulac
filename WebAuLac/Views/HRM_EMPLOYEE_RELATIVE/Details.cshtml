@@ -1,0 +1,73 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE_RELATIVE
+@{
+    string hoten = Model.HRM_EMPLOYEE.FirstName + " " + Model.HRM_EMPLOYEE.LastName;
+}
+
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>Người thân của:</th>
+            <td>@hoten</td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonName):
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.PersonName)
+            </td>
+        </tr>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Birthday):            </th>
+
+            <td> @Html.DisplayFor(model => model.Birthday)            </td>
+        </tr>
+        <tr>
+            <th>                @Html.DisplayNameFor(model => model.Email):            </th>
+
+            <td>                @Html.DisplayFor(model => model.Email)            </td>
+        </tr>
+        <tr>
+            <th>                @Html.DisplayNameFor(model => model.Address):            </th>
+
+            <td>                @Html.DisplayFor(model => model.Address)            </td>
+        </tr>
+        <tr>
+            <th>                @Html.DisplayNameFor(model => model.Phone):            </th>
+
+            <td>                @Html.DisplayFor(model => model.Phone)            </td>
+        </tr>
+        <tr>
+            <th>                @Html.DisplayNameFor(model => model.IncomeTaxCode):            </th>
+
+            <td>                @Html.DisplayFor(model => model.IncomeTaxCode)            </td>
+        </tr>
+        <tr>
+            <th>                @Html.DisplayNameFor(model => model.Job):            </th>
+
+            <td>                @Html.DisplayFor(model => model.Job)            </td>
+
+        </tr>
+        <tr>
+            <th>                @Html.DisplayNameFor(model => model.CompanyAddress):            </th>
+
+            <td>                @Html.DisplayFor(model => model.CompanyAddress)            </td>
+        </tr>
+        <tr>
+            <th>                Mối quan hệ:            </th>
+
+            <td>                @Html.DisplayFor(model => model.DIC_RELATIVE.RelativeName)            </td>
+        </tr>
+    </table>
+</div>
+     @using (Html.BeginForm())
+     {
+        @Html.AntiForgeryToken()
+        <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+                <i class="fa fa-ban"></i> Hủy
+            </button>
+           
+        </div>
+     }

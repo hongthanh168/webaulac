@@ -1,0 +1,1837 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\AuLac\ban cai dat</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="App_Data/AuLac_2019_9_19.bak">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="bin/DocX.dll">
+      <publishTime>11/20/2017 10:21:42</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/EPPlus.dll">
+      <publishTime>10/08/2017 22:48:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>03/13/2019 14:10:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>03/13/2019 14:10:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>03/13/2019 14:10:49</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>03/13/2019 14:10:49</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>03/13/2019 14:10:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>03/13/2019 14:10:48</publishTime>
+    </File>
+    <File Include="bin/WebAuLac.dll">
+      <publishTime>07/28/2023 14:35:53</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>03/13/2019 14:10:49</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.min.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/myStyle.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/sb-admin-2.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/accordion.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/all.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/autocomplete.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/base.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/button.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/core.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/datepicker.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/dialog.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/draggable.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_222222_256x240.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_2e83ff_256x240.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_454545_256x240.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_888888_256x240.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_cd0a0a_256x240.png">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/menu.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/progressbar.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/resizable.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/selectable.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/selectmenu.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/slider.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/sortable.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/spinner.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/tabs.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/theme.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/themes/base/tooltip.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Content/timeline.css">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="images/ajax-loader.gif">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/list-style-2.png">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/loading.gif">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/logo.png">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/logo_thumb.gif">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/menu.png">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/title.png">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="images/user.png">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Models/NhanSuAuLac.edmx.diagram">
+      <publishTime>05/20/2021 09:36:16</publishTime>
+    </File>
+    <File Include="Note.txt">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="Scripts/ai.0.22.19-build00125.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/ai.0.22.19-build00125.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.11.4.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.11.4.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.inputmask.bundle.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.ui.datepicker-vi.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/modalform.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/sb-admin-2.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/thanh_utilities.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/waitingAjax.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/css/buttons.dataTables.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/css/buttons.dataTables.min.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/buttons.flash.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/buttons.html5.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/buttons.print.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/dataTables.buttons.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/jszip.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/pdfmake.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/Buttons/js/vfs_fonts.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/checkbox/css/dataTables.checkboxes.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/checkbox/js/dataTables.checkboxes.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/checkbox/js/dataTables.checkboxes.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/datatables.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/datatables.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/datatables.min.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/datatables.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/langs/Vietnamese.json">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/DataTables/swf/flashExport.swf">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/css/font-awesome.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/css/font-awesome.css.map">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/css/font-awesome.min.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/4.4.0/index.html">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/fontawesome-webfont.eot">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/fontawesome-webfont.svg">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/fontawesome-webfont.ttf">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/fontawesome-webfont.woff">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/fontawesome-webfont.woff2">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/fontawesome/fonts/FontAwesome.otf">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/jstree.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/jstree.min.js">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default-dark/32px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default-dark/40px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default-dark/style.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default-dark/style.min.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default-dark/throbber.gif">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default/30px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default/32px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default/40px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default/style.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default/style.min.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/default/throbber.gif">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/30px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/32px.png">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-bold-webfont.eot">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-bold-webfont.svg">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-bold-webfont.ttf">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-bold-webfont.woff">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.eot">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.svg">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.ttf">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.woff">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-regular-webfont.eot">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-regular-webfont.svg">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-regular-webfont.ttf">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/fonts/titillium/titilliumweb-regular-webfont.woff">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/style.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/style.min.css">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="vendors/jsTree/themes/proton/throbber.gif">
+      <publishTime>03/13/2019 14:10:46</publishTime>
+    </File>
+    <File Include="Views/Account/AccessDenied.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ConfirmEmail.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPassword.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/Manage.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPassword.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/SendCode.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/UserRoles.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/VerifyCode.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/_ChangePasswordPartial.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/Account/_SetPasswordPartial.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/ChungChiTau/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/ChungChiTau/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/ChungChiTau/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/ChungChiTau/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/ChungChiTau/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DanhSachThuyenVienTheoNgay/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DanhSachThuyenVienTheoNgay/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DanhSachThuyenVienTheoNgay/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DanhSachThuyenVienTheoNgay/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DanhSachThuyenVienTheoNgay/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_CONTRACTTYPE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_CONTRACTTYPE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_CONTRACTTYPE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_CONTRACTTYPE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_CONTRACTTYPE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEGREE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEGREE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEGREE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEGREE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEGREE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEPARTMENT/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEPARTMENT/_Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEPARTMENT/_Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEPARTMENT/_DeleteParent.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEPARTMENT/_Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_DEPARTMENT/_Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_EDUCATION/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_EDUCATION/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_EDUCATION/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_EDUCATION/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_EDUCATION/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_NATIONALITY/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_NATIONALITY/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_NATIONALITY/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_NATIONALITY/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_NATIONALITY/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/BangCapTheoChucDanh.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/CreateMultiple.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/DSChucDanh.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_POSITION_DEGREE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELATIVE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELATIVE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELATIVE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELATIVE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELATIVE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELIGION/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELIGION/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELIGION/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELIGION/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_RELIGION/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_SALARY_DEPARTMENT/Create.cshtml">
+      <publishTime>11/28/2022 22:18:05</publishTime>
+    </File>
+    <File Include="Views/DIC_SALARY_DEPARTMENT/Delete.cshtml">
+      <publishTime>11/28/2022 22:18:05</publishTime>
+    </File>
+    <File Include="Views/DIC_SALARY_DEPARTMENT/Details.cshtml">
+      <publishTime>11/28/2022 22:18:05</publishTime>
+    </File>
+    <File Include="Views/DIC_SALARY_DEPARTMENT/Edit.cshtml">
+      <publishTime>11/28/2022 22:18:05</publishTime>
+    </File>
+    <File Include="Views/DIC_SALARY_DEPARTMENT/Index.cshtml">
+      <publishTime>11/28/2022 22:24:25</publishTime>
+    </File>
+    <File Include="Views/DIC_SCHOOL/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_SCHOOL/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_SCHOOL/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_SCHOOL/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_SCHOOL/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_DISCIPLINE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_DISCIPLINE/_Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_DISCIPLINE/_Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_DISCIPLINE/_Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_DISCIPLINE/_Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_RETRIBUTION/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_RETRIBUTION/_Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_RETRIBUTION/_Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_RETRIBUTION/_Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/DIC_TYPE_OF_RETRIBUTION/_Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HeDaoTao/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HeDaoTao/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HeDaoTao/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HeDaoTao/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HeDaoTao/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoCongTy/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoCongTy/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoCongTy/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoCongTy/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoCongTy/ErrorNotExistsView.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoCongTy/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/DSChungChiTau.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/DSTau.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/ErrorNotExistsView.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HoSoTau/TheoDoiGiayToTau.cshtml">
+      <publishTime>07/15/2019 09:34:39</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/IndexPassport.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_BangCapHetHan/Index_NhanVien.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/CreateOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/CreateWithEmployee.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_CONTRACTHISTORY/_ContractOfOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/DetailsOfOnePlan.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/dsDuTru.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/dsThuyenVienDieuDong.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/GiamDocDuyet.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILPLAN/PlanViewGD.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILSALARY/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILSALARY/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILSALARY/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILSALARY/Edit.cshtml">
+      <publishTime>07/08/2019 02:47:20</publishTime>
+    </File>
+    <File Include="Views/HRM_DETAILSALARY/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/CreateShort.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/CrewMatrix.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/CrewMatrixSyQuanTau.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/CrewMatrixSyQuanTau_Full.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/CrewMatrixTau.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/DanhSachTimKiem.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/DeleteShort.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/DSThuyenVien.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/DSUngVien.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/EditNote.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/EditShort.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/GiamDocIndex.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/Index.cshtml">
+      <publishTime>10/03/2019 09:43:14</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/SinhNhat.cshtml">
+      <publishTime>09/19/2019 11:01:52</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeBoNhiemNV.cshtml">
+      <publishTime>09/24/2019 15:58:12</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeBoNhiemTV.cshtml">
+      <publishTime>09/24/2019 19:08:23</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeHuyKetQuaTuyenDung.cshtml">
+      <publishTime>07/14/2019 15:49:38</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeKyLuatNV.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeKyLuatTV.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeNVienNghiViec.cshtml">
+      <publishTime>09/29/2019 14:26:16</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeNVienTuyenDung.cshtml">
+      <publishTime>11/19/2021 11:14:10</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeThuyenVienTheoLoaiQuyetDinh.cshtml">
+      <publishTime>07/14/2019 12:52:04</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeTuyenDung.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeTVienNghiViec.cshtml">
+      <publishTime>07/15/2019 13:59:58</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/ThongKeTVienTuyenDung.cshtml">
+      <publishTime>11/19/2021 11:15:28</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE/TimKiem.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE3/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE3/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE3/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE3/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE3/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/CreateAll.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/CreateOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/CreateOneCheck.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/DeleteAll.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE/_DegreeOfOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/LimitDegree.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/_Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/_CreateOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/_Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE1/_Employees.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE2/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE2/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE2/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE2/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DEGREE2/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/CreateOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/CreateOneWithQD.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_DISCIPLINE/_DisciplineOfOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/CreateOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/DSThanNhan.cshtml">
+      <publishTime>07/11/2019 14:06:18</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RELATIVE/_RelativeOfOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/CreateOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/Details.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/Index.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYEE_RETRIBUTION/_RetributionOfOne.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Create.cshtml">
+      <publishTime>03/13/2019 14:10:44</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/CreateDefault.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/CreateEachList.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/CreateWithEmployee.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/CreateWithEmployee_goc.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Delete_goc.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/EditDefault.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/EditXacNhan.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/EditXacNhanList.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Edit_goc.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Employees.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/ErrorNotExistsView.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/XacNhanQuyetDinh.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_CreateOne - Copy.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_CreateWithEmployee.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_Employees.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_EmploymentHistoryofEmloyee.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY/_EmploymentHistoryofEmloyee_goc.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY_GOC/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY_GOC/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY_GOC/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY_GOC/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_EMPLOYMENTHISTORY_GOC/Index.cshtml">
+      <publishTime>11/25/2021 23:08:04</publishTime>
+    </File>
+    <File Include="Views/HRM_Kiemtrabangcap/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_Kiemtrabangcap/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_Kiemtrabangcap/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_Kiemtrabangcap/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_Kiemtrabangcap/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/ChiTietKeHoach.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/CrewMatrixTau.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/dieuKienLoc.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/dsDuTru.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/dsThuyenVien.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/GiamDocBoDuyet.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/GiamDocDuyet.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/GiamDocEdit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/IndexGiamDoc.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/IndexQuyetDinh.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/IndexXacNhan.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/KiemTraBangCap.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/locDuTru.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_PLAN/locThuyenVien.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/Index_Quyen.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_QuyetDinhDieuDong/XacnhanQD.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_ROLE/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_ROLE/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_ROLE/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_SALARY/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_SALARY/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_SALARY/Details.cshtml">
+      <publishTime>07/27/2021 17:43:17</publishTime>
+    </File>
+    <File Include="Views/HRM_SALARY/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HRM_SALARY/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/HuyKetQuaTuyenDung/Create.cshtml">
+      <publishTime>07/14/2019 18:33:51</publishTime>
+    </File>
+    <File Include="Views/HuyKetQuaTuyenDung/Delete.cshtml">
+      <publishTime>07/14/2019 16:07:59</publishTime>
+    </File>
+    <File Include="Views/HuyKetQuaTuyenDung/Details.cshtml">
+      <publishTime>07/14/2019 16:07:59</publishTime>
+    </File>
+    <File Include="Views/HuyKetQuaTuyenDung/Edit.cshtml">
+      <publishTime>07/14/2019 16:07:59</publishTime>
+    </File>
+    <File Include="Views/HuyKetQuaTuyenDung/Index.cshtml">
+      <publishTime>07/14/2019 16:07:59</publishTime>
+    </File>
+    <File Include="Views/HuyKetQuaTuyenDung/IndexHuyKetQuaTuyenDung.cshtml">
+      <publishTime>07/14/2019 19:21:11</publishTime>
+    </File>
+    <File Include="Views/jsTree/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LichKiemTras/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LichKiemTras/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LichKiemTras/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LichKiemTras/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LichKiemTras/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LoaiKiemTras/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LoaiKiemTras/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LoaiKiemTras/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LoaiKiemTras/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/LoaiKiemTras/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Manage/AddPhoneNumber.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Manage/ChangePassword.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Manage/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Manage/ManageLogins.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Manage/SetPassword.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/CreateGiamChucDanh - Copy.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/CreateGiamChucDanh.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhKyLuat/IndexKyLuat.cshtml">
+      <publishTime>09/29/2019 17:27:16</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhNghiViec/Create.cshtml">
+      <publishTime>06/18/2021 15:55:10</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhNghiViec/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhNghiViec/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhNghiViec/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhNghiViec/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhNghiViec/IndexNghiViec.cshtml">
+      <publishTime>06/18/2021 15:38:50</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhTuyenDung/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhTuyenDung/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhTuyenDung/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhTuyenDung/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhTuyenDung/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/QuyetDinhTuyenDung/IndexTuyenDung.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Roles/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Roles/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Roles/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Roles/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/BangCap.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/GioiTinh.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/MarriageStatus.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/MyBoolean.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/SSDD.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/Time.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/DisplayTemplates/Xacnhan.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Date.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/GioiTinh.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/MarriageStatus.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/MyBoolean.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Shifts.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/SSDD.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Time.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Xacnhan.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/Lockout.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>11/28/2022 22:26:28</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>03/15/2019 09:32:47</publishTime>
+    </File>
+    <File Include="Views/tbl_cosodaotao/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_cosodaotao/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_cosodaotao/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_cosodaotao/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_cosodaotao/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/CreateMultiple.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/CreateWithID.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_ctdaotao/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_khoadaotao/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_khoadaotao/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_khoadaotao/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_khoadaotao/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_QuanHe/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_QuanHe/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_QuanHe/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_QuanHe/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/tbl_QuanHe/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/ThongKeDaoTao/ThongKeBangCap.cshtml">
+      <publishTime>11/10/2019 14:45:38</publishTime>
+    </File>
+    <File Include="Views/ThongKeDaoTao/ThongKeCaNhan.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/ThongKeDaoTao/ThongKeTheoLoaiChucDanh.cshtml">
+      <publishTime>11/08/2019 18:09:17</publishTime>
+    </File>
+    <File Include="Views/ThongKeDaoTao/ThongKeTuNgayDenNgay.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/ThongKeDaoTao/ThongKeTuNgayDenNgayNhanVien.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/ThongKeDaoTao/ThongKeTuNgayDenNgayThuyenVien.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/ThongKeDSThanNhan/Index.cshtml">
+      <publishTime>07/11/2019 15:09:18</publishTime>
+    </File>
+    <File Include="Views/ThongKeHetHanHopDong/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TieuChuanCrewMatrices/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TieuChuanCrewMatrices/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TieuChuanCrewMatrices/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TieuChuanCrewMatrices/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TieuChuanCrewMatrices/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoAnhVan/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoAnhVan/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoAnhVan/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoAnhVan/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoAnhVan/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoViTinh/Create.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoViTinh/Delete.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoViTinh/Details.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoViTinh/Edit.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/TrinhDoViTinh/Index.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/VideoFiles/Create.cshtml">
+      <publishTime>05/20/2021 16:51:37</publishTime>
+    </File>
+    <File Include="Views/VideoFiles/Delete.cshtml">
+      <publishTime>05/20/2021 16:51:55</publishTime>
+    </File>
+    <File Include="Views/VideoFiles/Details.cshtml">
+      <publishTime>05/20/2021 09:46:23</publishTime>
+    </File>
+    <File Include="Views/VideoFiles/Edit.cshtml">
+      <publishTime>05/20/2021 09:46:25</publishTime>
+    </File>
+    <File Include="Views/VideoFiles/Index.cshtml">
+      <publishTime>05/20/2021 17:04:00</publishTime>
+    </File>
+    <File Include="Views/VideoFiles/viewVideo.cshtml">
+      <publishTime>05/20/2021 16:00:52</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>03/13/2019 14:10:45</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/14/2022 15:50:41</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

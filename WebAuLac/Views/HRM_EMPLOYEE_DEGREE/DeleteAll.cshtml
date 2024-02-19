@@ -1,0 +1,118 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYEE_DEGREE
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Xóa bằng cấp</h4>
+</div>
+
+@using (Html.BeginForm("DeleteAll", "HRM_EMPLOYEE_DEGREE")) 
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.EmployeeID)
+            @Html.HiddenFor(model => model.EmployeeDegreeID)
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    <b>Chọn 1 trong 2 cách xóa</b>  
+                </div>
+                <div class="col-md-10">
+
+                    <input type="checkbox" name="chon" value="1"/>Xóa hoàn toàn
+                    <input type="checkbox" name="chon" value="2"/>Xóa thông tin giữ lại tên bằng
+                </div>
+                </div>
+
+               
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit" id="SaveRecord">
+            <i class="fa fa-save"></i> Xóa
+        </button>
+    </div>
+}
+    <script>
+     $(document).ready(function () {
+       
+            $("#SaveRecord").click(function () {
+                var ckbox = $("input[name='chon']");
+                var chkId = '';
+                $('input').on('click', function () {
+
+                    if (ckbox.is(':checked')) {
+                        $("input[name='chon']:checked").each(function () {
+                            chkId = $(this).val() + ",";
+                            chkId = chkId.slice(0, -1);
+                        });
+
+                        alert($(this).val()); // return all values of checkboxes checked
+                        alert(chkId); // return value of checkbox checked
+                    }
+                });
+                @*var formData = new FormData();
+
+                formData.append("upload", $('#Avatar')[0].files[0]); //append the image file
+
+                var other_data = $('form').serializeArray();
+                $.each(other_data, function (key, input) { //append other input value
+                    formData.append(input.name, input.value);
+                });
+                //alert("Tới đây");
+                $.ajax({
+                    type: "POST",
+                    url:'@Url.Action("CreateWithUpload", "HoSoCongTy")',
+                    data: formData,
+                    //async: false,
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    success: function (result) {
+                        if (result.success) {
+                            //alert("Success");
+                            window.location.href = '@Url.Action("Index", "HoSoCongTy")';
+                            //$("#MyModal").modal("hide"); //this line is unnecessary because the user has been redirect
+                        } else alert("Bạn cần nhập đầy đủ thông tin cần thiết!")
+
+                    }
+                })*@
+            });
+            //$("#Avatar").click(function () {
+            //    alert("");
+                //var frmData = new FormData();
+                //var filebase = $("#photo").get(0);
+                //var files = filebase.files;
+                //frmData.append("firstname", "hi");
+                //frmData.append(files[0].name, files[0]);
+                //$.ajax({
+                //    url: '/Home/SaveEmployee',
+                //    type: "POST",
+                //    contentType: false,
+                //    processData: false,
+                //    data: frmData,
+                //    success: function (data) {
+                //        $('#myModal').modal('show');
+                //        $('#txtMessage').html(data.message);
+                //        if (data.success) {
+                //            $('.modal-header').addClass('alert alert-success');
+                //        } else {
+                //            $('.modal-header').addClass('alert alert-info');
+                //        }
+                //    },
+                //    error: function (err) {
+                //        $('#myModal').modal('show');
+                //        $('.modal-header').addClass('alert alert-danger');
+                //        $('#txtMessage').html(err.statusText);
+                //    }
+                //});
+            //});
+
+//End of the document ready function...
+        });
+    </script>
+       
+
+

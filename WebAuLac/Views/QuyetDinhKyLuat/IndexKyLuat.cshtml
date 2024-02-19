@@ -1,0 +1,219 @@
+﻿@section huongdan{
+    <text>Thống kê danh sách nhân viên bị kỷ luật</text>
+}
+@{
+    IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_DISCIPLINE> bangKe = (IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_DISCIPLINE>)ViewBag.BangKe;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="text-align:left; margin-bottom:15px;">
+            <div class="form-group">
+                <div>
+                    <a class="btn btn-primary" onclick="HienThiLargeModal('@Url.Action("Create", "QuyetDinhKyLuat")')"><i class="fa fa-plus m-left-xs"></i>Thêm mới</a>
+                    <a class="btn btn-primary" onclick="HienThiLargeModal('@Url.Action("CreateGiamChucDanh", "QuyetDinhKyLuat")')"><i class="fa fa-plus m-left-xs"></i>Thêm mới Kỷ luật giảm chức danh</a>
+                    @*<a href="@Url.Action("CreateGiamChucDanh", "QuyetDinhKyLuat")" class="btn btn-primary" data-modal><i class="fa fa-plus m-left-xs"></i>Thêm mới Kỷ luật giảm chức danh</a>*@
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}
+@if (bangKe != null)
+{
+
+    <table class="table table-bordered table-striped table-hover" id="bangKe">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Số
+                </th>
+                <th>
+                   Ngày
+                </th>
+                <th>
+                    Nhân viên
+                </th>
+                <th>
+                    Loại Kỷ luật
+                </th>
+                <th>
+                    Lý do
+                </th>                
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in bangKe)
+            {
+                <tr>
+                    <td>
+                      
+                    </td>
+                    <td>
+                        @{
+                            string soQD = item.DisciplineNo.ToString() + "/" + item.DisciplineDate.Value.Year.ToString().Substring(2, 2) + "/QĐ-KL";
+                            if (item.DisciplineNo < 10)
+                            {
+                                soQD = "0" + item.DisciplineNo.ToString() + "/" + item.DisciplineDate.Value.Year.ToString().Substring(2, 2) + "/QĐ-KL";
+                            }
+                        }
+                        <text>@soQD</text>
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisciplineDate)
+                    </td>
+
+                    <td>
+                        @{
+                            string hoTen = item.HRM_EMPLOYEE.FirstName + " " + item.HRM_EMPLOYEE.LastName;
+                        }
+                        <text>@hoTen</text>                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIC_TYPE_OF_DISCIPLINE.TypeOfDisciplineName)
+                    </td>
+                  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reason)
+                    </td>
+
+                    <td>
+                        <a href="@Url.Action("InQuyetDinhKyLuat", "QuyetDinhKyLuat", new { id = item.EmployeeDisciplineID})" class="btn btn-success btn-xs" target="_blank"><i class="fa fa-file-excel-o"></i></a>
+                    </td>
+                    <td>                        
+                        <a href="@Url.Action("Edit", "QuyetDinhKyLuat", new { id = item.EmployeeDisciplineID})" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "QuyetDinhKyLuat", new { id = item.EmployeeDisciplineID})" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                            }
+        </tbody>
+    </table>
+                            }
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+    <script type="text/javascript">
+        var columnGroup = 4;
+        $(document).ready(function () {
+            LoadDatatable();
+        })
+        function LoadDatatable() {
+            t = $('#bangKe').DataTable({                
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },                
+                //"iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    //"bAutoWidth" : false,
+                    //"sWidth": "100px", "aTargets": [ "_all" ],
+                    "targets": 0,                    
+                    "sWidth": "700px", "targets": 5
+                   
+                    
+                }]
+
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw()
+        }
+
+
+        function HienThiLargeModal(href) {
+            $('#myModalContentLarge').load(href, function () {
+                // this is the first add
+                $.validator.unobtrusive.parse($('form'));
+                $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true }, $.datepicker.regional["vi"]);
+                $('#myModalLarge').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+                bindLargeForm(this);
+            });
+        };
+       
+    </script>
+}
+
+
+
+@*@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_DISCIPLINE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DisciplineNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisciplineDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIC_TYPE_OF_DISCIPLINE.TypeOfDisciplineName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisciplineNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisciplineDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DIC_TYPE_OF_DISCIPLINE.TypeOfDisciplineName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HRM_EMPLOYEE.EmployeeCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeDisciplineID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmployeeDisciplineID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeDisciplineID })
+        </td>
+    </tr>
+}
+
+</table>*@

@@ -1,0 +1,642 @@
+﻿@model WebAuLac.Models.HRM_PLAN
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string thongTin = "CHI TIẾT: " + Model.PlanName + " NGÀY " + Html.DisplayFor(model => model.PlanDate);    
+}
+@section huongdan{
+    <text>
+        <strong>@thongTin</strong>
+            @if (Model.IsLock.HasValue && Model.IsLock.Value)
+            {
+                <span style="color:red"> KẾ HOẠCH NÀY ĐÃ ĐƯỢC DUYỆT.</span>
+            }
+        <br/>
+        Check chọn ở danh sách thuyền viên để chọn thuyền viên xuống tàu. Chương trình sẽ chọn thuyền viên dự trữ tương ứng.<br />
+        Để chọn thuyền viên xuống tàu về dự trữ (không cần thay thế) chọn nút <strong> Về dự trữ </strong><br />
+        Để chọn thuyền viên dự trữ lên tàu (không cần thay thế) chọn nút <strong>Lên tàu </strong><br />
+        Để chọn thuyền viên dự trữ thay thế cho thuyền viên trên tàu chọn <strong>Thay thế</strong>
+    </text>
+}
+<div>
+    <div class="form-inline">
+        <div class="row" style="margin-bottom:15px; text-align:center">
+            <div class="form-group">
+                <label>Chọn tiêu chuẩn matrix:</label>
+                @Html.DropDownList("TieuChuanID", null, htmlAttributes: new { @class = "form-control", @id="tieuChuanMatrix" })
+            </div>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-6">
+            <p class="noibat">DS THUYỀN VIÊN</p>
+            <div id="ChonThuyenVien">
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="noibat" id="tieuDeDuTru">DS DỰ TRỮ (chỉ lấy Dự trữ SSĐĐ)</p>
+            <div id="ChonDuTru">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DieuKienChon">
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+        <div class="col-md-12 col-xs-12 text-center">
+            <a id="TV8thang" class="btn btn-info">Tất cả TV</a>
+            <a id="LocThuyenVien" class="btn btn-warning"><i class="fa fa-refresh m-right-xs"></i>Lọc thuyền viên</a>
+            
+                <a id="DuTruSSDD" class="btn btn-info">Tất cả dự trữ</a>
+                <a id="LocDuTru" class="btn btn-primary"><i class="fa fa-refresh m-right-xs"></i>Lọc dự trữ</a>
+            @if (!(Model.IsLock.HasValue && Model.IsLock.Value) && (User.IsInRole("EduCenter") && User.IsInRole("Create")))
+            {
+                <a id="SingleOff" class="btn btn-danger"><i class="fa fa-arrow-down m-right-xs"></i>Về dự trữ</a>
+                <a id="SingleOn" class="btn btn-info"><i class="fa fa-arrow-up m-right-xs"></i>Lên tàu</a>
+                <a id="Replace" class="btn btn-success"><i class="fa fa-arrows m-right-xs"></i>Thay thế</a>
+            }                  
+            <a href="@Url.Action("InKeHoachDieuDong", "HRM_DETAILPLAN", new { PlanID=Model.PlanID })" class="btn btn-default">In kế hoạch</a>  
+            <a href="@Url.Action("InKeHoachDieuDongMauMoi", "HRM_DETAILPLAN", new { PlanID=Model.PlanID })" class="btn btn-default">In KH mẫu mới</a>          
+            <a href="@Url.Action("Index", "HRM_QuyetDinhDieuDong", new { planID=Model.PlanID })"  class="btn btn-default">Lập quyết định</a>    
+        </div>
+    </div> 
+</div>
+<p class="noibat">BẢNG KẾ HOẠCH</p>
+<div id="ChiTietKeHoach"></div>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+    @Styles.Render("~/vendors/DataTables/checkbox/css")    
+}
+<style>
+    tfoot {
+        display: table-header-group;
+    }
+    #ChonThuyenVien div.row:first-child,#ChonDuTru div.row:first-child{
+        display:none;
+    }
+</style> 
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/vendors/DataTables/checkbox/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        var tblThuyenVien, tblDuTru, tblKeHoach;
+        var currentThuyenVien = -1, currentTau = -1;
+        var currentPosThuyenVien = -1, currentPosDuTru = -1;
+        var tatCa = 0;
+        var tatCaDuTru = 0;
+        $(document).ready(function () {
+            //hiển thị image chờ
+            //$("#loadingImage").show();
+            //hiển thị danh sách thuyền viên trên tất cả các tàu
+            $.ajax({
+                url: '@Url.Action("dsThuyenVien", "HRM_PLAN", new { PlanID=Model.PlanID })',
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    //$("#loadingImage").hide();
+                    $('#ChonThuyenVien').html(result);
+                    FormatDanhSachThuyenVien();
+                }
+            });
+
+            //hiển thị danh sách chi tiết tại đây
+            $.ajax({
+                url: '@Url.Action("ChiTietKeHoach", "HRM_PLAN", new { id=Model.PlanID })',
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    $('#ChiTietKeHoach').html(result);
+                    FormatChiTietKeHoach();
+                }
+            });
+
+        });
+        //XỬ LÝ CÁC SỰ KIỆN
+        $('#LocDuTru').on('click', function () {
+            var url = '@Html.Raw(@Url.Action("locDuTru", "HRM_PLAN", new { TauID = "tau-id", PlanID="plan-id", ThuyenVienID ="thuyenvien-id"}))'
+              .replace("tau-id", encodeURIComponent(currentTau))
+              .replace("plan-id", encodeURIComponent(@Model.PlanID))
+              .replace("thuyenvien-id", encodeURIComponent(currentThuyenVien));
+            //goi modal
+            $('#myModalContent').load(url, function () {
+
+                $.validator.unobtrusive.parse($('form'));
+
+                //thực hiện add thêm các sự kiện
+                $("#chkAllChucVu").change(function () {
+                    if (this.checked) {
+                        //Disable các chkPos
+                        $('input[name="chkPos"]:not(:first)').attr('disabled', 'true');
+                    } else {
+                        $('input[name="chkPos"]:not(:first)').removeAttr("disabled");
+                    }
+                });
+                $("#chkAllDuTru").change(function () {
+                    if (this.checked) {
+                        //Disable các chkPos
+                        $('input[name="chkLoaiDuTru"]:not(:first)').attr('disabled', 'true');
+                    } else {
+                        $('input[name="chkLoaiDuTru"]:not(:first)').removeAttr("disabled");
+                    }
+                });
+
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+
+                bindFormLocDuTru(this);
+            });
+
+            return false;
+        })
+        function bindFormLocDuTru(dialog) {
+            $('form', dialog).submit(function () {
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            $('#myModal').modal('hide');
+                            $('#ChonDuTru').html(result);
+                            FormatDanhSachDuTru();
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
+        $('#TV8thang').on('click', function () {
+            if (tatCa == 1) {
+                tatCa = 0;
+                $('#TV8thang').text('Tất cả TV');
+            } else {
+                tatCa = 1;
+                $('#TV8thang').text('TV đi trên 8 tháng');
+            }
+            var url = '@Html.Raw(@Url.Action("LocThuyenVien8Thang", "HRM_PLAN", new { PlanID="plan-id", TatCa="loc-tat-ca"}))'
+              .replace("plan-id", encodeURIComponent(@Model.PlanID))
+              .replace("loc-tat-ca", encodeURIComponent(tatCa));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    $('#ChonThuyenVien').html(result);
+                    FormatDanhSachThuyenVien();
+                }
+            });
+        })
+        $('#DuTruSSDD').on('click', function () {
+            if (tatCaDuTru == 1) {
+                tatCaDuTru = 0;
+                $('#DuTruSSDD').text('Tất cả dự trữ');
+                $('#tieuDeDuTru').text('DS DỰ TRỮ (chỉ lấy Dự trữ SSĐĐ)');
+            } else {
+                tatCaDuTru = 1;
+                $('#DuTruSSDD').text('Dự trữ SSDD');
+                $('#tieuDeDuTru').text('DS DỰ TRỮ (lấy tất cả Dự trữ)')
+            }
+            var url = '@Html.Raw(@Url.Action("LocDuTruSSDD", "HRM_PLAN", new { PlanID="plan-id",TauID="tau-id",ThuyenVienID="thuyenvien-id", TatCa="loc-tat-ca"}))'
+              .replace("plan-id", encodeURIComponent(@Model.PlanID))
+              .replace("tau-id", encodeURIComponent(currentTau))
+              .replace("thuyenvien-id", encodeURIComponent(currentThuyenVien))
+              .replace("loc-tat-ca", encodeURIComponent(tatCaDuTru));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    $('#ChonDuTru').html(result);
+                    FormatDanhSachDuTru();
+                }
+            });
+        })
+        $('#LocThuyenVien').on('click', function () {
+            var url = '@Html.Raw(@Url.Action("locThuyenVien", "HRM_PLAN", new { TauID = "tau-id", PlanID="plan-id", ThuyenVienID ="thuyenvien-id"}))'
+              .replace("tau-id", encodeURIComponent(currentTau))
+              .replace("plan-id", encodeURIComponent(@Model.PlanID))
+              .replace("thuyenvien-id", encodeURIComponent(currentThuyenVien));
+            //goi modal
+            $('#myModalContent').load(url, function () {
+
+                $.validator.unobtrusive.parse($('form'));
+
+                //thực hiện add thêm các sự kiện
+                $("#chkAllChucVu").change(function () {
+                    if (this.checked) {
+                        //Disable các chkPos
+                        $('input[name="chkPos"]:not(:first)').attr('disabled', 'true');
+                    } else {
+                        $('input[name="chkPos"]:not(:first)').removeAttr("disabled");
+                    }
+                });
+
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+
+                bindFormLocThuyenVien(this);
+            });
+
+            return false;
+        })
+        function bindFormLocThuyenVien(dialog) {
+            $('form', dialog).submit(function () {
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            $('#myModal').modal('hide');
+                            $('#ChonThuyenVien').html(result);
+                            FormatDanhSachThuyenVien();
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
+        //SỰ KIỆN nhấn nút Lên tàu
+        $('#SingleOn').on('click', function (e) {
+            //kiểm tra xem đã chọn người nào chưa
+            var anSelected = fnGetSelected(tblDuTru);
+            if (anSelected.length == 0) {
+                alert("Chưa chọn thuyền viên dự trữ!");
+                return;
+            }
+            var tr = anSelected[0];
+            id = $(tr).attr('id');
+            ThucHienLenhInsert(0, id);
+        })
+        $('#SingleOff').on('click', function (e) {
+            //kiểm tra xem đã chọn người nào chưa
+            var anSelected = fnGetSelected(tblThuyenVien);
+            if (anSelected.length == 0) {
+                alert("Chưa chọn thuyền viên trên tàu!");
+                return;
+            }
+            var tr = anSelected[0];
+            id = $(tr).attr('id');
+            ThucHienLenhInsert(id, 0);
+        })
+        $('#Replace').on('click', function (e) {
+            //kiểm tra xem đã chọn người nào chưa
+            var anSelected1 = fnGetSelected(tblThuyenVien);
+            if (anSelected1.length == 0) {
+                alert("Chưa chọn thuyền viên trên tàu!");
+                return;
+            }
+            var tr1 = anSelected1[0];
+            var id1 = $(tr1).attr('id');
+
+            var anSelected2 = fnGetSelected(tblDuTru);
+            if (anSelected2.length == 0) {
+                alert("Chưa chọn thuyền viên dự trữ!");
+                return;
+            }
+            var tr2 = anSelected2[0];
+            var id2 = $(tr2).attr('id');
+            ThucHienLenhInsert(id1, id2);
+        })
+        function KiemTraCrewMatrix(idOn)
+        {
+            //lấy ra tiêu chuẩn
+            var tieuChuan = $('#tieuChuanMatrix').val();
+            var url = '@Html.Raw(@Url.Action("CheckCrewMatrix", "HRM_PLAN", new { TauID = "tau-id",PlanID="plan-id", CrewOffID ="thuyenvienoff-id", CrewOnID = "thuyenvienon-id", TieuChuanID="tieuchuan-id" }))'
+             .replace("tau-id", encodeURIComponent(currentTau))
+             .replace("plan-id", encodeURIComponent(@Model.PlanID))
+             .replace("thuyenvienoff-id", encodeURIComponent(currentThuyenVien))
+             .replace("thuyenvienon-id", encodeURIComponent(idOn))
+             .replace("tieuchuan-id", encodeURIComponent(tieuChuan));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    if (result.noiDung !=null) {
+                        var thongDiep = result.noiDung;
+                    } else {
+                        $('#myModalContentLarge').html(result);
+                        $('#myModalLarge').modal('show');                        
+                    }
+                    
+                }
+            });
+        }
+        function ThucHienLenhInsert(idOff, idOn) {
+            if (currentTau < 1) {
+                alert("Chưa chọn tàu. Hãy chọn 1 thuyền viên trên tàu để chương trình có thể lập kế hoạch điều động cho tàu đó.");
+                return;
+            }
+            //kiểm tra crew maxtrix
+
+            var url = '@Html.Raw(@Url.Action("InsertKH", "HRM_PLAN", new { TauID = "tau-id", PlanID="plan-id", CrewOffID ="thuyenvienoff-id", CrewOnID = "thuyenvienon-id" }))'
+              .replace("tau-id", encodeURIComponent(currentTau))
+              .replace("plan-id", encodeURIComponent(@Model.PlanID))
+              .replace("thuyenvienoff-id", encodeURIComponent(idOff))
+              .replace("thuyenvienon-id", encodeURIComponent(idOn));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    $('#ChiTietKeHoach').html(result);
+                    FormatChiTietKeHoach();
+                    //load lại 2 cái bảng ở trên
+                    if (idOff == 0) {
+                        //LayDanhSachDuTru();
+                        RemoveOnTableDuTru();
+                    } else {
+                        $('#ChonDuTru').html('');
+                        //LayDanhSachThuyenVien();
+                        RemoveOnTableThuyenVien();
+                    }
+                }
+            });
+        }
+        //Hàm thực hiện remove dòng thay vì load lại
+        function RemoveOnTableThuyenVien() {
+            tblThuyenVien.row('.selected').remove().draw(false);
+        }
+        function RemoveOnTableDuTru() {
+            tblDuTru.row('.selected').remove().draw(false);
+        }
+        //THỰC HIỆN KIỂM TRA BẰNG CẤP CỦA THUYỀN VIÊN DỰ TRỮ
+        function KiemTraBangCap(id) {
+            var url = '@Html.Raw(@Url.Action("KiemTraBangCap", "HRM_PLAN", new { DuTruID = "dutru-id", ThuyenVienID="thuyenvien-id", PlanID ="plan-id"}))'
+              .replace("dutru-id", encodeURIComponent(id))
+              .replace("thuyenvien-id", encodeURIComponent(currentThuyenVien))
+              .replace("plan-id", encodeURIComponent(@Model.PlanID));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    $('#myModalContent').html(result);
+                    $('#myModal').modal('show');
+                }
+            });
+        }
+        //sửa ghi chú trong kế hoạch
+
+
+        //CÁC HÀM SỬ DỤNG
+        //LẤY DANH SÁCH THUYỀN VIÊN
+        /* Get the rows which are currently selected */
+        function fnGetSelected(oTableLocal) {
+            return oTableLocal.$('tr.selected');
+        }
+        function LayDanhSachThuyenVien() {
+            var url = '@Html.Raw(@Url.Action("dsThuyenVien", "HRM_PLAN", new { TauID = "tau-id", PlanID="plan-id"}))'
+              .replace("tau-id", encodeURIComponent(currentTau)).replace("plan-id", encodeURIComponent(@Model.PlanID));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    $('#ChonThuyenVien').html(result);
+                    FormatDanhSachThuyenVien();
+                }
+            });
+        }
+
+        //LẤY DANH SÁCH DỰ TRỮ THEO THUYỀN VIÊN CHỌN Ở TRÊN
+        function LayDanhSachDuTru() {
+            var url = '@Html.Raw(@Url.Action("dsDuTru", "HRM_PLAN", new { TauID = "tau-id", PlanID="plan-id", ThuyenVienID ="thuyenvien-id", tatCa ="i-tatca"}))'
+              .replace("tau-id", encodeURIComponent(currentTau))
+              .replace("plan-id", encodeURIComponent(@Model.PlanID))
+              .replace("i-tatca", encodeURIComponent(tatCaDuTru))
+              .replace("thuyenvien-id", encodeURIComponent(currentThuyenVien));
+            //$("#loadingImage").show();
+            $.ajax({
+                ////set global = false nếu không muốn hiện loading image
+                //global: false,
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    //load bang thong tin o day
+                    //$("#loadingImage").hide();
+                    $('#ChonDuTru').html(result);
+                    FormatDanhSachDuTru();
+                }
+            });
+        }
+        function FormatDanhSachThuyenVien() {
+            //thiết lập phần search
+            $('#tblThuyenVien tfoot th').each(function () {
+                var title = $(this).text().trim();
+                if (title != '') {
+                    switch (title) {
+                        case 'Họ tên':
+                            $(this).html('<input style="width:150px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'Chức vụ':
+                            $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'NLT':
+                            $(this).html('<input style="width:80px" type="text" placeholder="' + title + '" />');
+                            break;
+                        default:
+                            $(this).html('<input style="width:50px" type="text" placeholder="' + title + '" />');
+                            break;
+                    }
+                } else {
+                    $(this).html('');
+                }
+            });
+
+            //----------thực hiện hiển thị dạng datatable---------------------
+            tblThuyenVien = $('#tblThuyenVien').DataTable({
+                "info": false,
+                "columnDefs": [
+                {
+                    "orderable": false,
+                    "searchable": false,
+                    "className": 'select-checkbox',
+                    "targets": 0
+                },
+                {
+                    className: "col_songay",
+                    "targets": [0]
+                },
+                { "visible": false, "targets": 6 }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+            });
+            //bỏ phần hiển thị info và cho cái page dài hết bảng
+            $("#ChonThuyenVien div.row:last-child div.col-sm-5").remove();
+            $("#ChonThuyenVien div.row:last-child div").removeClass('col-sm-7');
+            $("#ChonThuyenVien div.row:last-child div").addClass('col-sm-12');
+            //-------------hết phần hiển thị datatable--------------------
+            //sự kiện click chọn
+            $('#tblThuyenVien tbody').on('click', '.select-checkbox', function (e) {
+                //lấy ra mã thuyền viên được chọn ở đây
+                var $row = $(this).closest('tr');
+                currentThuyenVien = $row.attr('id');
+                currentTau = $row.attr('data-dept-id');
+                currentPosThuyenVien = $row.attr('data-pos-id');
+                //lấy danh sách thuyền viên dự trữ tương ứng
+                LayDanhSachDuTru();
+            });
+            // Apply the search
+            tblThuyenVien.columns().every(function (index) {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    that
+                        .search(this.value)
+                        .draw();
+
+
+                });
+            });
+        }
+
+        function FormatDanhSachDuTru() {
+            //thiết lập phần search
+            $('#tblDuTru tfoot th').each(function () {
+                var title = $(this).text().trim();
+                if (title != '') {
+                    switch (title) {
+                        case 'Họ tên':
+                            $(this).html('<input style="width:150px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'Chức vụ':
+                            $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+                            break;
+                        case 'QTĐT':
+                            $(this).html('<input style="width:100px" type="text" placeholder="' + title + '" />');
+                            break;
+                        default:
+                            $(this).html('<input style="width:50px" type="text" placeholder="' + title + '" />');
+                            break;
+                    }
+
+                } else {
+                    $(this).html('');
+                }
+            });
+            //----------thực hiện hiển thị dạng datatable---------------------
+            tblDuTru = $('#tblDuTru').DataTable({
+                "info": false,
+                "columnDefs": [
+                {
+                    "orderable": false,
+                    "searchable": false,
+                    "className": 'select-checkbox',
+                    "targets": 0
+                }
+                ],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+            });
+            //-------------hết phần hiển thị datatable--------------------
+            //sự kiện click chọn
+            $('#tblDuTru tbody').on('click', '.select-checkbox', function (e) {
+                //lấy ra mã thuyền viên được chọn ở đây
+                var $row = $(this).closest('tr');
+                var currentDuTru = $row.attr('id');
+                currentPosDuTru = $row.attr('data-pos-id');
+                if ((currentPosDuTru>=20 && currentPosDuTru<=27) || (currentPosThuyenVien>=20 && currentPosThuyenVien<=27))
+                    KiemTraCrewMatrix(currentDuTru);
+            });
+            // Apply the search
+            tblDuTru.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        }
+        function FormatChiTietKeHoach() {
+
+            //----------thực hiện hiển thị dạng datatable---------------------
+            tblKeHoach = $('#PlanDetailList').DataTable({
+                "info": false,
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "columnDefs": [
+                    { "visible": false, "targets": 0 }
+                ],
+                "order": [[0, 'asc']],
+                "displayLength": 25,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(0, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group" style="background-color:#fff;color:blue"><td colspan="11">Tàu: <strong>' + group + '</strong></td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                }
+            });
+            //-------------hết phần hiển thị datatable--------------------
+        }
+        function loadFormKeHoach(href) {
+            $('#myModalContent').load(href, function () {
+                // this is the first add
+                $.validator.unobtrusive.parse($('form'));
+                $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true }, $.datepicker.regional["vi"]);
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+                bindFormKeHoach(this);
+            });
+        };
+        function bindFormKeHoach(dialog) {
+            $('form', dialog).submit(function () {
+                var data = $(this).serialize();
+                // this is the second addition
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: data,
+                        success: function (result) {
+                            $("#myModal").modal('hide');
+                            //load lại bảng
+                            //hiển thị danh sách chi tiết tại đây
+                            $.ajax({
+                                url: '@Url.Action("ChiTietKeHoach", "HRM_PLAN", new { id=Model.PlanID })',
+                                type: 'get',
+                                success: function (result) {
+                                    //load bang thong tin o day
+                                    $('#ChiTietKeHoach').html(result);
+                                    FormatChiTietKeHoach();
+                                }
+                            });
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
+
+    </script>
+}

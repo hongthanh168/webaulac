@@ -1,0 +1,35 @@
+﻿@model WebAuLac.Models.ChungChiTau
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChungChiTau</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenChungChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenChungChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoNgayCanhBao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoNgayCanhBao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ChungChiID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

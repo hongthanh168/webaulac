@@ -1,0 +1,176 @@
+﻿@using WebAuLac.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int thangHienTai = (int)ViewBag.thang;
+    string tieuDe = "DANH SÁCH NHÂN VIÊN CÓ SINH NHẬT TRONG THÁNG " + thangHienTai.ToString();
+    AuLacEntities db = new AuLacEntities();
+    IEnumerable<WebAuLac.Models.sp_T_LayDanhSachNhanVien_Result> bangKe = (IEnumerable<WebAuLac.Models.sp_T_LayDanhSachNhanVien_Result>)ViewBag.bangKe;
+}
+
+@section huongdan{
+    <text>@tieuDe</text>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="text-align:center; margin-bottom:15px;">
+            <div class="form-group">
+               <label class="control-label">Chọn tháng</label>
+               <select id="chonThang" name="thang" class="form-control">
+                   <option value="1">Tháng 1</option>
+                   <option value="2">Tháng 2</option>
+                   <option value="3">Tháng 3</option>
+                   <option value="4">Tháng 4</option>
+                   <option value="5">Tháng 5</option>
+                   <option value="6">Tháng 6</option>
+                   <option value="7">Tháng 7</option>
+                   <option value="8">Tháng 8</option>
+                   <option value="9">Tháng 9</option>
+                   <option value="10">Tháng 10</option>
+                   <option value="11">Tháng 11</option>
+                   <option value="12">Tháng 12</option>
+               </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Loại NV</label>
+                <select id="loai" name="loaiNhanVien" class="form-control">
+                    <option value="1">Văn phòng</option>
+                    <option value="2">Thuyền viên</option>
+                    <option value="3">Tất cả</option>                    
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <button class="btn btn-success" type="submit" style="margin-bottom:1px;" value="xemthongtin" name="answer">>
+                        <i class="fa fa-calculator"></i> Xem thông tin
+                    </button>
+                    <button class="btn btn-success" type="submit" style="margin-bottom:1px;" value="xuatexcel" name="answer">>
+                        <i class="fa fa-calculator"></i> Xuất Excels
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}
+@if (bangKe != null)
+{
+    <table id="EmployeesList" class="table table-striped jambo_table border-right action-table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Họ
+                </th>
+                <th>
+                    Tên
+                </th>               
+                <th>
+                    Ngày sinh
+                </th>
+                <th>
+                    PB/Tàu
+                </th>
+                <th>
+                    Chức danh
+                </th>              
+                <th>Ngày ký HĐ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in bangKe)
+            {
+                string rowID = "HRM_EMPLOYEE" + item.EmployeeID.ToString();
+                //lấy ra ngày ký hợp đồng
+                DateTime ngayKyHopDong = DateTime.MinValue;
+                HRM_CONTRACTHISTORY hopDong = db.HRM_CONTRACTHISTORY.Where(x => x.EmployeeID == item.EmployeeID).FirstOrDefault();
+                if (hopDong != null)
+                {
+                    ngayKyHopDong = hopDong.ContractDate.Value;
+                }
+                <tr id="@rowID">
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                       @* <a href="@Url.Action("Details", "HRM_EMPLOYEE", new { id=item.EmployeeID })">@Html.DisplayFor(modelItem => item.LastName)</a>*@
+                    </td>
+                    <td>
+                        @{
+                            if (item.BirthDay.HasValue)
+                            {
+                                <text>@item.BirthDay.Value.ToString("dd/MM/yyyy")</text>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChucVu)
+                    </td>                     
+                    <td>
+                        @{
+                            if (ngayKyHopDong != DateTime.MinValue)
+                            {
+                                <text>@ngayKyHopDong.ToString("dd/MM/yyyy")</text>
+                            }
+                        }
+                    </td>                 
+                </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+
+
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">        
+        $(document).ready(function () {
+            var currThang = @thangHienTai;
+            $("#chonThang").val(currThang);
+            var t = $('#EmployeesList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },                
+                ]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+    </script>
+}
+
+
+
+

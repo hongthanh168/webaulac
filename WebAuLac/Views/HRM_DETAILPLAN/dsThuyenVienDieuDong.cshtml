@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WebAuLac.Models.sp_LayDSThuyenVienDieuDong_Result>
+<table id="tblThuyenVien" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Họ tên
+            </th>
+            <th>NS</th>
+            <th>
+                CD
+            </th>
+            <th>
+                Tàu
+            </th>
+            <th>
+                NLT
+            </th>
+            <th>
+                TGĐT
+            </th>
+            <th>SNĐT</th>
+            <th>GC</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>
+                Họ tên
+            </th>
+            <th>NS</th>
+            <th>
+                CD
+            </th>
+            <th>
+                Tàu
+            </th>
+            <th>
+                NLT
+            </th>
+            <th>
+                TGĐT
+            </th>
+            <th>SNĐT</th>
+            <th>GC</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = item.EmployeeID.ToString();
+            string tauID = item.DepartmentID.ToString();
+            string hoTen = item.FirstName + " " + item.LastName;
+            string namSinh = "";
+            if (item.BirthDay.HasValue)
+            {
+                namSinh = item.BirthDay.Value.Year.ToString();
+            }
+            <tr id="@rowID" data-dept-id="@tauID">
+                <td></td>
+                <td>
+                    @hoTen
+                </td>
+                <td>@namSinh</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentDescription)
+                </td>
+                <td>
+                    @if (item.DecisionDate.HasValue)
+                    {
+                       <text>@item.DecisionDate.Value.ToString("dd/MM/yyyy")</text>
+                    }                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TGDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoNgay)
+                </td>
+                <td>
+                    @{ 
+                        Boolean daDieuDong = item.ThongTinDieuDong.Value;
+                        if (daDieuDong)
+                        {
+                            <text>Đã ĐĐ</text>
+                        }
+                    }                    
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

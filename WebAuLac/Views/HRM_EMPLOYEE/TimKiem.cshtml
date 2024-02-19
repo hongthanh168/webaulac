@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "TimKiem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section huongdan{
+    <text>TÌM KIẾM NHÂN VIÊN</text>
+}
+@using (Html.BeginForm("DanhSachTimKiem", "HRM_EMPLOYEE", null, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })       
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Họ tên</label>
+                    <div class="col-md-1">
+                        <input class="form-control" name="HoTen" type="text" />
+                    </div>                    
+                    <label class="control-label col-md-1">Địa chỉ</label>
+                    <div class="col-md-2">
+                        <input class="form-control" name="DiaChi" type="text" />
+                    </div>   
+                    <label class="control-label col-md-1">Tỉnh thành</label>
+                    <div class="col-md-2">
+                        @Html.DropDownList("ContactAddress_Tinh", null, "--Chọn--", htmlAttributes: new { @class = "form-control combo-tinh selectpicker", @data_live_search = "true" })                        
+                    </div>
+                    <label class="control-label col-md-1">Quận huyện</label>
+                    <div class="col-md-2">
+                        @Html.DropDownList("ContactAddress_Huyen", null, "--Chọn--", htmlAttributes: new { @class = "form-control combo-huyen" })                        
+                    </div>                 
+                </div>
+            </div>           
+        </div>     
+                   
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Nguyên quán</label>
+                    <div class="col-md-4">
+                        <input class="form-control" name="NguyenQuan" type="text" />                       
+                    </div>
+                    <label class="control-label col-md-1">Tỉnh thành</label>
+                    <div class="col-md-2">
+                        @Html.DropDownList("Origin_Tinh", null, "--Chọn--", htmlAttributes: new { @class = "form-control combo-tinh selectpicker", @data_live_search = "true" })
+                       
+                    </div>
+                    <label class="control-label col-md-1">Quận huyện</label>
+                    <div class="col-md-2">
+                        @Html.DropDownList("Origin_Huyen", null, "--Chọn--", htmlAttributes: new { @class = "form-control combo-huyen" })                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Chức vụ</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("PositionID", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <label class="control-label col-md-2">Phòng ban</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("DepartmentID", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+                    </div>                                                                         
+                </div>
+            </div>           
+        </div> 
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">                    
+                    <label class="control-label col-md-2">Khu vực</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("KhuVucID", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <label class="control-label col-md-2">Trạng thái</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("StatusID", null, "--Tất cả--", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">
+                        <i class="fa fa-search"></i> Tìm kiếm
+                    </button>
+                    <a href="@Url.Action("Index", "HRM_EMPLOYEE")" class="btn btn-link"><i class="fa fa-arrow-left m-right-xs"></i>Quay về danh sách</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">        
+        $('.combo-tinh').on("change", function () {
+            var iTinh;
+            var regionsSelect;
+            var idElement = this.id;
+            if (idElement == "Origin_Tinh") {
+                iTinh = $('#Origin_Tinh').val();
+                regionsSelect = $('#Origin_Huyen');
+            }
+            else {
+                if (idElement == "MainAddress_Tinh") {
+                    iTinh = $('#MainAddress_Tinh').val();
+                    regionsSelect = $('#MainAddress_Huyen');
+                }
+                else {
+                    iTinh = $('#ContactAddress_Tinh').val();
+                    regionsSelect = $('#ContactAddress_Huyen');
+                }
+            }
+            regionsSelect.empty();
+            $.getJSON('@Url.Action("LayHuyen", "HRM_EMPLOYEE")', { tinhID: iTinh }, function (regions) {
+                if (regions != null && !jQuery.isEmptyObject(regions)) {
+                    $.each(regions, function (index, region) {
+                        regionsSelect.append($('<option/>', {
+                            value: region.Value,
+                            text: region.Text
+                        }));
+                    });
+                };
+            });
+        });       
+    </script>
+}

@@ -1,0 +1,170 @@
+﻿@model IEnumerable<WebAuLac.Models.VideoFile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Lịch tàu</text>
+}
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        <a data-modal href="@Url.Action("Create", "VideoFiles")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+    }    
+</p>
+<table id="schoolList" class="table table-striped jambo_table border-right action-table">
+    <thead>
+        <tr>
+            <th></th>            
+            <th>
+               Lịch tàu
+            </th>
+            <th>
+               File video
+            </th>            
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "VideoFile" + item.Stt.ToString();
+            <tr id="@rowID">
+                <td></td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.LichTau)
+                </td>
+                <td>
+                    <a href="@Url.Action("viewVideo", "VideoFiles", new {id = item.ID})">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.FileSize)
+                </td>
+                <td>                    
+                    <a href="@Url.Action("viewVideo", "VideoFiles", new {id = item.ID})">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>*@
+                <td>
+                    @*<a href="@Url.Action("Edit", "VideoFiles", new { id=item.Stt })" class="btn btn-success btn-xs" data-modal><i class="fa fa-edit"></i></a>*@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="@Url.Action("Delete", "VideoFiles", new { id=item.ID })" class="btn btn-danger btn-xs" data-modal><i class="fa fa-trash"></i></a>
+                    }                    
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#schoolList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                ]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        $('#schoolList tr').dblclick(function () {
+            var id = $(this).attr('id');
+            id = id.replace('VideoFile', '');
+            var url = '@Url.Action("Details", "VideoFile", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+        })
+    </script>
+}
+
+
+
+
+
+
+
+
+@*@model IEnumerable<WebAuLac.Models.VideoFile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LichTau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FilePath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LichTau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FilePath)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

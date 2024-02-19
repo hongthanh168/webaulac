@@ -1,0 +1,78 @@
+﻿@model IEnumerable<WebAuLac.Models.DIC_POSITION>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>Danh sách chức danh</text>
+}
+<table id="schoolList" class="table table-striped jambo_table border-right">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionName)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th> 
+            <th>
+                Nhóm chức danh
+            </th>           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = "DIC_POSITION_" + item.PositionID.ToString();
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Index", "DIC_POSITION_DEGREE", new { id=item.PositionID })">@Html.DisplayFor(modelItem => item.PositionName)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_GROUPPOSITION.GroupPositionName)
+                </td>               
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            var t = $('#schoolList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "iDisplayLength": 25,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                },
+                ],
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+    </script>
+}

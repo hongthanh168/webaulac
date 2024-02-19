@@ -1,0 +1,59 @@
+﻿@model WebAuLac.Models.HoSoTau
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HoSoTau</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayCap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayCap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayHetHan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayHetHan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileDinhKem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileDinhKem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChungChiTau.TenChungChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChungChiTau.TenChungChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HoSoTauID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

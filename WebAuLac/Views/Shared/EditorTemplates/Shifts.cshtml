@@ -1,0 +1,23 @@
+﻿@model string
+@{
+    string name = ViewData.TemplateInfo.HtmlFieldPrefix;
+    //lấy danh sách các shift
+    var shifts = ViewBag.Shifts;
+    //tách ra thành từng shift
+    string[] arr = shifts.Split(',');
+    //string[] selectedShifts = Model.Split(',');
+    foreach (string item in arr)
+    {
+        bool isSelect = (Model!=null && Model.Contains(item));
+        if (isSelect)
+        {
+            <label class="checkbox-inline"><input type="checkbox" value="@item" name="@name" checked>@item</label>
+        }
+        else
+        {
+            <label class="checkbox-inline"><input type="checkbox" value="@item" name="@name">@item</label>
+        }
+
+    }
+}
+

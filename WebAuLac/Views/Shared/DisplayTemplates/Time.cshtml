@@ -1,0 +1,9 @@
+﻿@model  DateTime?
+@{
+    string thoiGian = "";
+    if (Model.HasValue)
+    {
+        thoiGian = Model.Value.Hour.ToString("00") + ":" + Model.Value.Minute.ToString("00");
+    }
+}
+<text>@thoiGian</text>

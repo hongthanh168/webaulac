@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "Danh mục phòng ban";
+    var doJsTreeOperationUrl = Url.Action(actionName: "DoJsTreeOperation", controllerName: "jsTree");
+    var getTreeJsonUrl = Url.Action(actionName: "GetTreeData", controllerName: "jsTree");
+}
+@section styles{
+    <link href="@Url.Content("~/vendors/jsTree/themes/default/style.min.css")" rel="stylesheet" />
+    @*@Styles.Render("~/vendors/jsTree/css")*@
+}
+@section huongdan{
+    <text>Danh sách phòng ban</text>
+}
+<p><strong>Hướng dẫn:</strong> thêm mới, xóa, sửa thông tin phòng ban, chọn các nút bên dưới. Để di chuyển phòng ban, chọn phòng ban, giữ và rê chuột đến vị trí mới.</p>
+<!-- modal placeholder-->
+<div class="row">
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <a id="createDIC_DEPARTMENT" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+        <a id="editDIC_DEPARTMENT" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Sửa</a>
+        <a id="deleteDIC_DEPARTMENT" class="btn btn-danger"><i class="fa fa-trash m-right-xs"></i>Xóa</a>
+    </div> 
+    <div class="col-md-3 col-sm-3 col-xs-12 input-group">
+        <input class="form-control" id="searchDepartment" type="text" placeholder="Tên phòng cần tìm...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="XoaTimKiem()"><i class="fa fa-times-circle"></i></button>
+        </span>
+    </div>   
+</div>        
+<div id="jstree"></div>
+@section scripts{
+    <script src="@Url.Content("~/vendors/jsTree/jstree.min.js")"></script>
+    @*@Scripts.Render("~/vendors/jsTree/js")*@
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script type="text/javascript">
+        //thuc hien cac nut o day
+        $('#createDIC_DEPARTMENT').click(function (e) {
+            e.preventDefault();
+            var ref = $('#jstree').jstree(true),
+			sel = ref.get_selected();
+            if (!sel.length){ return false; }
+            var parentID = sel[0];
+            var url = '@Url.Action("Create", "DIC_DEPARTMENT", new { parentID = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(parentID));
+            $('#myModalContentLarge').load(url, function () {
+                $.validator.unobtrusive.parse($('form'));
+                $('#myModalLarge').modal({
+                    keyboard: true
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        });
+        $('#editDIC_DEPARTMENT').click(function (e) {
+            e.preventDefault();
+            var ref = $('#jstree').jstree(true),
+			sel = ref.get_selected();
+            if (!sel.length) { return false; }
+            var id = sel[0];
+            var url = '@Url.Action("Edit", "DIC_DEPARTMENT", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $('#myModalContentLarge').load(url, function () {
+                $.validator.unobtrusive.parse($('form'));
+                $('#myModalLarge').modal({
+                    keyboard: true
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        });
+        $('#deleteDIC_DEPARTMENT').click(function (e) {
+            e.preventDefault();
+            var ref = $('#jstree').jstree(true),
+			sel = ref.get_selected();
+            if (!sel.length) { return false; }
+            var id = sel[0];
+            var url = '@Url.Action("Delete", "DIC_DEPARTMENT", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $('#myModalContent').load(url, function () {
+                $.validator.unobtrusive.parse($('form'));
+                $('#myModal').modal({
+                    keyboard: true
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        });
+        function postJsTreeOperation(operation, data, onDone, onFail) {
+            $.post('@doJsTreeOperationUrl',
+                {
+                    'operation': operation,
+                    'id': data.node.id,
+                    'parentID': data.node.parent,
+                    'text': data.node.text,
+                    'originalId': data.original ? data.original.id : data.node.original.id
+                })
+                .done(function (result) {
+                    if (result.KetQua == true) {
+                        onDone();
+                    }
+                    else {
+                        onFail();
+                    }
+                })
+                .fail(function (result) {
+                    alert('Thao tác không thành công!');
+                    onFail();
+                });
+        }
+
+        $(function () {
+            var selectedData;
+
+            $('#jstree').jstree({
+                "core": {
+                    'check_callback': true,
+                    'data': {
+                        'url': '@getTreeJsonUrl',
+                        "type": "POST",
+                        "dataType": "json",
+                        "contentType": "application/json; charset=utf8",
+                        'data': function (node) {
+                            return { 'id': node.id };
+                        }
+                    }
+                },
+                "plugins": ["dnd", "state", "types", "search"],
+                "search": {
+                        "case_insensitive": true,
+                        "show_only_matches": true
+                 }
+            })                
+                .on('move_node.jstree', function (e, data) {
+                    postJsTreeOperation('MoveNode', data,
+                        function (result) {
+                        },
+                        function (result) {
+                            data.instance.refresh();
+                        });
+                })                
+                .on('changed.jstree', function (e, data) {
+
+                });
+
+        });
+        //tìm trên cây
+        $('#searchDepartment').keyup(function () {
+            var v = $('#searchDepartment').val();
+            $('#jstree').jstree('search', v);
+        });
+        function XoaTimKiem() {
+            var txtBox = document.getElementById('searchDepartment');
+            txtBox.value = '';
+            $('#jstree').jstree('search', '');
+        };
+        $('#jstree').on('dblclick','.jstree-anchor', function (e) {
+            var instance = $.jstree.reference(this),
+            node = instance.get_node(this);
+            //thực hiện mở form hiển thị thông tin details
+            var id = node.id;
+            var url = '@Url.Action("Details", "DIC_DEPARTMENT", new { id = "js-id", data_modal="" })'
+              .replace("js-id", encodeURIComponent(id));
+            $.get(url, function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal('show');
+            });
+
+        });
+</script>
+}
+
+

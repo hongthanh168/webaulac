@@ -1,0 +1,36 @@
+﻿@model WebAuLac.Models.LichKiemTraTau
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa lịch kiểm tra này?</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>Tàu</th>
+            <td>@ViewBag.Tau </td>
+        </tr>
+        <tr>
+            <th>Loại kiểm tra</th>
+            <td>@ViewBag.LoaiKiemTra</td>
+        </tr>
+        <tr>
+            <th>Ngày kiểm tra</th>
+            <td>@Html.DisplayFor(model => model.NgayKiemTra)</td>
+        </tr>
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+}
+
+

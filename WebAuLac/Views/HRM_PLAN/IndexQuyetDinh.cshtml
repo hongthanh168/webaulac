@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_PLAN>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <text>DANH SÁCH CÁC KẾ HOẠCH ĐIỀU ĐỘNG ĐÃ LẬP</text>
+}
+<table id="PlanList" class="table table-bordered table-hover table-striped action-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanDate)
+            </th>
+            <th style="color:red">Phê duyệt</th>
+            <th>
+                Ghi chú
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string rowID = item.PlanID.ToString();
+            <tr id="@rowID">
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Index", "HRM_QuyetDinhDieuDong", new { planID=item.PlanID })">@Html.DisplayFor(modelItem => item.PlanName)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlanDate)
+                </td>
+                <td>
+                    @if (item.IsLock.HasValue && item.IsLock.Value)
+                    {
+                        <text>Đã duyệt</text>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>   
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+
+        $(document).ready(function () {
+            var t = $('#PlanList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });        
+    </script>
+}
+
+

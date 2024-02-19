@@ -1,0 +1,297 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>HRM_EMPLOYMENTHISTORY</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DecisionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DecisionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EffectiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EffectiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentDecision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentDecision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PerPosition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerPosition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PerPlurality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerPlurality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gross)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gross)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Power)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Power)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayXuongTau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayXuongTau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.XacNhan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.XacNhan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DecisionNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DecisionNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bonus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bonus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceBonus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceBonus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalaryPlurality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaryPlurality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceSalaryPlurality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceSalaryPlurality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BonusPlurality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BonusPlurality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceBonusPlurality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceBonusPlurality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoiGianThucTap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoiGianThucTap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_DEPARTMENT.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_DEPARTMENT1.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_DEPARTMENT1.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_INTERSHIP.IntershipName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_INTERSHIP.IntershipName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_INTERSHIP1.IntershipName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_INTERSHIP1.IntershipName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_LOAITAU.TenLoaiTau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_LOAITAU.TenLoaiTau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_POSITION.PositionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_POSITION.PositionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_POSITION1.PositionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_POSITION1.PositionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_POSITION2.PositionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_POSITION2.PositionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_SALARY.SalaryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_SALARY.SalaryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIC_SALARY1.SalaryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIC_SALARY1.SalaryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_LyDoNghiViec.LyDoNghiViec_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_LyDoNghiViec.LyDoNghiViec_Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,42 @@
+﻿@model WebAuLac.Models.tbl_khoadaotao
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa cơ sở đào tạo này?</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.tenkhoadaotao):</th>
+            <td>@Html.DisplayFor(model => model.tenkhoadaotao)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.tbl_cosodaotao.tencoso):</th>
+            <td>@Html.DisplayFor(model => model.tbl_cosodaotao.tencoso)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ngaybatdau):</th>
+            <td>@Html.DisplayFor(model => model.ngaybatdau)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.diadiem):</th>
+            <td>@Html.DisplayFor(model => model.diadiem)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.hocphi):</th>
+            <td>@Html.DisplayFor(model => model.hocphi)</td>
+        </tr>
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+}

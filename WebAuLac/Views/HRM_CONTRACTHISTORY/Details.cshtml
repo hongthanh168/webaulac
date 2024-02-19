@@ -1,0 +1,65 @@
+﻿@model WebAuLac.Models.HRM_CONTRACTHISTORY
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section tieude{
+    <h2>Thông tin chi tiết Hợp đồng lao động</h2>
+}
+<div>
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ContractNo)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.ContractNo)
+            </td>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ContractDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.ContractDate)
+            </td>
+
+            <th>
+                @Html.DisplayNameFor(model => model.EffctiveDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.EffctiveDate)
+            </td>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.ExpirationDate)
+            </td>
+
+            <th>
+               Loại hợp đồng
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_CONTRACTTYPE.ContractTypeName)
+            </td>
+
+            <th>
+                @Html.DisplayNameFor(model => model.HRM_EMPLOYEE.EmployeeCode)
+            </th>
+
+             
+
+           </table>
+</div>
+<p>
+    <a href="@Url.Action("Edit", "HRM_CONTRACTHISTORY", new { id = Model.ContractHistoryID })" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Sửa</a>
+    <a href="@Url.Action("Index", "HRM_CONTRACTHISTORY")" class="btn btn-link"><i class="fa fa-arrow-left m-right-xs"></i>Quay về danh sách</a>
+</p>

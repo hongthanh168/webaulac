@@ -1,0 +1,261 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section huongdan{
+    <h2>Quyết định của thuyền viên: @ViewBag.TenTV
+</h2>
+}
+
+@*<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới quyết định điều động</h4>
+</div>*@
+
+@using (Ajax.BeginForm("CreateEachList", "HRM_EMPLOYMENTHISTORY", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "resultArea" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.EmployeeID)
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DecisionNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.DecisionNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DecisionNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DecisionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.DecisionDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DecisionDate, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.EffectiveDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContentDecision, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ContentDecision, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContentDecision, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryDecisionID, "Loại quyết định", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("CategoryDecisionID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryDecisionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.SalaryStepID, "SalaryStepID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("SalaryStepID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SalaryStepID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentID, "Phòng ban", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PositionID, "Chức vụ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("PositionID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PositionID, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.InternshipPosition, "Thực tập chức vụ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("InternshipPosition", null, "--Chọn--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InternshipPosition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PerPosition, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.PerPosition, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PerPosition, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.SalaryPositionID, "Lương chức vụ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("SalaryPositionID", null, "--Chọn--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SalaryPositionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentPluralityID, "Phòng ban kiêm nhiệm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("DepartmentPluralityID",null, "--Chọn--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentPluralityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.PluralityID, "Chức vụ kiêm nhiệm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("PluralityID", null, "--Chọn--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PluralityID, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.IntershipPlurality, "Thực tập chức vụ kiêm nhiệm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("IntershipPlurality", null, "--Chọn--", htmlAttributes: new { @class = "form-control" })
+               @* @Html.ValidationMessageFor(model => model.IntershipPlurality, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.IntershipPlurality,"", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PerPlurality, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.PerPlurality, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PerPlurality, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.SalaryPluralityID, "Lương chức vụ kiêm nhiệm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("SalaryPluralityID", null, "--Chọn--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SalaryPluralityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+
+}
+
+@section scripts{
+ 
+    @Scripts.Render("~/bundles/jqueryval")
+   
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#DepartmentID').change(function () {
+            
+            //Lấy thông tin chức vụ
+            //var e = document.getElementById("#PositionID");
+            //var str = e.options[e.selectedIndex].value;
+            var str = $("#PositionID option:selected").val();
+            LoadRegion(this.value,str);
+        });
+        $('#PositionID').change(function () {
+
+            //Lấy thông tin chức vụ
+            //var e = document.getElementById("#PositionID");
+            //var str = e.options[e.selectedIndex].value;
+            var str = $("#DepartmentID option:selected").val();
+            LoadRegion(str,this.value);
+        });
+        $('#DepartmentPluralityID').change(function () {
+
+            //Lấy thông tin chức vụ
+            //var e = document.getElementById("#PositionID");
+            //var str = e.options[e.selectedIndex].value;
+            var str = $("#PluralityID option:selected").val();
+            LoadRegion1(this.value, str);
+
+        });
+        $('#PluralityID').change(function () {
+
+            //Lấy thông tin chức vụ
+            //var e = document.getElementById("#PositionID");
+            //var str = e.options[e.selectedIndex].value;
+            var str = $("#DepartmentPluralityID option:selected").val();
+            LoadRegion1(str, this.value);
+        });
+        function LoadRegion1(DepartmentID, PositionID) {
+            var salary = $('#SalaryPluralityID');
+            salary.empty();
+            salary.append($('<option></option>').val('').text('--Chọn--'));
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetRank", "HRM_EMPLOYMENTHISTORY")',
+                data: "{'DepartmentID':'" + DepartmentID + "','PositionID':'" + PositionID + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+
+                    $.each(data, function (index, item) {
+                        salary.append($('<option></option>').val(item.SalaryID).text(item.RankID));
+                    });
+
+
+                },
+                error: function () {
+                    salary.empty();
+                    salary.append($('<option></option>').val('').text('--Chọn--'));
+                    // alert("Failed to load Item");
+                }
+            });
+        }
+        function LoadRegion(DepartmentID, PositionID) {
+            var salary = $('#SalaryPositionID');
+            salary.empty();
+            salary.append($('<option></option>').val('').text('--Chọn--'));
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetRank", "HRM_EMPLOYMENTHISTORY")',
+                data: "{'DepartmentID':'" + DepartmentID + "','PositionID':'" + PositionID + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    
+                    
+                            $.each(data, function (index, item) {
+                                salary.append($('<option></option>').val(item.SalaryID).text(item.RankID));
+                            });
+                        
+                 
+                },
+                error: function () {
+                    //Nếu giá trị Null thì trả về null cho phần lương
+                    salary.empty();
+                    salary.append($('<option></option>').val('').text('--Chọn--'));
+                    // alert("Failed to load Item");
+                }
+            });
+        }
+
+    });
+    
+</script>
+    }

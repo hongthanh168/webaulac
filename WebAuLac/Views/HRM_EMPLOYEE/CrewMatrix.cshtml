@@ -1,0 +1,64 @@
+﻿@using WebAuLac.Models
+@model WebAuLac.Models.sp_LayThongTinMatrix_Result
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thông tin crew matrix của thuyền viên</h4>
+</div>
+@{ 
+    double withOperator = 0;
+    double inRank = 0;
+    double thisType = 0;
+    double allType = 0;
+    double watchKeeping = 0;
+    if (Model != null)
+    {
+        if (Model.WithOperator.HasValue)
+        {
+            withOperator = (double)Model.WithOperator.Value/ 365;
+        }
+        if (Model.InRank.HasValue)
+        {
+            inRank = (double)Model.InRank.Value/ 365;
+        }
+        if (Model.ThisTypeOfTanker.HasValue)
+        {
+            thisType = (double)Model.ThisTypeOfTanker.Value / 365;
+        }
+        if (Model.AllTypeOfTanker.HasValue)
+        {
+            allType = (double)Model.AllTypeOfTanker.Value / 365;
+        }
+        if (Model.WatchKeeping.HasValue)
+        {
+            watchKeeping = (double)Model.WatchKeeping.Value / 365;
+        }
+    }
+}
+<div class="modal-body">
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>With company:</th>
+            <td>@withOperator.ToString("N2")</td>
+        </tr>   
+        <tr>
+            <th>In rank:</th>
+            <td>@inRank.ToString("N2")</td>
+        </tr> 
+        <tr>
+            <th>This type of tanker:</th>
+            <td>@thisType.ToString("N2")</td>
+        </tr> 
+        <tr>
+            <th>All type of tanker:</th>
+            <td>@allType.ToString("N2")</td>
+        </tr> 
+        <tr>
+            <th>Watch keeping:</th>
+            <td>@watchKeeping.ToString("N2")</td>
+        </tr>     
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" data-dismiss="modal">OK</button>
+</div>

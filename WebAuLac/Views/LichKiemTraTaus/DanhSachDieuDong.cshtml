@@ -1,0 +1,148 @@
+﻿@model List<WebAuLac.Models.tableDieuDongBacThang>
+<table class="table table-bordered table-striped table-hover" id="bangKe">
+    <thead>
+        <tr>
+            <th></th>
+            @{
+                List<string> tieuDe = ViewBag.TieuDe;
+                foreach (string s in tieuDe)
+                {
+                    <th>@s</th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            //khai báo mảng màu
+            string[] lightColors = new string[]
+                {
+            "#FFD1DC", // lightpink
+            "#FFFAF0",  // floralwhite
+            "#FFA07A", // lightsalmon
+            "#90EE90", // lightgreen
+            "#20B2AA", // lightseagreen
+            "#FFFFE0", // lightyellow
+            "#E0FFFF", // lightcyan
+            "#FAFAD2", // lightgoldenrodyellow
+            "#ADD8E6", // lightblue
+            "#F0FFF0", // honeydew
+            "#9370DB", // MediumOrchid
+            "#CD853F", // Peru
+            "#E6E6FA", // lavender
+            "#B0C4DE", // lightsteelblue
+            "#FFE4E1", // mistyrose
+            "#F08080", // lightcoral
+            "#FFF0F5", // lavenderblush
+            "#FFF5EE", // seashell
+            "#F5FFFA", // mintcream
+            "#F5F5F5", // whitesmoke
+            "#D3D3D3", // lightgray
+            };
+
+            int stt = -1;
+            int idDept = 0;
+        }
+        @foreach (var item in Model)
+        {
+            if (idDept != item.DepartmentID)
+            {
+                stt++;
+                idDept = item.DepartmentID;
+            }
+            <tr>
+                <td style="background-color: @lightColors[stt];">@item.Description</td>
+                @{//bắt đầu hiển thị thông tin của các cột
+                    int viTriMerge = 0;
+                    int soCotDuocMerge = 1;
+                    string tenNguoi = "";
+                    string idDieuDong = "0";
+                    string nguoiThayTheHayHienTai = "0"; //biến cho biết người thay thế 1 hay là người hiện tại 0
+                    for (int i = 1; i <= 21; i++)
+                    {
+                        string s = item.LayGiaTriCot(i);
+                        if (s != null && s != "")
+                        {
+                            //tách chuỗi
+                            string[] ss = s.Split('_');
+                            if (item.Loai == "LICHKIEMTRA")
+                            {
+                                int idLich = int.Parse(ss[2]);
+                                string tenLich = @ss[0] + " " + @ss[1];
+                                <td style="background-color: @lightColors[stt];" onclick="updateLink(this)">
+                                    @tenLich
+                                    <span class="hidden-value">@idLich</span>
+                                </td>
+                            }
+                            else //loại điều động bậc thang
+                            {
+                                //lấy ra số tháng, chính là số cột được merge
+                                soCotDuocMerge = int.Parse(ss[2]) - 1;
+                                tenNguoi = ss[0];
+                                idDieuDong = ss[3];
+                                nguoiThayTheHayHienTai = ss[4];
+                                //kiểm tra là người hiện tại hay người thay thế
+                                if (nguoiThayTheHayHienTai == "1")
+                                {
+                                    //cột đầu tiên sẽ là cột ghi ngày
+                                    <td style="background-color: yellow;">
+                                        @ss[1]
+                                    </td>
+                                }
+                                else
+                                {
+                                    //cột đầu tiên sẽ là cột ghi ngày
+                                    <td style="background-color: @lightColors[stt];">
+                                        @ss[1]
+                                    </td>
+                                }
+                            }
+                        }
+                        else //nếu chuỗi của cột là null
+                        {
+                            if (item.Loai == "LICHKIEMTRA")
+                            {
+                                <td></td>
+                            }
+                            else //các loại điều động bậc thang khi chuỗi bằng null
+                            {
+                                //kiểm tra xem có đang merge hay không?
+                                if (tenNguoi == "")
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    if (viTriMerge == 0) //cột thứ 2 ngay sau cột tháng
+                                    {
+                                        if (nguoiThayTheHayHienTai == "0")
+                                        {
+                                            <td style="background-color: @lightColors[stt]; text-align:center" colspan="@soCotDuocMerge">
+                                                <a href="#" class="loadDataLink" name="NguoiCanDieuDong" id="@idDieuDong">@tenNguoi</a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="background-color: yellow; text-align:center" colspan="@soCotDuocMerge">
+                                                @tenNguoi
+                                            </td>
+                                        }
+
+                                    }
+                                    viTriMerge++;
+                                    if (viTriMerge == soCotDuocMerge)
+                                    {
+                                        viTriMerge = 0;
+                                        soCotDuocMerge = 1;
+                                        tenNguoi = "";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            </tr>
+
+        }
+    </tbody>
+</table>

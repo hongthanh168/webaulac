@@ -1,0 +1,166 @@
+﻿@using WebAuLac.Models;
+@model IEnumerable<WebAuLac.Models.LichKiemTra>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int year = DateTime.Now.Year;
+    string tieuDe = "LỊCH KIỂM TRA NĂM " + year.ToString();
+    AuLacEntities db = new AuLacEntities();
+}
+
+@section huongdan{
+    <text>@tieuDe</text>
+}
+
+<p>
+    <a data-modal href="@Url.Action("Create", "LichKiemTras")" class="btn btn-primary"><i class="fa fa-plus m-right-xs"></i>Thêm mới</a>
+</p>
+<table id="PlanList" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Đơn vị
+            </th>
+            <th>
+               T 1
+            </th>
+            <th>
+                T 2
+            </th>
+            <th>
+                T 3
+            </th>
+            <th>
+                T 4
+            </th>
+            <th>
+                T 5
+            </th>
+            <th>
+                T 6
+            </th>
+            <th>
+                T 7
+            </th>
+            <th>
+                T 8
+            </th>
+            <th>
+                T 9
+            </th>
+            <th>
+                T 10
+            </th>
+            <th>
+                T 11
+            </th>
+            <th>
+                T 12
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @{
+            //lấy ra danh sách các phòng có lịch kiểm tra
+            var listPhongBan = Model.Select(x => x.DepartmentID).Distinct().ToList();
+            foreach (int id in listPhongBan)
+            {
+                <tr>
+                    <td></td>
+                    @{
+                        string tenPhongBan = db.DIC_DEPARTMENT.Find(id).DepartmentName;
+                    }
+                    <td>
+                        @tenPhongBan
+                    </td>
+                    @{
+                        //lấy thông tin từng tháng
+                        //tháng 1
+                        for (int i = 1; i <= 12; i++)
+                        {
+                            var listKiemTra = Model.Where(x => x.Thang == i && x.DepartmentID==id);
+                            if (listKiemTra != null)
+                            {
+                                string chiTiet = "";
+                                bool isFirst = true;
+                                foreach (LichKiemTra item in listKiemTra)
+                                {
+                                    string thongTin = "";
+                                    if (isFirst)
+                                    {
+                                        isFirst = false;
+                                    }else
+                                    {
+                                        chiTiet += ", ";
+                                    }
+                                    if (item.Ngay.HasValue)
+                                    {
+                                        thongTin = item.LoaiKiemTra.VietTat + "(" + item.Ngay.Value.ToString() + ")";
+                                    }else
+                                    {
+                                        thongTin= item.LoaiKiemTra.VietTat;
+                                    }
+                                    if (User.IsInRole("HR"))
+                                    {
+                                        string tooltip = "<a data-modal href='"
+                                                        + Url.Action("Edit", "LichKiemTras", new { id = item.LichKiemTraID })
+                                                        + "'>Sửa</a>, <a data-modal href='"
+                                                        + Url.Action("Delete", "LichKiemTras", new { id = item.LichKiemTraID }) + "'>Xóa</a>";
+                                        tooltip = tooltip.Replace("'", "\"");
+                                        thongTin = "<a name='link_popover' data-toggle='popover' data-trigger='click' data-html='true' data-content='" + tooltip + "'>" + thongTin + "</a>";
+                                    }
+                                    chiTiet += thongTin;
+                                }
+                                <td>@Html.Raw(chiTiet)</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                    }
+                </tr>
+             }
+        }
+    </tbody>
+
+</table>
+@section Styles{
+    @Styles.Render("~/vendors/DataTables/css")
+    @Styles.Render("~/vendors/DataTables/Buttons/css")
+}
+@section scripts{
+    @Scripts.Render("~/vendors/DataTables/js")
+    @Scripts.Render("~/vendors/DataTables/Buttons/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--modal form-->
+    @Scripts.Render("~/bundles/modalform")
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('a[name=link_popover]').popover({               
+               
+            });
+            var t = $('#PlanList').DataTable({
+                "language": {
+                    "url": "/vendors/DataTables/langs/Vietnamese.json"
+                },
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+    </script>
+}
+
+

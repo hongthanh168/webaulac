@@ -1,0 +1,137 @@
+﻿@model WebAuLac.Models.HRM_DETAILSALARY
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>HRM_DETAILSALARY</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HRMSalaryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRMSalaryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmploymentHistoryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmploymentHistoryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PositionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PositionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bonus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bonus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowanceBonus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowanceBonus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumOfDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumOfDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TruKhac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruKhac)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhuThuoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhuThuoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,71 @@
+﻿@model WebAuLac.Models.HRM_CONTRACTHISTORY
+
+@{
+    string hoten = Model.HRM_EMPLOYEE.FirstName + " " + Model.HRM_EMPLOYEE.LastName;
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa hợp đồng lao động này?</h4>
+</div>
+<div class="modal-body">
+               <table class="table no-border table-striped table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContractNo):
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.ContractNo)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContractDate):
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.ContractDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EffctiveDate):
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EffctiveDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpirationDate):
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.ExpirationDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                   Loại hợp đồng:
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.DIC_CONTRACTTYPE.ContractTypeName)
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+ @using (Html.BeginForm())
+ {
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="fa fa-trash"></i>Xóa
+        </button>
+    </div>
+ }

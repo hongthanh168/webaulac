@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebAuLac.Models.HRM_EMPLOYEE_RELATIVE>
+<p>
+    <button class="btn btn-primary" onclick="HienThiModal('@Url.Action("CreateOne", "HRM_EMPLOYEE_RELATIVE",new { EmployeeID=ViewBag.EmployeeID})', 'tab_content4')"><i class="fa fa-plus m-right-xs"></i>Thêm mới</button>
+</p>
+<table id="EmployeeRelativeList" class="table table-bordered action-table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+             
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+             
+            <th>
+                @Html.DisplayNameFor(model => model.Job)
+            </th>
+            
+            <th>
+               Mối quan hệ
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int stt = 0;
+        }
+        @foreach (var item in Model)
+        {
+            stt = stt + 1;
+            string rowID = "HRM_EMPLOYEE_RELATIVE_" + item.PersonID.ToString();
+            <tr id="@rowID" data-value="@item.PersonID">
+                <td>@stt</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIC_RELATIVE.RelativeName)
+                </td>
+                
+                <td>
+                    <a href="#" onclick="HienThiModal('@Url.Action("Edit",  "HRM_EMPLOYEE_RELATIVE",new { id=item.PersonID})', 'tab_content4')" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="HienThiModal('@Url.Action("Delete","HRM_EMPLOYEE_RELATIVE",new { id=item.PersonID})', 'tab_content4')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+               
+                 </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+ 

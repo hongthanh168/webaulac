@@ -1,0 +1,158 @@
+﻿@model WebAuLac.Models.HoSoTau
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thêm mới hồ sơ</h4>
+</div>
+
+@using (Html.BeginForm("Create", "HoSoTau", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-2">Tên tàu</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Loại hồ sơ</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("ChungChiID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ChungChiID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SoHoSo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SoHoSo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SoHoSo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NgayCap, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NgayCap, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgayCap, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NoiCap, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NoiCap, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NoiCap, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NgayHetHan, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NgayHetHan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgayHetHan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.FileDinhKem, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FileDinhKem, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FileDinhKem, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.FileDinhKem, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-9">
+                    <input type="file" id="Avatar" name="upload" accept=".pdf" />
+                    @*<img id="hienThi" src="#" style="display:none;" width="200" />
+                <button id="XoaHinhAnh" type="button" onclick="XoaHinh()" style="display:none;">Xóa hình ảnh</button>*@
+                </div>
+            </div>
+ 
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        <button id="SaveRecord" class="btn btn-success" type="button">
+            <i class="fa fa-save"></i> Lưu thông tin
+        </button>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+            $("#Avatar").on("change", function (e) {
+                if (this.files[0].size > 20000000) {
+                    alert("Dung lượng file không được quá 20M!");
+                    this.value = "";
+                };
+            });
+            $("#SaveRecord").click(function () {
+                var formData = new FormData();
+
+                formData.append("upload", $('#Avatar')[0].files[0]); //append the image file
+
+                var other_data = $('form').serializeArray();
+                $.each(other_data, function (key, input) { //append other input value
+                    formData.append(input.name, input.value);
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CreateWithUpload", "HoSoTau")',
+                    data: formData,
+                    //async: false,
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    success: function (result) {
+                        //alert("Success");
+                       
+                        //$("#MyModal").modal("hide"); //this line is unnecessary because the user has been redirect
+                        if (result.success) {
+                            //alert("Success");
+                            window.location.href = '@Url.Action("DSChungChiTau", "HoSoTau")';
+                            //$("#MyModal").modal("hide"); //this line is unnecessary because the user has been redirect
+                        } else alert("Bạn cần nhập đầy đủ thông tin cần thiết!")
+
+                    }
+                })
+            });
+            //$("#Avatar").click(function () {
+            //    alert("");
+                //var frmData = new FormData();
+                //var filebase = $("#photo").get(0);
+                //var files = filebase.files;
+                //frmData.append("firstname", "hi");
+                //frmData.append(files[0].name, files[0]);
+                //$.ajax({
+                //    url: '/Home/SaveEmployee',
+                //    type: "POST",
+                //    contentType: false,
+                //    processData: false,
+                //    data: frmData,
+                //    success: function (data) {
+                //        $('#myModal').modal('show');
+                //        $('#txtMessage').html(data.message);
+                //        if (data.success) {
+                //            $('.modal-header').addClass('alert alert-success');
+                //        } else {
+                //            $('.modal-header').addClass('alert alert-info');
+                //        }
+                //    },
+                //    error: function (err) {
+                //        $('#myModal').modal('show');
+                //        $('.modal-header').addClass('alert alert-danger');
+                //        $('#txtMessage').html(err.statusText);
+                //    }
+                //});
+            //});
+
+//End of the document ready function...
+        });
+</script>

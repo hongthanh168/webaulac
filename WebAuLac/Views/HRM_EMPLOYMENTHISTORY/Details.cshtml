@@ -1,0 +1,64 @@
+﻿@model WebAuLac.Models.HRM_EMPLOYMENTHISTORY
+
+@{
+    string hoten = Model.HRM_EMPLOYEE.FirstName + " " + Model.HRM_EMPLOYEE.LastName;
+}
+
+<div class="modal-body">
+
+    <table class="table no-border table-striped table-hover">
+        <tr>
+            <th>Chi tiết QĐ của</th>
+
+            <td>@hoten</td>
+        </tr>
+        <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DecisionNo)
+        </th>
+
+        <td>
+            @Html.DisplayFor(model => model.DecisionNo)
+        </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DecisionDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DecisionDate)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveDate)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.EffectiveDate)
+            </td>
+        </tr>
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+            </th>
+
+            <td>
+                @Html.DisplayFor(model => model.DIC_CATEGORYDECISION.CategoryDecisionName)
+            </td>
+        </tr>       
+                
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" style="margin-bottom:0px;">
+            <i class="fa fa-ban"></i> Hủy
+        </button>
+        
+    </div>
+}
