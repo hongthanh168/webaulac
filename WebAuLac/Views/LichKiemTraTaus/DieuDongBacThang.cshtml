@@ -41,11 +41,9 @@
     @Scripts.Render("~/bundles/modalform")
 
 <script language="javascript">
-        var tblThuyenVien, tblDuTru, tblKeHoach;
-        var currentThuyenVien = -1, currentTau = -1;
-        var currentPosThuyenVien = -1, currentPosDuTru = -1;
-        var tatCa = 0;
-        var tatCaDuTru = 0;
+        var tblDuTru;
+        var currentIDDieuDong = 0;//lưu thông tin điều động hiện tại
+        var currentIDThuyenVien = 0;//lưu thông tin thuyền viên dự trữ hiện tại
         $(document).ready(function () {
             //hiển thị danh sách thuyền viên trên tất cả các tàu
             $.ajax({
@@ -62,7 +60,6 @@
             var url = '@Html.Raw(@Url.Action("locChucDanh", "LichKiemTraTaus"))';
             //goi modal
             $('#myModalContent').load(url, function () {
-
                 $.validator.unobtrusive.parse($('form'));
 
                 $('#myModal').modal({
@@ -91,6 +88,9 @@
                             //thêm các sự kiện
                             $('#DanhSachDieuDong').on('click', 'a', function (e) {
                                 var id = $(this).attr('id');
+                                currentIDDieuDong = id;
+                                //get content of the link
+                                var nguoiCanThayThe = 'Danh sách thuyền viên thay thế cho: ' +  $(this).text();
                                 var url = '@Html.Raw(@Url.Action("LayNguoiThayThe", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
                                           .replace("dieudong-id", encodeURIComponent(id));
                                         $.ajax({
@@ -98,6 +98,9 @@
                                             type: 'get',
                                             success: function (result) {
                                                 $('#DanhSachThayThe').html(result);
+                                                //set content to p tag
+                                                $('#dsDuTru_tieuDe').html(nguoiCanThayThe);
+                                                FormatDanhSachDuTru();
                                             }
                                         });
                                 return false;
@@ -114,8 +117,6 @@
                 "info": false,
                 "columnDefs": [
                     {
-                        "orderable": false,
-                        "searchable": false,
                         "className": 'select-checkbox',
                         "targets": 0
                     }
@@ -128,37 +129,29 @@
             //-------------hết phần hiển thị datatable--------------------
             //sự kiện click chọn
             $('#tblDuTru tbody').on('click', '.select-checkbox', function (e) {
-                //lấy ra mã thuyền viên được chọn ở đây
-                var $row = $(this).closest('tr');
-                var currentDuTru = $row.attr('id');
-                currentPosDuTru = $row.attr('data-pos-id');
-                //if ((currentPosDuTru >= 20 && currentPosDuTru <= 27) || (currentPosThuyenVien >= 20 && currentPosThuyenVien <= 27))
-                //    KiemTraCrewMatrix(currentDuTru);
+                currentIDThuyenVien = $(this).closest('tr').attr('id');
+                //kiểm tra crew matrix ờ đây
+                //chưa làm
             });
         }
         function KiemTraCrewMatrix(idOn)
         {
-            
+
         }
         $('#Replace').on('click', function (e) {
-            //kiểm tra xem đã chọn người nào chưa
-            var anSelected1 = fnGetSelected(tblThuyenVien);
-            if (anSelected1.length == 0) {
-                alert("Chưa chọn thuyền viên trên tàu!");
-                return;
-            }
-            var tr1 = anSelected1[0];
-            var id1 = $(tr1).attr('id');
-
-            var anSelected2 = fnGetSelected(tblDuTru);
-            if (anSelected2.length == 0) {
-                alert("Chưa chọn thuyền viên dự trữ!");
-                return;
-            }
-            var tr2 = anSelected2[0];
-            var id2 = $(tr2).attr('id');
-            ThucHienLenhInsert(id1, id2);
-        })
-
+            var url = '@Html.Raw(@Url.Action("InsertKH", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", ThuyenVienThayTheID = "thuyenvienthaythe-id" }))'
+              .replace("dieudong-id", encodeURIComponent(currentIDDieuDong))
+              .replace("thuyenvienthaythe-id", encodeURIComponent(currentIDThuyenVien));
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (result) {
+                    //load lại bảng thông tin điều động
+                    $('#DanhSachDieuDong').html(result);
+                    //xóa nội dung trong mục hiển thị người thay thế
+                    $('#DanhSachThayThe').html("");
+                }
+            });
+        })        
 </script>
 }

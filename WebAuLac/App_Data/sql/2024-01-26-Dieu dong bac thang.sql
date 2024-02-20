@@ -260,7 +260,7 @@ MAX(CASE WHEN B.cot21 is not null AND B.cot21 <>'' THEN B.cot21 ELSE A.cot21 END
 GO
 ----------------------------------------------------------
 ------------store dùng để lấy người thay thế cho 1 chức danh cụ thể
-CREATE PROCEDURE  [dbo].[sp_T_LayNguoiThayThe]
+ALTER PROCEDURE  [dbo].[sp_T_LayNguoiThayThe]
 	@NguoiThayTheID int,
 	@posID int
 AS
@@ -283,7 +283,7 @@ and dbo.fc_GetParentDepartment(v.EmployeeID) = 17
 and v.StatusID =1
 and v.EmployeeID = e.EmployeeID
 and v.PositionID = @posID
+and not exists (select * from DieuDongBacThang where NguoiThayTheID = v.EmployeeID)
 END
 
-GO
 

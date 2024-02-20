@@ -52,21 +52,8 @@ namespace WebAuLac
                 foreach (int idPos in chkPos)
                 {
                     string pos = "CAPT";
-                    switch (idPos)
-                    {
-                        case 20:
-                            pos = "CAPT";
-                            break;
-                        case 21:
-                            pos = "C/O";
-                            break;
-                        case 22:
-                            pos = "2/O";
-                            break;
-                        case 23:
-                            pos = "3/O";
-                            break;
-                    }
+                    //lấy tên viết tắt
+                    pos = db.DIC_POSITION.Find(idPos).Description.ToUpper();
                     if (idPos != 0)
                     {
                         var result2 = db.sp_T_LayDieuDongBacThangTheoChucDanh(idPos,ngay,pos).ToList();
@@ -120,6 +107,21 @@ namespace WebAuLac
             }
             ViewBag.TieuDe = tieuDe;
             return PartialView(result);
+        }
+        public ActionResult InsertKH(int DieuDongID, int ThuyenVienThayTheID)
+        {
+            //lấy ra thông tin điều động
+            DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
+            HRM_EMPLOYEE emp = db.HRM_EMPLOYEE.Find(ThuyenVienThayTheID);
+            //cập nhật lại thông tin
+            string hoTen = emp.LastName + " " + emp.FirstName;
+            dd.NguoiThayTheID = ThuyenVienThayTheID;
+            dd.NguoiThayThe = hoTen;
+            db.Entry(dd).State = EntityState.Modified;
+            db.SaveChanges();
+            //lấy lại dữ liệu
+            int[] ints = new int[1] {dd.PositionID.Value};
+            return locChucDanh(ints);
         }
         public void ChuyenTuStoreLichTau(List<sp_T_LayLichTauTrongDieuDongBacThang_Result> dlDauVao, List<tableDieuDongBacThang> dlRa)
         {

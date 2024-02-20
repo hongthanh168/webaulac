@@ -1323,7 +1323,6 @@
     <Content Include="Views\LichKiemTraTaus\dieuKienLoc.cshtml" />
     <Content Include="Views\LichKiemTraTaus\locChucDanh.cshtml" />
     <Content Include="Views\LichKiemTraTaus\DanhSachDieuDong.cshtml" />
-    <Content Include="Views\LichKiemTraTaus\DieuDongBacThang - Copy.cshtml" />
     <Content Include="Views\LichKiemTraTaus\dsDuTru.cshtml" />
   </ItemGroup>
   <ItemGroup />
