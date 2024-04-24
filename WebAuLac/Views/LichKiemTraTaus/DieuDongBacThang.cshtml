@@ -17,7 +17,6 @@
         <div class="col-md-12 col-xs-12 text-center">
             <a id="LocChucDanh" class="btn btn-info"><i class="fa fa-refresh m-right-xs"></i>Lọc chức danh</a>
             <a id="Replace" class="btn btn-success"><i class="fa fa-arrows m-right-xs"></i>Thay thế</a>
-            <a id="DeleteReplace" class="btn btn-warning"><i class="fa fa-arrow-down m-right-xs"></i>Hủy thay thế</a>
         </div>
     </div>
 </div>
@@ -44,6 +43,7 @@
         var tblDuTru;
         var currentIDDieuDong = 0;//lưu thông tin điều động hiện tại
         var currentIDThuyenVien = 0;//lưu thông tin thuyền viên dự trữ hiện tại
+        var isShowTooltip = false;
         $(document).ready(function () {
             //hiển thị danh sách thuyền viên trên tất cả các tàu
             $.ajax({
@@ -51,10 +51,86 @@
                 type: 'get',
                 success: function (result) {
                     $('#DanhSachDieuDong').html(result);
+                    ThemSuKienChoDanhSachDieuDong();
                 }
             });
         });
 
+        function ThemSuKienChoDanhSachDieuDong() {
+            // ------đây là phần xử lý cho người cần thay thế
+            $('#DanhSachDieuDong').on('click', 'a[name=NguoiCanDieuDong]', function (e) {
+                var id = $(this).attr('id');
+                currentIDDieuDong = id;
+                //get content of the link
+                var nguoiCanThayThe = 'Danh sách thuyền viên thay thế cho: ' +  $(this).text();
+                var url = '@Html.Raw(@Url.Action("LayNguoiThayThe", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                          .replace("dieudong-id", encodeURIComponent(id));
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            success: function (result) {
+                                $('#DanhSachThayThe').html(result);
+                                //set content to p tag
+                                $('#dsDuTru_tieuDe').html(nguoiCanThayThe);
+                                FormatDanhSachDuTru();
+                            }
+                        });
+                return false;
+            });
+            //------đây là phần xử lý cho người được thay thế
+            $('a[name=link_popover]').popover({
+
+            });
+            $('#DanhSachDieuDong').on('click', 'a[name=delete-replace]', function (e) {
+                //get idDieuDong from id of the link
+                var idDieuDong = $(this).attr('id').replace("delete-replace-", "");
+                var url = '@Html.Raw(@Url.Action("DeleteReplace", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                            .replace("dieudong-id", encodeURIComponent(idDieuDong));
+                            $.ajax({
+                                url: url,
+                                type: 'get',
+                                success: function (result) {
+                                    //load lại bảng thông tin điều động
+                                    $('#DanhSachDieuDong').html(result);
+                                    ThemSuKienChoDanhSachDieuDong();
+                                    //xóa nội dung trong mục hiển thị người thay thế
+                                    $('#DanhSachThayThe').html("");
+                                }
+                            });
+            });
+            $('#DanhSachDieuDong').off('click', 'a[name=add-link]').on('click', 'a[name=add-link]', function (e) {
+                console.log('add-link');
+                var idDieuDong = $(this).attr('id').replace("add-", "");
+                var url = '@Html.Raw(@Url.Action("TangThangDieuDong", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                        .replace("dieudong-id", encodeURIComponent(idDieuDong));
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            success: function (result) {
+                                $(this).off('click');
+                                //load lại bảng thông tin điều động
+                                $('#DanhSachDieuDong').html(result);
+                                ThemSuKienChoDanhSachDieuDong();
+                            }
+                        });
+            });
+            $('#DanhSachDieuDong').off('click', 'a[name=minus-link]').on('click', 'a[name=minus-link]', function (e) {
+                console.log('minus-link');
+                var idDieuDong = $(this).attr('id').replace("minus-", "");
+                var url = '@Html.Raw(@Url.Action("GiamThangDieuDong", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                    .replace("dieudong-id", encodeURIComponent(idDieuDong));
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function (result) {
+                            $(this).off('click');
+                            //load lại bảng thông tin điều động
+                            $('#DanhSachDieuDong').html(result);
+                            ThemSuKienChoDanhSachDieuDong();
+                        }
+                    });
+            });
+        }
         //XỬ LÝ CÁC SỰ KIỆN
         $('#LocChucDanh').on('click', function () {
             var url = '@Html.Raw(@Url.Action("locChucDanh", "LichKiemTraTaus"))';
@@ -83,28 +159,9 @@
                         success: function (result) {
                             $('#myModal').modal('hide');
                             $('#DanhSachDieuDong').html(result);
+                            ThemSuKienChoDanhSachDieuDong();
                             //xóa hết các thông tin trong mục hiển thị người thay thế
                             $('#DanhSachThayThe').html("");
-                            //thêm các sự kiện
-                            $('#DanhSachDieuDong').on('click', 'a', function (e) {
-                                var id = $(this).attr('id');
-                                currentIDDieuDong = id;
-                                //get content of the link
-                                var nguoiCanThayThe = 'Danh sách thuyền viên thay thế cho: ' +  $(this).text();
-                                var url = '@Html.Raw(@Url.Action("LayNguoiThayThe", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
-                                          .replace("dieudong-id", encodeURIComponent(id));
-                                        $.ajax({
-                                            url: url,
-                                            type: 'get',
-                                            success: function (result) {
-                                                $('#DanhSachThayThe').html(result);
-                                                //set content to p tag
-                                                $('#dsDuTru_tieuDe').html(nguoiCanThayThe);
-                                                FormatDanhSachDuTru();
-                                            }
-                                        });
-                                return false;
-                            });
                         }
                     });
                     return false;
@@ -148,10 +205,11 @@
                 success: function (result) {
                     //load lại bảng thông tin điều động
                     $('#DanhSachDieuDong').html(result);
+                    ThemSuKienChoDanhSachDieuDong();
                     //xóa nội dung trong mục hiển thị người thay thế
                     $('#DanhSachThayThe').html("");
                 }
             });
-        })        
+        })
 </script>
 }

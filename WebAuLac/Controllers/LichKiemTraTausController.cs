@@ -83,30 +83,38 @@ namespace WebAuLac
         }
         public ActionResult LayNguoiThayThe(int DieuDongID)
         {
-            //lấy thông tin để gọi store
-            DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
-            var result = db.sp_T_LayNguoiThayThe(dd.NguoiDangDiID, dd.PositionID).ToList();
-            return PartialView("dsDuTru", result);
+            if (ModelState.IsValid)
+            {
+                //lấy thông tin để gọi store
+                DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
+                var result = db.sp_T_LayNguoiThayThe(dd.NguoiDangDiID, dd.PositionID).ToList();
+                return PartialView("dsDuTru", result);
+            }   
+            return PartialView("dsDuTru", null);
         }
         public ActionResult DanhSachDieuDong()
         {
-            DateTime ngay = DateTime.Now;
-            //thêm vào bảng tableDieuDong           
-            List<tableDieuDongBacThang> result = new List<tableDieuDongBacThang>();
-            //sắp xếp theo tàu
-            var result1 = db.sp_T_LayLichTauTrongDieuDongBacThang(ngay).ToList();
-            ChuyenTuStoreLichTau(result1, result);
-            result = result.OrderBy(x => x.DepartmentID).ThenBy (x=> x.Description ).ToList();
-            ViewBag.rowspan = 2;//mỗi tàu có mấy dòng
-            List<string> tieuDe = new List<string>();
-            //tính ra tiêu đề của bảng
-            for (int i = -10; i < 11; i++)
+            if (ModelState.IsValid)
             {
-                DateTime dateMonthsAgo = ngay.AddMonths(i);
-                tieuDe.Add("T" + dateMonthsAgo.ToString("MM/yy"));
+                DateTime ngay = DateTime.Now;
+                //thêm vào bảng tableDieuDong           
+                List<tableDieuDongBacThang> result = new List<tableDieuDongBacThang>();
+                //sắp xếp theo tàu
+                var result1 = db.sp_T_LayLichTauTrongDieuDongBacThang(ngay).ToList();
+                ChuyenTuStoreLichTau(result1, result);
+                result = result.OrderBy(x => x.DepartmentID).ThenBy(x => x.Description).ToList();
+                ViewBag.rowspan = 2;//mỗi tàu có mấy dòng
+                List<string> tieuDe = new List<string>();
+                //tính ra tiêu đề của bảng
+                for (int i = -10; i < 11; i++)
+                {
+                    DateTime dateMonthsAgo = ngay.AddMonths(i);
+                    tieuDe.Add("T" + dateMonthsAgo.ToString("MM/yy"));
+                }
+                ViewBag.TieuDe = tieuDe;
+                return PartialView(result);
             }
-            ViewBag.TieuDe = tieuDe;
-            return PartialView(result);
+            return PartialView(null);
         }
         public ActionResult InsertKH(int DieuDongID, int ThuyenVienThayTheID)
         {
@@ -114,14 +122,90 @@ namespace WebAuLac
             DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
             HRM_EMPLOYEE emp = db.HRM_EMPLOYEE.Find(ThuyenVienThayTheID);
             //cập nhật lại thông tin
-            string hoTen = emp.LastName + " " + emp.FirstName;
+            string hoTen = emp.FirstName + " " + emp.LastName;
             dd.NguoiThayTheID = ThuyenVienThayTheID;
             dd.NguoiThayThe = hoTen;
+            dd.ThangDiTauThayThe = 8;
             db.Entry(dd).State = EntityState.Modified;
             db.SaveChanges();
             //lấy lại dữ liệu
             int[] ints = new int[1] {dd.PositionID.Value};
             return locChucDanh(ints);
+        }
+        public ActionResult DeleteReplace(int DieuDongID)
+        {
+            //lấy ra thông tin điều động
+            DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
+            //cập nhật lại thông tin
+            dd.NguoiThayTheID = null;
+            dd.NguoiThayThe = "";
+            db.Entry(dd).State = EntityState.Modified;
+            db.SaveChanges();
+            //lấy lại dữ liệu
+            int[] ints = new int[1] { dd.PositionID.Value };
+            return locChucDanh(ints);
+        }
+        public ActionResult TangThangDieuDong(int DieuDongID)
+        {
+            if (ModelState.IsValid)
+            {
+                //// Retrieve current turn from session or set it to 0 if not exists
+                //int currentTurn = Session["UpdateTurn"] != null ? (int)Session["UpdateTurn"] : 0;
+
+                //// Increment the turn
+                //currentTurn++;
+
+                //// Update session variable with new turn
+                //Session["UpdateTurn"] = currentTurn;
+                //lấy ra thông tin điều động
+                DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
+                //cập nhật lại thông tin
+                dd.ThangDiTauThayThe = dd.ThangDiTauThayThe + 1;
+                db.Entry(dd).State = EntityState.Modified;
+                db.SaveChanges();
+                //lấy lại dữ liệu
+                int[] ints = new int[1] { dd.PositionID.Value };
+                return locChucDanh(ints);
+            }
+            else
+            {
+                return locChucDanh(null);
+            }
+            
+        }
+        public ActionResult GiamThangDieuDong(int DieuDongID)
+        {
+            if (ModelState.IsValid)
+            {
+                //// Retrieve current turn from session or set it to 0 if not exists
+                //int currentTurn = Session["UpdateTurn"] != null ? (int)Session["UpdateTurn"] : 0;
+
+                //// Increment the turn
+                //currentTurn++;
+
+                //// Update session variable with new turn
+                //Session["UpdateTurn"] = currentTurn;
+                //lấy ra thông tin điều động
+                DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
+                //cập nhật lại thông tin
+                dd.ThangDiTauThayThe = dd.ThangDiTauThayThe - 1;
+                if (dd.ThangDiTauThayThe == 0)
+                {
+                    //xóa luôn
+                    dd.NguoiThayTheID = null;
+                    dd.NguoiThayThe = "";
+                }
+                db.Entry(dd).State = EntityState.Modified;
+                db.SaveChanges();
+                //lấy lại dữ liệu
+                int[] ints = new int[1] { dd.PositionID.Value };
+                return locChucDanh(ints);
+            }
+            else
+            {
+                return locChucDanh(null);
+            }
+
         }
         public void ChuyenTuStoreLichTau(List<sp_T_LayLichTauTrongDieuDongBacThang_Result> dlDauVao, List<tableDieuDongBacThang> dlRa)
         {

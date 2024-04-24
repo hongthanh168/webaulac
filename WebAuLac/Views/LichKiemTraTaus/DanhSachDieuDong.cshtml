@@ -115,16 +115,19 @@
                                 {
                                     if (viTriMerge == 0) //cột thứ 2 ngay sau cột tháng
                                     {
-                                        if (nguoiThayTheHayHienTai == "0")
+                                        if (nguoiThayTheHayHienTai == "0")//người hiện tại
                                         {
                                             <td style="background-color: @lightColors[stt]; text-align:center" colspan="@soCotDuocMerge">
                                                 <a href="#" class="loadDataLink" name="NguoiCanDieuDong" id="@idDieuDong">@tenNguoi</a>
                                             </td>
                                         }
-                                        else
+                                        else //người được thay thế
                                         {
+                                            string tooltip = "<a data-modal href='#' name='delete-replace' id='delete-replace-idDieuDong'>Xóa</a>, <a data-modal href='#' name='add-link' id='add-idDieuDong'>Tăng</a>, <a data-modal href='#' name='minus-link' id='minus-idDieuDong'>Giảm</a>";
+                                            tooltip = tooltip.Replace("'", "\"").Replace ("idDieuDong", idDieuDong );
+                                            string thongTin = "<a name='link_popover' data-toggle='popover' data-trigger='click' data-html='true' data-content='" + tooltip + "'>" + tenNguoi + "</a>";
                                             <td style="background-color: yellow; text-align:center" colspan="@soCotDuocMerge">
-                                                @tenNguoi
+                                                @Html.Raw(thongTin)
                                             </td>
                                         }
 

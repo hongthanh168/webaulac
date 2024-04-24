@@ -802,7 +802,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\AuLac_2019_9_19.bak" />
     <EntityDeploy Include="Models\NhanSuAuLac.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NhanSuAuLac.Designer.cs</LastGenOutput>
@@ -1325,7 +1324,9 @@
     <Content Include="Views\LichKiemTraTaus\DanhSachDieuDong.cshtml" />
     <Content Include="Views\LichKiemTraTaus\dsDuTru.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
