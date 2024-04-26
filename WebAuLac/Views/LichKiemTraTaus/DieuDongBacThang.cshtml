@@ -61,9 +61,11 @@
             $('#DanhSachDieuDong').on('click', 'a[name=NguoiCanDieuDong]', function (e) {
                 var id = $(this).attr('id');
                 currentIDDieuDong = id;
+                var listChucDanh = $('#sListChucDanh').text();
                 //get content of the link
                 var nguoiCanThayThe = 'Danh sách thuyền viên thay thế cho: ' +  $(this).text();
-                var url = '@Html.Raw(@Url.Action("LayNguoiThayThe", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                var url = '@Html.Raw(@Url.Action("LayNguoiThayThe", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", chkPos = "chkPos-id" }))'
+                           .replace("chkPos-id", encodeURIComponent(listChucDanh))
                           .replace("dieudong-id", encodeURIComponent(id));
                         $.ajax({
                             url: url,
@@ -84,7 +86,9 @@
             $('#DanhSachDieuDong').on('click', 'a[name=delete-replace]', function (e) {
                 //get idDieuDong from id of the link
                 var idDieuDong = $(this).attr('id').replace("delete-replace-", "");
-                var url = '@Html.Raw(@Url.Action("DeleteReplace", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                var listChucDanh = $('#sListChucDanh').text();
+                var url = '@Html.Raw(@Url.Action("DeleteReplace", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", chkPos = "chkPos-id" }))'
+                            .replace("chkPos-id", encodeURIComponent(listChucDanh))
                             .replace("dieudong-id", encodeURIComponent(idDieuDong));
                             $.ajax({
                                 url: url,
@@ -99,9 +103,10 @@
                             });
             });
             $('#DanhSachDieuDong').off('click', 'a[name=add-link]').on('click', 'a[name=add-link]', function (e) {
-                console.log('add-link');
                 var idDieuDong = $(this).attr('id').replace("add-", "");
-                var url = '@Html.Raw(@Url.Action("TangThangDieuDong", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                var listChucDanh = $('#sListChucDanh').text();
+                var url = '@Html.Raw(@Url.Action("TangThangDieuDong", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", chkPos = "chkPos-id" }))'
+                    .replace("chkPos-id", encodeURIComponent(listChucDanh))
                         .replace("dieudong-id", encodeURIComponent(idDieuDong));
                         $.ajax({
                             url: url,
@@ -115,9 +120,10 @@
                         });
             });
             $('#DanhSachDieuDong').off('click', 'a[name=minus-link]').on('click', 'a[name=minus-link]', function (e) {
-                console.log('minus-link');
+                var listChucDanh = $('#sListChucDanh').text();
                 var idDieuDong = $(this).attr('id').replace("minus-", "");
-                var url = '@Html.Raw(@Url.Action("GiamThangDieuDong", "LichKiemTraTaus", new { DieuDongID = "dieudong-id"}))'
+                var url = '@Html.Raw(@Url.Action("GiamThangDieuDong", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", chkPos = "chkPos-id" }))'
+                    .replace("chkPos-id", encodeURIComponent(listChucDanh))
                     .replace("dieudong-id", encodeURIComponent(idDieuDong));
                     $.ajax({
                         url: url,
@@ -156,12 +162,15 @@
                         url: this.action,
                         type: this.method,
                         data: $(this).serialize(),
-                        success: function (result) {
+                        success: function (result) { 
                             $('#myModal').modal('hide');
                             $('#DanhSachDieuDong').html(result);
                             ThemSuKienChoDanhSachDieuDong();
                             //xóa hết các thông tin trong mục hiển thị người thay thế
                             $('#DanhSachThayThe').html("");
+                            //hiển thị list chức danh lọc trong span id=chucdanh                            
+                            var chucDanh = $('#sListChucDanh').text();
+                            console.log(chucDanh);
                         }
                     });
                     return false;
@@ -195,9 +204,11 @@
         {
 
         }
-        $('#Replace').on('click', function (e) {
-            var url = '@Html.Raw(@Url.Action("InsertKH", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", ThuyenVienThayTheID = "thuyenvienthaythe-id" }))'
-              .replace("dieudong-id", encodeURIComponent(currentIDDieuDong))
+    $('#Replace').on('click', function (e) {
+            var listChucDanh = $('#sListChucDanh').text();
+            var url = '@Html.Raw(@Url.Action("InsertKH", "LichKiemTraTaus", new { DieuDongID = "dieudong-id", ThuyenVienThayTheID = "thuyenvienthaythe-id", chkPos = "chkPos-id" }))'
+                .replace("chkPos-id", encodeURIComponent(listChucDanh))
+                .replace("dieudong-id", encodeURIComponent(currentIDDieuDong))
               .replace("thuyenvienthaythe-id", encodeURIComponent(currentIDThuyenVien));
             $.ajax({
                 url: url,

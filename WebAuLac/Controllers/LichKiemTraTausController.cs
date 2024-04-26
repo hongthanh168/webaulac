@@ -63,8 +63,19 @@ namespace WebAuLac
                 //sắp xếp theo tàu
                 var result1 = db.sp_T_LayLichTauTrongDieuDongBacThang(ngay).ToList();
                 ChuyenTuStoreLichTau(result1, result);
-                result = result.OrderBy(x => x.DepartmentID).ThenBy(x => x.Description).ToList();                
-                ViewBag.rowspan = 2;//mỗi tàu có mấy dòng
+                result = result.OrderBy(x => x.DepartmentID).ThenBy(x => x.Description).ToList();
+                //sau khi sắp xếp thì cần phải sửa lại cái decription
+                for (int i = 0; i < result.Count; i++)
+                {
+                    if (result[i].Loai == "DDBACTHANG")
+                    {
+                        //xóa cái mục posid trong description
+                        //posid có dạng TENTAU_SỐ_TENCHUCDANH
+                        //replace _NUmber_ thành rỗng   
+                        string[] arr = result[i].Description.Split('_');
+                        result[i].Description = arr[0] + "_" + arr[2];
+                    }
+                }
                 List<string> tieuDe = new List<string>();
                 //tính ra tiêu đề của bảng
                 for (int i = -10; i < 11; i++)
@@ -73,6 +84,21 @@ namespace WebAuLac
                     tieuDe.Add("T" + dateMonthsAgo.ToString("MM/yy"));
                 }
                 ViewBag.TieuDe = tieuDe;
+                //chức danh
+                //chuyển thành dạng chuỗi
+                string chucDanh = "";
+                foreach (int idPos in chkPos)
+                {
+                    if (chucDanh == "")
+                    {
+                        chucDanh = idPos.ToString();
+                    }
+                    else
+                    {
+                        chucDanh = chucDanh + "," + idPos.ToString();
+                    }
+                }
+                ViewBag.ChucDanh = chucDanh ;
                 return PartialView("DanhSachDieuDong", result);
             }
             return PartialView("DanhSachDieuDong", null);
@@ -116,7 +142,7 @@ namespace WebAuLac
             }
             return PartialView(null);
         }
-        public ActionResult InsertKH(int DieuDongID, int ThuyenVienThayTheID)
+        public ActionResult InsertKH(int DieuDongID, int ThuyenVienThayTheID, string chkPos)
         {
             //lấy ra thông tin điều động
             DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
@@ -129,10 +155,16 @@ namespace WebAuLac
             db.Entry(dd).State = EntityState.Modified;
             db.SaveChanges();
             //lấy lại dữ liệu
-            int[] ints = new int[1] {dd.PositionID.Value};
+            //tách từ chuỗi thành mảng int
+            string[] arr = chkPos.Split(',');
+            int[] ints = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                ints[i] = int.Parse(arr[i]);
+            }
             return locChucDanh(ints);
         }
-        public ActionResult DeleteReplace(int DieuDongID)
+        public ActionResult DeleteReplace(int DieuDongID, string chkPos)
         {
             //lấy ra thông tin điều động
             DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
@@ -142,21 +174,19 @@ namespace WebAuLac
             db.Entry(dd).State = EntityState.Modified;
             db.SaveChanges();
             //lấy lại dữ liệu
-            int[] ints = new int[1] { dd.PositionID.Value };
+            //tách từ chuỗi thành mảng int
+            string[] arr = chkPos.Split(',');
+            int[] ints = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                ints[i] = int.Parse(arr[i]);
+            }            
             return locChucDanh(ints);
         }
-        public ActionResult TangThangDieuDong(int DieuDongID)
+        public ActionResult TangThangDieuDong(int DieuDongID, string chkPos)
         {
             if (ModelState.IsValid)
-            {
-                //// Retrieve current turn from session or set it to 0 if not exists
-                //int currentTurn = Session["UpdateTurn"] != null ? (int)Session["UpdateTurn"] : 0;
-
-                //// Increment the turn
-                //currentTurn++;
-
-                //// Update session variable with new turn
-                //Session["UpdateTurn"] = currentTurn;
+            {                
                 //lấy ra thông tin điều động
                 DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
                 //cập nhật lại thông tin
@@ -164,7 +194,13 @@ namespace WebAuLac
                 db.Entry(dd).State = EntityState.Modified;
                 db.SaveChanges();
                 //lấy lại dữ liệu
-                int[] ints = new int[1] { dd.PositionID.Value };
+                //tách từ chuỗi thành mảng int
+                string[] arr = chkPos.Split(',');
+                int[] ints = new int[arr.Length];
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    ints[i] = int.Parse(arr[i]);
+                }
                 return locChucDanh(ints);
             }
             else
@@ -173,18 +209,10 @@ namespace WebAuLac
             }
             
         }
-        public ActionResult GiamThangDieuDong(int DieuDongID)
+        public ActionResult GiamThangDieuDong(int DieuDongID, string chkPos)
         {
             if (ModelState.IsValid)
-            {
-                //// Retrieve current turn from session or set it to 0 if not exists
-                //int currentTurn = Session["UpdateTurn"] != null ? (int)Session["UpdateTurn"] : 0;
-
-                //// Increment the turn
-                //currentTurn++;
-
-                //// Update session variable with new turn
-                //Session["UpdateTurn"] = currentTurn;
+            {                
                 //lấy ra thông tin điều động
                 DieuDongBacThang dd = db.DieuDongBacThangs.Find(DieuDongID);
                 //cập nhật lại thông tin
@@ -198,7 +226,13 @@ namespace WebAuLac
                 db.Entry(dd).State = EntityState.Modified;
                 db.SaveChanges();
                 //lấy lại dữ liệu
-                int[] ints = new int[1] { dd.PositionID.Value };
+                //tách từ chuỗi thành mảng int
+                string[] arr = chkPos.Split(',');
+                int[] ints = new int[arr.Length];
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    ints[i] = int.Parse(arr[i]);
+                }
                 return locChucDanh(ints);
             }
             else

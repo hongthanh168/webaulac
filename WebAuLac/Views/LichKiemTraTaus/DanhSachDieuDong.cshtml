@@ -1,4 +1,5 @@
 ﻿@model List<WebAuLac.Models.tableDieuDongBacThang>
+<span id="sListChucDanh" hidden>@ViewBag.ChucDanh</span>
 <table class="table table-bordered table-striped table-hover" id="bangKe">
     <thead>
         <tr>
@@ -65,16 +66,16 @@
                         {
                             //tách chuỗi
                             string[] ss = s.Split('_');
-                            if (item.Loai == "LICHKIEMTRA")
+                            if (item.Loai == "LICHKIEMTRA") //định dạng thông tin như sau: tên lịch kiểm tra_Ngày kiểm tra trong tháng đó_idLich
                             {
                                 int idLich = int.Parse(ss[2]);
                                 string tenLich = @ss[0] + " " + @ss[1];
                                 <td style="background-color: @lightColors[stt];" onclick="updateLink(this)">
                                     @tenLich
-                                    <span class="hidden-value">@idLich</span>
+                                    <span hidden class="hidden-value">@idLich</span>
                                 </td>
                             }
-                            else //loại điều động bậc thang
+                            else //loại điều động bậc thang - Định dạng: Người điều động_Ngày lên tàu_tháng đi tàu_idDieuDong_<0 hoặc 1: 0 có nghĩa là người đang đi, 1 là người thay thế>
                             {
                                 //lấy ra số tháng, chính là số cột được merge
                                 soCotDuocMerge = int.Parse(ss[2]) - 1;
@@ -124,7 +125,7 @@
                                         else //người được thay thế
                                         {
                                             string tooltip = "<a data-modal href='#' name='delete-replace' id='delete-replace-idDieuDong'>Xóa</a>, <a data-modal href='#' name='add-link' id='add-idDieuDong'>Tăng</a>, <a data-modal href='#' name='minus-link' id='minus-idDieuDong'>Giảm</a>";
-                                            tooltip = tooltip.Replace("'", "\"").Replace ("idDieuDong", idDieuDong );
+                                            tooltip = tooltip.Replace("'", "\"").Replace("idDieuDong", idDieuDong);
                                             string thongTin = "<a name='link_popover' data-toggle='popover' data-trigger='click' data-html='true' data-content='" + tooltip + "'>" + tenNguoi + "</a>";
                                             <td style="background-color: yellow; text-align:center" colspan="@soCotDuocMerge">
                                                 @Html.Raw(thongTin)
