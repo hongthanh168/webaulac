@@ -19,10 +19,57 @@ namespace WebAuLac.Controllers
         public ActionResult Index()
         {
             int year = DateTime.Now.Year;           
-            var lichKiemTras = db.LichKiemTras.Where(x => x.Nam ==year).Include(l => l.DIC_DEPARTMENT).Include(l => l.LoaiKiemTra);            
+            var lichKiemTras = db.LichKiemTras.Where(x => x.Nam ==year).Include(l => l.DIC_DEPARTMENT).Include(l => l.LoaiKiemTra);
             return View(lichKiemTras.ToList());
         }
+        public ActionResult LichTheoPhongBan()
+        {
+            //lấy danh sách các loại kiểm tra
+            List<string> listLoaiKT = new List<string>();
+            var loaiKiemTra = db.LoaiKiemTras.ToList();
+            foreach (var item in loaiKiemTra)
+            {
+                listLoaiKT.Add(item.VietTat);
+            }
+            //lấy ra danh sách kiểm tra có trong năm hiện tại
+            int year = DateTime.Now.Year;
+            var lichKiemTras = db.LichKiemTras.Where(x => x.Nam == year).Include(l => l.DIC_DEPARTMENT).Include(l => l.LoaiKiemTra);
 
+            //tạo bảng chứa dữ liệu
+            DataTable dataTable = new DataTable();
+            //tạo cột cho bảng từ danh sách listLoaiKT
+            dataTable.Columns.Add("PhongBan", typeof(string));
+            foreach (var item in listLoaiKT)
+            {
+                dataTable.Columns.Add(item, typeof(string));
+            }
+            //tạo dòng cho bảng
+            DataRow dataRow;
+            //lấy ra danh sách phòng ban from lichKiemTras
+            var phongBan = lichKiemTras.Select(x => x.DIC_DEPARTMENT).Distinct().ToList();            
+            foreach (var item in phongBan)
+            {
+                dataRow = dataTable.NewRow();
+                dataRow["PhongBan"] = item.DepartmentName;
+                foreach (var item2 in listLoaiKT)
+                {
+                    var kiemTra = lichKiemTras.Where(x => x.DepartmentID == item.DepartmentID && x.LoaiKiemTra.VietTat == item2).FirstOrDefault();
+                    if (kiemTra != null)
+                    {
+                        dataRow[item2] = kiemTra.Ngay + "/" + kiemTra.Thang;
+                    }
+                    else
+                    {
+                        dataRow[item2] = "";
+                    }
+                }
+                dataTable.Rows.Add(dataRow);
+            }
+            //order dt by phong ban
+            dataTable.DefaultView.Sort = "PhongBan ASC";
+            ViewBag.listLoaiKT = listLoaiKT;
+            return View(dataTable);
+        }
         // GET: LichKiemTras/Details/5
         [Authorize(Roles = "HR")]
         [Authorize(Roles = "Create")]
