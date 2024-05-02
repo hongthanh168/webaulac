@@ -17,6 +17,11 @@ namespace WebAuLac
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //gọi hàm thực hiện store procedure TaoDuLieuBanDauChoDieuDong
+            using (var db = new Models.AuLacEntities())
+            {
+                db.sp_T_TaoDuLieuBanDauChoDieuDong();
+            }
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {

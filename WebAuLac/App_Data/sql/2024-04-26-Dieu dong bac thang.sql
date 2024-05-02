@@ -30,6 +30,7 @@ GO
 ALTER procedure [dbo].[sp_T_TaoDuLieuBanDauChoDieuDong]
 as
 	begin
+		delete from DieuDongBacThang 
 		insert into DieuDongBacThang ([Tau]
            ,[DepartmentID]
            ,[PositionID]
@@ -47,7 +48,7 @@ as
 			where d.DepartmentID = v.DepartmentID and d.IsUsed =1 and d.Description is not null and v.PositionID between 20 and 27 
 			and LEN (d.Description )<10
 	end
-GO
+go
 ---------------------------------
 ---lấy bảng lịch tàu trong điều động bậc thang
 USE [AuLac]
