@@ -57,6 +57,12 @@ namespace WebAuLac.Controllers
                     if (kiemTra != null)
                     {
                         dataRow[item2] = kiemTra.Ngay + "/" + kiemTra.Thang;
+                        //kiểm tra xem ngày kiểm tra có nằm trong khoảng 30 ngaày sau ngày hiện tại không
+                        DateTime ngayKiemTra = new DateTime(year, kiemTra.Thang.Value, kiemTra.Ngay.Value);
+                        if (ngayKiemTra.AddDays (-30) <= DateTime.Now && DateTime.Now <= ngayKiemTra  )
+                        {
+                            dataRow[item2] = "<span style='color:red'>" + kiemTra.Ngay + "/" + kiemTra.Thang + "</span>";
+                        }
                     }
                     else
                     {

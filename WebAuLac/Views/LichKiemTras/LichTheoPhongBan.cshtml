@@ -43,7 +43,7 @@
                     <td>@dt.Rows[i][0]</td>
                     @foreach (var item2 in listLoaiKT)
                     {
-                        <td>@dt.Rows[i][item2]</td>
+                        <td>@Html.Raw(dt.Rows[i][item2])</td>
                     }
                 </tr>
                 stt++;
