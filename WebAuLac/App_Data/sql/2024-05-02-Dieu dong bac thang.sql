@@ -1,4 +1,4 @@
-﻿alter table [dbo].[DIC_DEPARTMENT]
+﻿CREATE table [dbo].[DIC_DEPARTMENT]
 add IsUsed bit null
 go
 update [dbo].[DIC_DEPARTMENT]
@@ -27,7 +27,7 @@ CREATE TABLE [dbo].[DieuDongBacThang](
 GO
 -------------------------------------------
 --tạo dữ liệu ban đầu cho điều động bậc thang
-ALTER procedure [dbo].[sp_T_TaoDuLieuBanDauChoDieuDong]
+CREATE procedure [dbo].[sp_T_TaoDuLieuBanDauChoDieuDong]
 as
 	begin
 		delete from DieuDongBacThang 
@@ -58,7 +58,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER procedure [dbo].[sp_T_LayLichTauTrongDieuDongBacThang]
+CREATE procedure [dbo].[sp_T_LayLichTauTrongDieuDongBacThang]
 @ngayTinh smalldatetime
 as
 	begin
@@ -121,7 +121,7 @@ as
 	go
 -----------------------------------------------------------------
 --lấy lịch tàu để hiển thị dạng điều động bậc thang
-ALTER procedure [dbo].[sp_T_LayLichTauTrongDieuDongBacThang]
+CREATE procedure [dbo].[sp_T_LayLichTauTrongDieuDongBacThang]
 @ngayTinh smalldatetime
 as
 	begin
@@ -193,7 +193,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER procedure [dbo].[sp_T_LayDieuDongBacThangTheoChucDanh]
+CREATE procedure [dbo].[sp_T_LayDieuDongBacThangTheoChucDanh]
 @posID int, @ngayTinh smalldatetime, @posName nvarchar(20)
 as
 	begin
@@ -275,7 +275,7 @@ MAX(CASE WHEN B.cot21 is not null AND B.cot21 <>'' THEN B.cot21 ELSE A.cot21 END
 	end
 ----------------------------------------------------------
 ------------store dùng để lấy người thay thế cho 1 chức danh cụ thể
-ALTER PROCEDURE  [dbo].[sp_T_LayNguoiThayThe]
+CREATE PROCEDURE  [dbo].[sp_T_LayNguoiThayThe]
 	@NguoiThayTheID int,
 	@posID int
 AS
